@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kult Racing</title>
+    <script src="Include_Functions/Functions.js"></script>
+</head>
+<style>
+    #MyCar{
+        width: 25px;
+        height: 50px;
+        position: fixed;
+        top: 200px;
+        left: 300px;
+        background-color: dimgrey;
+        z-index: 1;
+    }
+    #PointOfDrive{
+        width: 2px;
+        height: 2px;
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        background-color: white;
+        z-index: 3;
+    }
+</style>
+<script>
+    let timer = "";
+    let arrowW = "";
+    let arrowA = "";
+    let arrowS = "";
+    let arrowD = "";
+
+    clearInterval(timer);
+    timer = setInterval("step()",100);
+
+    function step(){
+        document.getElementById('pressedKey').innerHTML = arrowW + " " + arrowA + " " + arrowS + " " + arrowD;
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.keyCode === 87) { //Press w
+                arrowW = "w";
+        }
+        else if (event.keyCode === 65) { //Press a
+            arrowA = "a";
+        }
+        else if (event.keyCode === 83) { //Press s
+                arrowS = "s";
+        }
+        else if (event.keyCode === 68) { //Press d
+                arrowD = "d";
+        }
+    }, true);
+
+    document.addEventListener('keyup', function(event) {
+        if (event.keyCode === 87) { //Press w
+            arrowW = "";
+        }
+        else if (event.keyCode === 65) { //Press a
+            arrowA = "";
+        }
+        else if (event.keyCode === 83) { //Press s
+            arrowS = "";
+        }
+        else if (event.keyCode === 68) { //Press d
+            arrowD = "";
+        }
+    }, true);
+
+</script>
+<body>
+<p id="pressedKey"></p>
+<div id="MyCar">
+    <div id="PointOfDrive"></div>
+</div>
+
+</body>
+</html>
