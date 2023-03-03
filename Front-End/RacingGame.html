@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Kult Racing</title>
-    <script src="Include_Functions/Functions.js"></script>
+    <script src="Include_Functions/jquery.html"></script>
 </head>
 <style>
     #MyCar{
@@ -24,6 +24,11 @@
         background-color: white;
         z-index: 3;
     }
+    #tempomat{
+        position: fixed;
+        top: 80%;
+        right: 20px;
+    }
 </style>
 <script>
     let timer = "";
@@ -31,12 +36,86 @@
     let arrowA = "";
     let arrowS = "";
     let arrowD = "";
+    let speed = 0;
+    let maxspeed = 150;
+    let speedcontrol = 4;
+    let xAchse = 0;
+    let maxxAchse = 50;
+    let xAchseControl = 4;
 
     clearInterval(timer);
     timer = setInterval("step()",100);
 
     function step(){
+
+        if (arrowW === "w"){
+            if (speed < 0){
+                speed=speed+speedcontrol;
+            } else if (speed < 80) {
+                speed=speed+speedcontrol/100*66
+            } else {
+                speed=speed+speedcontrol/100*33
+            }
+            if (maxspeed < speed){
+                speed = maxspeed;
+            }
+
+        }
+
+        if (arrowS === "s"){
+            if (speed < 0){
+                speed=speed-speedcontrol/100*33
+            } else if (speed < 80){
+                speed=speed-speedcontrol/100*66
+            } else {
+                speed=speed-speedcontrol
+            }
+        }
+
+        if (arrowW !== "w" && arrowS !== "s"){
+            if (speed > 8){
+                speed=speed-speedcontrol/100*20
+                if (speed > 7 && speed < 9){
+                    speed = 8
+                }
+            }
+            if (speed < 0){
+                speed=speed+speedcontrol/100*20
+                if (speed > -1 && speed < 1){
+                    speed = 0
+                }
+            }
+        }
+
+        if (arrowA === "a"){
+            if (xAchse > -maxxAchse){
+                xAchse=xAchse-xAchseControl
+            }
+
+        }
+
+        if (arrowD === "d"){
+            if (xAchse < maxxAchse){
+                xAchse=xAchse+xAchseControl
+            }
+        }
+        if (arrowA !== "a" && arrowD !== "d"){
+            if (xAchse !== 0){
+                for (let i=0;i<xAchseControl;i++){
+                    if (xAchse > 0){
+                        xAchse--
+                    } else if (xAchse < 0){
+                        xAchse++
+                    }
+                }
+            }
+        }
+
+
+
         document.getElementById('pressedKey').innerHTML = arrowW + " " + arrowA + " " + arrowS + " " + arrowD;
+        document.getElementById('speedMeter').innerHTML = speed;
+        document.getElementById('xAchse').innerHTML = xAchse;
     }
 
     document.addEventListener('keydown', function(event) {
@@ -74,6 +153,11 @@
 <p id="pressedKey"></p>
 <div id="MyCar">
     <div id="PointOfDrive"></div>
+</div>
+<div id="tempomat">
+    <p id="speedMeter"></p>
+    <br>
+    <p id="xAchse"></p>
 </div>
 
 </body>
