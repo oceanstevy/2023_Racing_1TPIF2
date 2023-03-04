@@ -7,11 +7,7 @@
 </head>
 <style>
     #MyCar{
-        width: 25px;
-        height: 50px;
         position: fixed;
-        top: 200px;
-        left: 300px;
         background-color: dimgrey;
         z-index: 1;
     }
@@ -24,7 +20,7 @@
         background-color: white;
         z-index: 3;
     }
-    #tempomat{
+    #Tempomat{
         position: fixed;
         top: 80%;
         right: 20px;
@@ -38,13 +34,35 @@
     let arrowD = "";
     let speed = 0;
     let maxspeed = 150;
+    let maxbackspeed = -25
     let speedcontrol = 4;
     let xAchse = 0;
     let maxxAchse = 50;
-    let xAchseControl = 4;
+    let xAchseControl = 8;
+    let XAchseControlCalc = 0;
 
-    clearInterval(timer);
-    timer = setInterval("step()",100);
+    let carwidth = 25;
+    let carheight = 50;
+    let deg = 0;
+
+    function GameStart(){
+
+        document.getElementById("MyCar").style.transform = "rotate(0deg)";
+        document.getElementById("MyCar").style.top = "200px";
+        document.getElementById("MyCar").style.left = "300px";
+
+
+        document.getElementById("MyCar").style.width = carwidth+"px";
+        document.getElementById("MyCar").style.height = carheight+"px";
+
+        document.getElementById("PointOfDrive").style.left = (carwidth/2)+"px";
+
+
+        clearInterval(timer);
+        timer = setInterval("step()",100);
+    }
+
+
 
     function step(){
 
@@ -69,6 +87,9 @@
                 speed=speed-speedcontrol/100*66
             } else {
                 speed=speed-speedcontrol
+            }
+            if (maxbackspeed > speed){
+                speed = maxbackspeed;
             }
         }
 
@@ -110,6 +131,58 @@
                 }
             }
         }
+        if (xAchse !== 0 && speed !== 0){
+            XAchseControlCalc = maxspeed/maxxAchse*xAchse/speed
+
+            if (XAchseControlCalc > 5){
+                XAchseControlCalc = 5;
+            } else if (XAchseControlCalc < -5){
+                XAchseControlCalc = -5;
+            }
+            //console.log(XAchseControlCalc);
+
+
+            deg = XAchseControlCalc + parseInt(document.getElementById("MyCar").style.transform.slice(7))%360;
+            if (deg < 0){
+                deg = deg + 360;
+            }
+            //console.log(parseInt(document.getElementById("MyCar").style.transform.slice(7)));
+            document.getElementById("MyCar").style.transform = "rotate("+ deg +"deg)";
+        }
+        if (speed !== 0){
+            let positioncontrol = 10;
+            let pixel = 0;
+            let toppixel = 0;
+            let leftpixel = 0;
+
+            deg = parseInt(document.getElementById("MyCar").style.transform.slice(7))%360;
+
+            pixel = (deg%90)/0.9;
+
+
+
+            if (deg < 90){
+                toppixel = (positioncontrol*speed/100)*((100-pixel)/100);
+                leftpixel = (positioncontrol*speed/100)*(pixel/100);
+            } else if (deg < 180){
+                leftpixel = (positioncontrol*speed/100)*((100-pixel)/100);
+                toppixel = -((positioncontrol*speed/100)*(pixel/100));
+            } else if (deg < 270){
+                toppixel = -(positioncontrol*speed/100)*((100-pixel)/100);
+                leftpixel = -(positioncontrol*speed/100)*(pixel/100);
+            } else{
+                leftpixel = -(positioncontrol*speed/100)*((100-pixel)/100);
+                toppixel = ((positioncontrol*speed/100)*(pixel/100));
+            }
+
+
+
+            let top = parseFloat(document.getElementById("MyCar").style.top);
+            let left = parseFloat(document.getElementById("MyCar").style.left);
+
+            document.getElementById("MyCar").style.top = top-toppixel +"px";
+            document.getElementById("MyCar").style.left = left+leftpixel+"px";
+        }
 
 
 
@@ -149,12 +222,15 @@
     }, true);
 
 </script>
-<body>
+<body onload="GameStart()">
 <p id="pressedKey"></p>
+
 <div id="MyCar">
     <div id="PointOfDrive"></div>
 </div>
-<div id="tempomat">
+
+
+<div id="Tempomat">
     <p id="speedMeter"></p>
     <br>
     <p id="xAchse"></p>
