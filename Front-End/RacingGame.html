@@ -10,15 +10,8 @@
         position: fixed;
         background-color: dimgrey;
         z-index: 1;
-    }
-    #PointOfDrive{
-        width: 2px;
-        height: 2px;
-        position: absolute;
-        top: 5px;
-        left: 10px;
-        background-color: white;
-        z-index: 3;
+        transition-property: top, left;
+        transition-duration: 100ms;
     }
     #Tempomat{
         position: fixed;
@@ -35,14 +28,14 @@
     let speed = 0;
     let maxspeed = 150;
     let maxbackspeed = -25
-    let speedcontrol = 4;
+    let speedcontrol = 3;
     let xAchse = 0;
     let maxxAchse = 50;
-    let xAchseControl = 8;
+    let xAchseControl = 3;
     let XAchseControlCalc = 0;
 
-    let carwidth = 25;
-    let carheight = 50;
+    let carwidth = 50;
+    let carheight = 100;
     let deg = 0;
 
     function GameStart(){
@@ -55,11 +48,8 @@
         document.getElementById("MyCar").style.width = carwidth+"px";
         document.getElementById("MyCar").style.height = carheight+"px";
 
-        document.getElementById("PointOfDrive").style.left = (carwidth/2)+"px";
-
-
         clearInterval(timer);
-        timer = setInterval("step()",100);
+        timer = setInterval("step()",50);
     }
 
 
@@ -84,9 +74,9 @@
             if (speed < 0){
                 speed=speed-speedcontrol/100*33
             } else if (speed < 80){
-                speed=speed-speedcontrol/100*66
+                speed=speed-speedcontrol/100*66*1.7
             } else {
-                speed=speed-speedcontrol
+                speed=speed-speedcontrol*2
             }
             if (maxbackspeed > speed){
                 speed = maxbackspeed;
@@ -110,30 +100,45 @@
 
         if (arrowA === "a"){
             if (xAchse > -maxxAchse){
-                xAchse=xAchse-xAchseControl
+                if (xAchse > 0){
+                    xAchse=xAchse-xAchseControl*3
+                } else {
+                    xAchse=xAchse-xAchseControl
+                }
+            } else {
+                xAchse = -maxxAchse;
             }
 
         }
 
         if (arrowD === "d"){
             if (xAchse < maxxAchse){
-                xAchse=xAchse+xAchseControl
+                if (xAchse < 0){
+                    xAchse=xAchse+xAchseControl*3
+                } else {
+                    xAchse=xAchse+xAchseControl
+                }
+            } else {
+                xAchse = maxxAchse;
             }
         }
         if (arrowA !== "a" && arrowD !== "d"){
             if (xAchse !== 0){
                 for (let i=0;i<xAchseControl;i++){
                     if (xAchse > 0){
-                        xAchse--
+                        xAchse = xAchse - 3
                     } else if (xAchse < 0){
-                        xAchse++
+                        xAchse = xAchse + 3
                     }
+                }
+                if (-5 < xAchse && xAchse < 5){
+                    xAchse = 0
                 }
             }
         }
         if (xAchse !== 0 && speed !== 0){
-            XAchseControlCalc = maxspeed/maxxAchse*xAchse/speed
-
+            //XAchseControlCalc = maxspeed/maxxAchse*xAchse/speed
+            XAchseControlCalc = xAchse;
             if (XAchseControlCalc > 5){
                 XAchseControlCalc = 5;
             } else if (XAchseControlCalc < -5){
@@ -225,9 +230,9 @@
 <body onload="GameStart()">
 <p id="pressedKey"></p>
 
-<div id="MyCar">
-    <div id="PointOfDrive"></div>
-</div>
+<img id="MyCar" src="../Images/Car_Police01.png">
+
+
 
 
 <div id="Tempomat">
