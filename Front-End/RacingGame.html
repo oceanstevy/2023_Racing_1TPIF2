@@ -21,6 +21,7 @@
 </style>
 <script>
     let timer = "";
+    let timerItemGenerator = "";
     let arrowW = "";
     let arrowA = "";
     let arrowS = "";
@@ -38,6 +39,10 @@
     let carheight = 100;
     let deg = 0;
 
+    //Coin
+    let CoinWidth = 25;
+    let CoinHeight = 25;
+
     function GameStart(){
 
         document.getElementById("MyCar").style.transform = "rotate(0deg)";
@@ -50,16 +55,43 @@
 
         clearInterval(timer);
         timer = setInterval("step()",50);
-        timer = setInterval("generateCoin()",1000);
+
+        clearInterval(timerItemGenerator)
+        timerItemGenerator = setInterval("generateCoin()",500);
+    }
+
+    function getRandom(min, max) {
+        return Math.random() * (max - min) + min;
     }
 
     function generateCoin() {
-        if (Math.random(1) > 0){
+        if (getRandom(0,1) > 0.95){
             let top = Math.floor(getRandom(100,window.innerHeight-100));
             let left = Math.floor(getRandom(100,window.innerWidth-100));
-            document.getElementById('img').innerHTML += "<img src='../Images/food"+ getRandom(1,6) +".png' alt='foodimg' style='position: absolute; top:" + top + "px; left:" + left + "px;'>";
+            document.getElementById('img').innerHTML += "<img src='../Images/Coin.png' alt='foodimg' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>";
         }
 
+        CeckHitCoin();
+
+    }
+    
+    function CeckHitCoin() {
+        if ($( ".coins" ).length > 0){
+            let savecar =  $( "#MyCar" )[0];
+            for (let i=0;i<$( ".coins" ).length;i++){
+                let coin =  $( ".coins" )[i];
+
+                if (parseInt(savecar.style.left) < parseInt(coin.style.left)
+                    && parseInt(coin.style.left) < (parseInt(savecar.style.left) + carwidth)
+                        && parseInt(savecar.style.top) < parseInt(coin.style.top)
+                        && parseInt(coin.style.top) < (parseInt(savecar.style.top) + carheight)) {
+
+
+                    $( ".coins" )[i].remove()
+                }
+            }
+
+        }
     }
 
 
@@ -132,6 +164,7 @@
                 xAchse = maxxAchse;
             }
         }
+
         if (arrowA !== "a" && arrowD !== "d"){
             if (xAchse !== 0){
                 for (let i=0;i<xAchseControl;i++){
@@ -146,6 +179,7 @@
                 }
             }
         }
+
         if (xAchse !== 0 && speed !== 0){
             //XAchseControlCalc = maxspeed/maxxAchse*xAchse/speed
             XAchseControlCalc = xAchse;
@@ -164,6 +198,7 @@
             //console.log(parseInt(document.getElementById("MyCar").style.transform.slice(7)));
             document.getElementById("MyCar").style.transform = "rotate("+ deg +"deg)";
         }
+
         if (speed !== 0){
             let positioncontrol = 10;
             let pixel = 0;
@@ -198,7 +233,6 @@
             document.getElementById("MyCar").style.top = top-toppixel +"px";
             document.getElementById("MyCar").style.left = left+leftpixel+"px";
         }
-
 
 
         document.getElementById('pressedKey').innerHTML = arrowW + " " + arrowA + " " + arrowS + " " + arrowD;
@@ -252,7 +286,6 @@
 </div>
 
 <div id="img">
-
 </div>
 
 </body>
