@@ -45,13 +45,12 @@
 
     function GameStart(){
 
-        document.getElementById("MyCar").style.transform = "rotate(0deg)";
-        document.getElementById("MyCar").style.top = "200px";
-        document.getElementById("MyCar").style.left = "300px";
+        $( "#MyCar" )[0].style.transform = "rotate(0deg)";
+        $( "#MyCar" )[0].style.top = "200px";
+        $( "#MyCar" )[0].style.left = "300px";
 
-
-        document.getElementById("MyCar").style.width = carwidth+"px";
-        document.getElementById("MyCar").style.height = carheight+"px";
+        $( "#MyCar" )[0].style.width = carwidth+"px";
+        $( "#MyCar" )[0].style.height = carheight+"px";
 
         clearInterval(timer);
         timer = setInterval("step()",50);
@@ -68,10 +67,8 @@
         if (getRandom(0,1) > 0.95){
             let top = Math.floor(getRandom(100,window.innerHeight-100));
             let left = Math.floor(getRandom(100,window.innerWidth-100));
-            document.getElementById('img').innerHTML += "<img src='../Images/Coin.png' alt='coin' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>";
+            $('#img').append("<img src='../Images/Coin.png' alt='coin' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>");
         }
-
-        CeckHitCoin();
 
     }
     
@@ -191,12 +188,10 @@
             //console.log(XAchseControlCalc);
 
 
-            deg = XAchseControlCalc + parseInt(document.getElementById("MyCar").style.transform.slice(7))%360;
-            if (deg < 0){
-                deg = deg + 360;
-            }
+            deg = XAchseControlCalc + parseInt($( "#MyCar" )[0].style.transform.slice(7));
+
             //console.log(parseInt(document.getElementById("MyCar").style.transform.slice(7)));
-            document.getElementById("MyCar").style.transform = "rotate("+ deg +"deg)";
+            $( "#MyCar" )[0].style.transform = "rotate("+ deg +"deg)";
         }
 
         if (speed !== 0){
@@ -205,19 +200,17 @@
             let toppixel = 0;
             let leftpixel = 0;
 
-            deg = parseInt(document.getElementById("MyCar").style.transform.slice(7))%360;
+            deg = parseInt($("#MyCar")[0].style.transform.slice(7));
 
             pixel = (deg%90)/0.9;
 
-
-
-            if (deg < 90){
+            if ((deg%360) < 90){
                 toppixel = (positioncontrol*speed/100)*((100-pixel)/100);
                 leftpixel = (positioncontrol*speed/100)*(pixel/100);
-            } else if (deg < 180){
+            } else if ((deg%360) < 180){
                 leftpixel = (positioncontrol*speed/100)*((100-pixel)/100);
                 toppixel = -((positioncontrol*speed/100)*(pixel/100));
-            } else if (deg < 270){
+            } else if ((deg%360) < 270){
                 toppixel = -(positioncontrol*speed/100)*((100-pixel)/100);
                 leftpixel = -(positioncontrol*speed/100)*(pixel/100);
             } else{
@@ -227,12 +220,15 @@
 
 
 
-            let top = parseFloat(document.getElementById("MyCar").style.top);
-            let left = parseFloat(document.getElementById("MyCar").style.left);
+            let top = parseFloat($( "#MyCar" )[0].style.top);
+            let left = parseFloat($( "#MyCar" )[0].style.left);
 
-            document.getElementById("MyCar").style.top = top-toppixel +"px";
-            document.getElementById("MyCar").style.left = left+leftpixel+"px";
+            $( "#MyCar" )[0].style.top = top-toppixel +"px";
+            $( "#MyCar" )[0].style.left = left+leftpixel+"px";
+
+            CeckHitCoin();
         }
+
 
 
         document.getElementById('pressedKey').innerHTML = arrowW + " " + arrowA + " " + arrowS + " " + arrowD;
