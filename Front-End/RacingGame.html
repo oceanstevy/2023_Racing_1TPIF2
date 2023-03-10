@@ -20,8 +20,11 @@
     }
 </style>
 <script>
-    let timer = "";
+    //Timers
+    let timergame = "";
     let timerItemGenerator = "";
+    let timerCheckGameStatus = "";
+
     let arrowW = "";
     let arrowA = "";
     let arrowS = "";
@@ -43,6 +46,8 @@
     let CoinWidth = 25;
     let CoinHeight = 25;
 
+    let GameStatusRunning = true;
+
     function GameStart(){
 
         $( "#MyCar" )[0].style.transform = "rotate(0deg)";
@@ -52,11 +57,39 @@
         $( "#MyCar" )[0].style.width = carwidth+"px";
         $( "#MyCar" )[0].style.height = carheight+"px";
 
-        clearInterval(timer);
-        timer = setInterval("step()",50);
+        clearInterval(timergame);
+        timergame = setInterval("step()",50);
 
-        clearInterval(timerItemGenerator)
+        clearInterval(timerItemGenerator);
         timerItemGenerator = setInterval("generateCoin()",500);
+
+        clearInterval(timerCheckGameStatus);
+        timerCheckGameStatus = setInterval("CheckGameStatus()",1000);
+    }
+
+    function CheckGameStatus() {
+        if (GameStatusRunning){
+           if (timergame === null && timerItemGenerator === null){
+               clearInterval(timergame);
+               timergame = setInterval("step()",50);
+
+               clearInterval(timerItemGenerator);
+               timerItemGenerator = setInterval("generateCoin()",500);
+           }
+        } else {
+            clearInterval(timergame);
+            timergame = null;
+            clearInterval(timerItemGenerator);
+            timerItemGenerator = null;
+        }
+    }
+
+    function ChangeGameStatus(){
+        if (GameStatusRunning){
+            GameStatusRunning = false;
+        } else {
+            GameStatusRunning = true;
+        }
     }
 
     function getRandom(min, max) {
@@ -80,8 +113,8 @@
 
                 if (parseInt(savecar.style.left) < parseInt(coin.style.left)
                     && parseInt(coin.style.left) < (parseInt(savecar.style.left) + carwidth)
-                        && parseInt(savecar.style.top) < parseInt(coin.style.top)
-                        && parseInt(coin.style.top) < (parseInt(savecar.style.top) + carheight)) {
+                    && parseInt(savecar.style.top) < parseInt(coin.style.top)
+                    && parseInt(coin.style.top) < (parseInt(savecar.style.top) + carheight)) {
 
 
                     $( ".coins" )[i].remove()
@@ -202,15 +235,22 @@
 
             deg = parseInt($("#MyCar")[0].style.transform.slice(7));
 
+            deg = deg%360;
+
+            if (deg < 0){
+                deg = -deg;
+                deg= 360 - deg;
+            }
+            console.log(deg);
             pixel = (deg%90)/0.9;
 
-            if ((deg%360) < 90){
+            if ((deg) < 90){
                 toppixel = (positioncontrol*speed/100)*((100-pixel)/100);
                 leftpixel = (positioncontrol*speed/100)*(pixel/100);
-            } else if ((deg%360) < 180){
+            } else if ((deg) < 180){
                 leftpixel = (positioncontrol*speed/100)*((100-pixel)/100);
                 toppixel = -((positioncontrol*speed/100)*(pixel/100));
-            } else if ((deg%360) < 270){
+            } else if ((deg) < 270){
                 toppixel = -(positioncontrol*speed/100)*((100-pixel)/100);
                 leftpixel = -(positioncontrol*speed/100)*(pixel/100);
             } else{
@@ -238,16 +278,19 @@
 
     document.addEventListener('keydown', function(event) {
         if (event.keyCode === 87) { //Press w
-                arrowW = "w";
+            arrowW = "w";
         }
         else if (event.keyCode === 65) { //Press a
             arrowA = "a";
         }
         else if (event.keyCode === 83) { //Press s
-                arrowS = "s";
+            arrowS = "s";
         }
         else if (event.keyCode === 68) { //Press d
-                arrowD = "d";
+            arrowD = "d";
+        }
+        else if (event.keyCode === 27) {
+            ChangeGameStatus();
         }
     }, true);
 
