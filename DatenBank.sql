@@ -2,7 +2,6 @@ CREATE TABLE tblPlayer(
     idPlayer INT AUTO_INCREMENT PRIMARY KEY,
     dtName VARCHAR(255) NOT NULL UNIQUE,
     dtPassword VARCHAR(255) NOT NULL,
-    dtDisplayName VARCHAR(255) NOT NULL,
     fiCar INT NOT NULL DEFAULT 1
 );
 
