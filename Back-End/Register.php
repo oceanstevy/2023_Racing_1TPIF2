@@ -8,19 +8,19 @@
 		
 		<input type="text" maxlength="50" name="DATA_PlayerName" required >
 	</label>
-	
+    <br><br>
 	<label>
 		Password
 		
 		<input type="password" maxlength="50" name="DATA_Password" required >
 	</label>
-	
+    <br><br>
 	<label>
 		Retype password
 		
 		<input type="password" maxlength="50" name="DATA_RE_Password" required >
 	</label>
-	
+    <br><br>
 	<button class="button-register" type="submit" name="BUTTON_Register">Register</button>
 </form>
 
