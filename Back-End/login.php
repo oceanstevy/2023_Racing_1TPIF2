@@ -30,7 +30,7 @@
 <?php
 
 if (isset($_POST['loginButton'])){
-    $query = $connect->prepare("SELECT idPlayer,dtName,dtPassword,dtDisplayName FROM tblPlayer
+    $query = $connect->prepare("SELECT idPlayer,dtName,dtPassword FROM tblPlayer
                       WHERE dtName = ?");
 
     $query->bind_param('s',$_POST['loginName']);
