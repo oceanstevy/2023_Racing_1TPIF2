@@ -3,13 +3,13 @@
 	function checkUsername() {
 		return "
     SELECT dtName
-    FROM tblplayer
+    FROM tblPlayer
     WHERE dtName = ?
     ";
 	}
 	function registerUser() {
 		return"
-   INSERT INTO tblplayer (dtName, dtPassword)
+   INSERT INTO tblPlayer (dtName, dtPassword)
     VALUES (?, ?)
     ";
 	}

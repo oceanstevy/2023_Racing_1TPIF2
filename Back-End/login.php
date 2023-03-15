@@ -1,7 +1,7 @@
 <?php
 //login.php created by Xu
-    include_once "Functions/Credentials.php";
-    include_once "Functions/Functions.php";
+    require_once "Functions/Credentials.php";
+    require_once "Functions/Functions.php";
 
     $connect = db_Connect();
 ?>
