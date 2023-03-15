@@ -20,3 +20,19 @@ ALTER TABLE tblPlayer
     ADD CONSTRAINT FK_PlayerCar
         FOREIGN KEY (fiCar) REFERENCES tblCar (idCar)
             ON UPDATE CASCADE;
+
+
+
+
+
+
+
+
+
+INSERT INTO tblCar( dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl)
+VALUES (50,100,150,-25,3,50,3);
+
+SELECT idCar, dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl
+FROM tblCar
+WHERE idCar = 1;
+

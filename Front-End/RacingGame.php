@@ -1,46 +1,68 @@
+<?php
+session_start();
+
+include_once "../Back-End/Functions/Credentials.php";
+include_once "../Back-End/Functions/Functions.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Kult Racing</title>
+    <link rel="stylesheet" href="../Style/css.css">
     <script src="Include_Functions/jquery.html"></script>
+    <script src="Include_Functions/functions.js"></script>
 </head>
-<style>
-    #MyCar{
-        position: fixed;
-        background-color: dimgrey;
-        z-index: 1;
-        transition-property: top, left;
-        transition-duration: 100ms;
-    }
-    #Tempomat{
-        position: fixed;
-        top: 80%;
-        right: 20px;
-    }
-</style>
 <script>
-    //Timers
+
+    //Timer Definieren
     let timergame = "";
     let timerItemGenerator = "";
-    let timerCheckGameStatus = "";
 
     let arrowW = "";
     let arrowA = "";
     let arrowS = "";
     let arrowD = "";
-    let speed = 0;
-    let maxspeed = 150;
-    let maxbackspeed = -25
-    let speedcontrol = 3;
-    let xAchse = 0;
-    let maxxAchse = 50;
-    let xAchseControl = 3;
-    let XAchseControlCalc = 0;
 
-    let carwidth = 50;
-    let carheight = 100;
+    //Auto einstellungen
+    let xAchse = 0;
+    let speed = 0;
     let deg = 0;
+
+    <?php
+        $connect = db_Connect();
+
+        $query = "SELECT idCar, dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl
+                  FROM tblCar
+                  WHERE idCar = 1";
+
+        $result = mysqli_query($connect, $query);
+
+        if (mysqli_errno($connect)) {
+            echo 'Error ' . mysqli_errno($connect) . 'Error : ' . mysqli_error($connect);
+        }
+
+        if (mysqli_num_rows($result) === 1){
+            $row = mysqli_fetch_assoc($result);
+            echo "let maxspeed = " . $row['dtMaxSpeed'] . ";\n";
+            echo "let maxbackspeed = " . $row['dtMaxBackSpeed'] . ";\n";
+            echo "let speedcontrol = " . $row['dtSpeedControl'] . ";\n";
+            echo "let maxxAchse = " . $row['dtMaxAchse'] . ";\n";
+            echo "let xAchseControl = " . $row['dtXAchsControl'] . ";\n";
+            echo "let carwidth = " . $row['dtWidth'] . ";\n";
+            echo "let carheight = " . $row['dtHeight'] . ";";
+        } else {
+            // Default Fahrzeug, wenn das Fahrzeug von der DatenBank fehlt
+            echo "let maxspeed = 150";
+            echo "let maxbackspeed = -25";
+            echo "let speedcontrol = 3";
+            echo "let maxxAchse = 50";
+            echo "let xAchseControl = 3";
+            echo "let carwidth = 50";
+            echo "let carheight = 100";
+        }
+
+    ?>
 
     //Coin
     let CoinWidth = 25;
@@ -48,8 +70,8 @@
 
     let GameStatusRunning = true;
 
+    //Fahrzeug wir generiert und Spiel wird gestartet
     function GameStart(){
-
         $( "#MyCar" )[0].style.transform = "rotate(0deg)";
         $( "#MyCar" )[0].style.top = "200px";
         $( "#MyCar" )[0].style.left = "300px";
@@ -63,40 +85,35 @@
         clearInterval(timerItemGenerator);
         timerItemGenerator = setInterval("generateCoin()",500);
 
-        clearInterval(timerCheckGameStatus);
-        timerCheckGameStatus = setInterval("CheckGameStatus()",1000);
     }
 
+    //Check ob der Status geändert wurde, wenn ja. startet/stoppt er das Spiel
     function CheckGameStatus() {
         if (GameStatusRunning){
-           if (timergame === null && timerItemGenerator === null){
-               clearInterval(timergame);
-               timergame = setInterval("step()",50);
-
+           if (timerItemGenerator === null){
                clearInterval(timerItemGenerator);
                timerItemGenerator = setInterval("generateCoin()",500);
            }
         } else {
-            clearInterval(timergame);
-            timergame = null;
             clearInterval(timerItemGenerator);
             timerItemGenerator = null;
         }
     }
 
+    // Game status wird geändert und das PauseMenü kommt
     function ChangeGameStatus(){
         if (GameStatusRunning){
             GameStatusRunning = false;
+            $("#PauseMenuTransperent")[0].style.display = "block";
         } else {
             GameStatusRunning = true;
+            $("#PauseMenuTransperent")[0].style.display = "none";
         }
     }
 
-    function getRandom(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
+    // Generiert auf der Map eine Münze
     function generateCoin() {
+        // Aktuelle Chance: 10% pro Sekunde = timer(500ms) * (1 - 0.95)
         if (getRandom(0,1) > 0.95){
             let top = Math.floor(getRandom(100,window.innerHeight-100));
             let left = Math.floor(getRandom(100,window.innerWidth-100));
@@ -104,19 +121,21 @@
         }
 
     }
-    
+
+    // Checkt op ein Coin getroffen wurde | Funktioniert noch nicht zu 100%
     function CeckHitCoin() {
         if ($( ".coins" ).length > 0){
             let savecar =  $( "#MyCar" )[0];
             for (let i=0;i<$( ".coins" ).length;i++){
                 let coin =  $( ".coins" )[i];
 
+                //Checkt ob treffer
                 if (parseInt(savecar.style.left) < parseInt(coin.style.left)
                     && parseInt(coin.style.left) < (parseInt(savecar.style.left) + carwidth)
                     && parseInt(savecar.style.top) < parseInt(coin.style.top)
                     && parseInt(coin.style.top) < (parseInt(savecar.style.top) + carheight)) {
 
-
+                    //Coin wird gelöscht
                     $( ".coins" )[i].remove()
                 }
             }
@@ -127,7 +146,14 @@
 
 
     function step(){
+        // Ckeckt op Game status
+        CheckGameStatus();
+        //Wenn Gamestatus false (not running) dan macht er kein zug
+        if (!GameStatusRunning){
+            return
+        }
 
+        //Wenn er "W" gedrückt hat wird er schneller
         if (arrowW === "w"){
             if (speed < 0){
                 speed=speed+speedcontrol;
@@ -142,6 +168,7 @@
 
         }
 
+        //Wenn er "s" gedrückt hat wird er langsamer
         if (arrowS === "s"){
             if (speed < 0){
                 speed=speed-speedcontrol/100*33
@@ -155,6 +182,7 @@
             }
         }
 
+        //Wenn er kein "W + S" gedrückt hat wird er auf 8-0km/h gebracht
         if (arrowW !== "w" && arrowS !== "s"){
             if (speed > 8){
                 speed=speed-speedcontrol/100*20
@@ -170,6 +198,7 @@
             }
         }
 
+        //Wenn er "A" gedrückt hat, lenkt er nach Rechts
         if (arrowA === "a"){
             if (xAchse > -maxxAchse){
                 if (xAchse > 0){
@@ -183,6 +212,7 @@
 
         }
 
+        //Wenn er "D" gedrückt hat, lenkt er nach links
         if (arrowD === "d"){
             if (xAchse < maxxAchse){
                 if (xAchse < 0){
@@ -195,6 +225,7 @@
             }
         }
 
+        //Wenn er kein "A + D" gedrückt hat, färt er gerade aus
         if (arrowA !== "a" && arrowD !== "d"){
             if (xAchse !== 0){
                 for (let i=0;i<xAchseControl;i++){
@@ -210,6 +241,8 @@
             }
         }
 
+        // Eine neue Fahrtrichtung wird berechnet,
+        // Wenn er sich bewegt und lenkt
         if (xAchse !== 0 && speed !== 0){
             //XAchseControlCalc = maxspeed/maxxAchse*xAchse/speed
             XAchseControlCalc = xAchse;
@@ -218,7 +251,7 @@
             } else if (XAchseControlCalc < -5){
                 XAchseControlCalc = -5;
             }
-            //console.log(XAchseControlCalc);
+
 
 
             deg = XAchseControlCalc + parseInt($( "#MyCar" )[0].style.transform.slice(7));
@@ -227,12 +260,15 @@
             $( "#MyCar" )[0].style.transform = "rotate("+ deg +"deg)";
         }
 
+        // Eine neue Position wird berechnet,
+        // Wenn er sich bewegt
         if (speed !== 0){
             let positioncontrol = 10;
             let pixel = 0;
             let toppixel = 0;
             let leftpixel = 0;
 
+            //in welche richtung schaut das Fahrzeug
             deg = parseInt($("#MyCar")[0].style.transform.slice(7));
 
             deg = deg%360;
@@ -241,9 +277,10 @@
                 deg = -deg;
                 deg= 360 - deg;
             }
-            console.log(deg);
+
             pixel = (deg%90)/0.9;
 
+            // Neue Position wird bestimmt
             if ((deg) < 90){
                 toppixel = (positioncontrol*speed/100)*((100-pixel)/100);
                 leftpixel = (positioncontrol*speed/100)*(pixel/100);
@@ -259,23 +296,26 @@
             }
 
 
-
+            // Alte Position wird genommen
             let top = parseFloat($( "#MyCar" )[0].style.top);
             let left = parseFloat($( "#MyCar" )[0].style.left);
 
+            // Neue Position wird bestimmt
             $( "#MyCar" )[0].style.top = top-toppixel +"px";
             $( "#MyCar" )[0].style.left = left+leftpixel+"px";
 
+            // Checkt on er ein Coin Berührt hat
             CeckHitCoin();
         }
 
 
-
+        // Nur zum testen
         document.getElementById('pressedKey').innerHTML = arrowW + " " + arrowA + " " + arrowS + " " + arrowD;
         document.getElementById('speedMeter').innerHTML = speed;
         document.getElementById('xAchse').innerHTML = xAchse;
     }
 
+    // Was drückt er
     document.addEventListener('keydown', function(event) {
         if (event.keyCode === 87) { //Press w
             arrowW = "w";
@@ -289,11 +329,12 @@
         else if (event.keyCode === 68) { //Press d
             arrowD = "d";
         }
-        else if (event.keyCode === 27) {
+        else if (event.keyCode === 27) { //Press ESC
             ChangeGameStatus();
         }
     }, true);
 
+    // Was hat er losgelassen
     document.addEventListener('keyup', function(event) {
         if (event.keyCode === 87) { //Press w
             arrowW = "";
@@ -326,6 +367,11 @@
 
 <div id="img">
 </div>
+
+<?php
+    include_once "./Pause-Menu.html";
+?>
+
 
 </body>
 </html>
