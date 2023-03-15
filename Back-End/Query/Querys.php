@@ -1,3 +1,6 @@
+
+<!--Created by Jann-->
+
 <?php
 	
 	function checkUsername() {
@@ -16,3 +19,5 @@
 	function hashPassword($password) {
 		return crypt($password, '42');
 	}
+	
+//	--------------------------------------------------
