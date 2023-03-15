@@ -1,3 +1,14 @@
+<?php
+//login.php created by Xu
+    include_once "Functions/Credentials.php";
+
+    $connect = mysqli_connect(DB_HOST,DB_USER,DB_PW,DB_NAME);
+
+    if (mysqli_connect_errno()){
+        echo mysqli_errno($connect);
+    }
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,22 +29,15 @@
 </form>
 <?php
 
-define('DB_HOST', '89.58.47.144');
-define('DB_USER', '2023_1TPIF_CarGame');
-define('DB_PW', '.5(fTAPJ1w)D)d7V');
-define('DB_NAME', 'db_2023_1TPIF2_CARGAME');
-
-$connect = mysqli_connect(DB_HOST,DB_USER,DB_PW,DB_NAME);
-
-if (mysqli_connect_errno()){
-    echo mysqli_errno($connect);
-}
-
 if (isset($_POST['loginButton'])){
-    $query = "SELECT idPlayer,dtName,dtPassword,dtDisplayName FROM tblPlayer
-                      WHERE dtName = '" . $_POST['loginName'] ."'";
+    $query = $connect->prepare("SELECT idPlayer,dtName,dtPassword,dtDisplayName FROM tblPlayer
+                      WHERE dtName = ?");
 
-    $result = mysqli_query($connect,$query);
+    $query->bind_param('s',$_POST['loginName']);
+
+    $query->execute();
+
+    $result = $query->get_result();
 
     $row = mysqli_fetch_assoc($result);
 
@@ -42,7 +46,7 @@ if (isset($_POST['loginButton'])){
     if ($verify){
         $_SESSION['user'] = $row['dtName'];
         $_SESSION['userID'] = $row['idPlayer'];
-        header("location:index.php?page=home");
+        //header("location:index.php?page=home");
     }
     else{
         $_SESSION['user'] = "";
