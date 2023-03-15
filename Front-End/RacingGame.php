@@ -310,7 +310,6 @@ include_once "../Back-End/Functions/Functions.php";
 
 
         // Nur zum testen
-        document.getElementById('pressedKey').innerHTML = arrowW + " " + arrowA + " " + arrowS + " " + arrowD;
         document.getElementById('speedMeter').innerHTML = speed;
         document.getElementById('xAchse').innerHTML = xAchse;
     }
@@ -352,7 +351,7 @@ include_once "../Back-End/Functions/Functions.php";
 
 </script>
 <body onload="GameStart()">
-<p id="pressedKey"></p>
+
 
 <img id="MyCar" src="../Images/Car_Police01.png">
 
