@@ -16,7 +16,7 @@
 <?php
 
 if (isset($_POST['loginButton'])){
-    $query = $connect->prepare("SELECT idPlayer,dtName,dtPassword FROM tblPlayer
+    $query = $connect->prepare("SELECT dtName,dtPassword FROM tblPlayer
                       WHERE dtName = ?");
 
     $query->bind_param('s',$_POST['loginName']);
@@ -31,12 +31,9 @@ if (isset($_POST['loginButton'])){
 
     if ($verify){
         $_SESSION['user'] = $row['dtName'];
-        $_SESSION['userID'] = $row['idPlayer'];
         header("location:RacingGame.php");
     }
     else{
-        $_SESSION['user'] = "";
-        $_SESSION['userID'] = "";
         echo 'nope';
     }
 
