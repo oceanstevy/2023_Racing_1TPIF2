@@ -42,13 +42,13 @@
         $.getJSON( path + "/Back-End/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
             console.log(data);
 
-            maxspeed = data.maxspeed;
-            maxbackspeed = data.maxbackspeed;
-            speedcontrol = data.speedcontrol;
-            maxxAchse = data.maxxAchse;
-            xAchseControl = data.xAchseControl;
-            carwidth = data.carwidth;
-            carheight = data.carheight;
+            maxspeed = parseInt(data.maxspeed);
+            maxbackspeed = parseInt(data.maxbackspeed);
+            speedcontrol = parseInt(data.speedcontrol);
+            maxxAchse = parseInt(data.maxxAchse);
+            xAchseControl = parseInt(data.xAchseControl);
+            carwidth = parseInt(data.carwidth);
+            carheight = parseInt(data.carheight);
 
             $( "#MyCar" )[0].style.transform = "rotate(0deg)";
             $( "#MyCar" )[0].style.top = "200px";
