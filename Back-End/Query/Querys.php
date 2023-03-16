@@ -20,4 +20,12 @@
 		return crypt($password, '42');
 	}
 	
+	//Profile
+	function showProfile() {
+		return"
+    SELECT dtName
+        FROM tblplayer
+        WHERE dtName = ?
+    ";
+	}
 //	--------------------------------------------------
