@@ -1,11 +1,16 @@
 <?php
+$_GET['SeesionID'] = 1;
+$_GET['CarID'] = 1;
+$_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
+
 session_start();
 
-include_once "/Functions/Credentials.php";
-include_once "/Functions/Functions.php";
-
+include_once "./Functions/Credentials.php";
+include_once "./Functions/Functions.php";
 
 $connect = db_Connect();
+
+$car = [];
 
 $query = "SELECT idCar, dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl
                   FROM tblCar
@@ -19,22 +24,34 @@ if (mysqli_errno($connect)) {
 
 if (mysqli_num_rows($result) === 1){
     $row = mysqli_fetch_assoc($result);
-    echo "let maxspeed = " . $row['dtMaxSpeed'] . ";\n";
-    echo "let maxbackspeed = " . $row['dtMaxBackSpeed'] . ";\n";
-    echo "let speedcontrol = " . $row['dtSpeedControl'] . ";\n";
-    echo "let maxxAchse = " . $row['dtMaxAchse'] . ";\n";
-    echo "let xAchseControl = " . $row['dtXAchsControl'] . ";\n";
-    echo "let carwidth = " . $row['dtWidth'] . ";\n";
-    echo "let carheight = " . $row['dtHeight'] . ";";
+
+    $car = [
+        "maxspeed" => $row['dtMaxSpeed'],
+        "maxbackspeed" => $row['dtMaxBackSpeed'],
+        "speedcontrol" => $row['dtSpeedControl'],
+        "maxxAchse" => $row['dtMaxAchse'],
+        "xAchseControl" => $row['dtXAchsControl'],
+        "carwidth" => $row['dtWidth'],
+        "carheight" => $row['dtHeight']
+    ];
+
 } else {
     // Default Fahrzeug, wenn das Fahrzeug von der DatenBank fehlt
-    echo "let maxspeed = 150";
-    echo "let maxbackspeed = -25";
-    echo "let speedcontrol = 3";
-    echo "let maxxAchse = 50";
-    echo "let xAchseControl = 3";
-    echo "let carwidth = 50";
-    echo "let carheight = 100";
+
+    $car = [
+        "maxspeed" => 150,
+        "maxbackspeed" => -25,
+        "speedcontrol" => 3,
+        "maxxAchse" => 50,
+        "xAchseControl" => 3,
+        "carwidth" => 50,
+        "carheight" => 100
+    ];
+    
 }
+
+unset($_COOKIE);
+
+echo json_encode($car);
 
 ?>

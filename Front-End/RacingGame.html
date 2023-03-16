@@ -46,12 +46,15 @@
         $( "#MyCar" )[0].style.width = carwidth+"px";
         $( "#MyCar" )[0].style.height = carheight+"px";
 
-        clearInterval(timergame);
-        timergame = setInterval("step()",50);
+        $.getJSON("http://localhost/Github/2023_Racing_1TPIF2/Back-End/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
+            console.log(data);
 
-        clearInterval(timerItemGenerator);
-        timerItemGenerator = setInterval("generateCoin()",500);
+            clearInterval(timergame);
+            timergame = setInterval("step()",50);
 
+            clearInterval(timerItemGenerator);
+            timerItemGenerator = setInterval("generateCoin()",500);
+        });
     }
 
     //Check ob der Status geändert wurde, wenn ja. startet/stoppt er das Spiel
