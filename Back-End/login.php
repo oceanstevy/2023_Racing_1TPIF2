@@ -29,7 +29,7 @@ if (isset($_POST['loginButton'])){
 
         $verify = password_verify($_POST['loginPassword'], $row['dtPassword']);
 
-        if (mysqli_num_rows($row) != 0){
+        if (mysqli_num_rows($result) != 0){
             if ($verify){
                 $_SESSION['user'] = $row['dtName'];
                 header("location:RacingGame.html");
