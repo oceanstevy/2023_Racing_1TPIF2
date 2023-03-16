@@ -35,11 +35,11 @@ if (isset($_POST['loginButton'])){
                 header("location:RacingGame.html");
             }
             else{
-                echo 'nope';
+                echo 'Falsches Passwort';
             }
         }
         else{
-            echo 'Falscher Benutzername oder falsches Passwort.';
+            echo 'Falscher Benutzername';
         }
 
     }
