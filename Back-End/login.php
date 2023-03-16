@@ -29,13 +29,19 @@ if (isset($_POST['loginButton'])){
 
         $verify = password_verify($_POST['loginPassword'], $row['dtPassword']);
 
-        if ($verify){
-            $_SESSION['user'] = $row['dtName'];
-            header("location:RacingGame.php");
+        if (mysqli_num_rows($row) != 0){
+            if ($verify){
+                $_SESSION['user'] = $row['dtName'];
+                header("location:RacingGame.html");
+            }
+            else{
+                echo 'nope';
+            }
         }
         else{
-            echo 'nope';
+            echo 'Falscher Benutzername oder falsches Passwort.';
         }
+
     }
     else{
         echo 'Sie haben den Namen und/oder Passwort nicht eingegeben.';
