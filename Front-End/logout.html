@@ -8,7 +8,7 @@
 	
 		$("#logout").click(() => {
 			
-			$.getJSON("http://127.0.0.1/PIF/SocialMedia/SocialMedia.php", "executionType=write&name=" + name + "&text=" + text, (data) => {
+			$.getJSON(path , "executionType=write&name=", (data) => {
 				//informs user what happened to post
 				if (data.errorCode === "success!") {
 					
