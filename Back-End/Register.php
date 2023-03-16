@@ -27,7 +27,6 @@
 <?php
     require_once "Functions/Credentials.php";
     require_once "Functions/Functions.php";
-
 	require_once  "Query/Querys.php";
 	
 	if (isset($_POST['BUTTON_Register'])) {
