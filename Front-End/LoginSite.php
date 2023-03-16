@@ -23,6 +23,8 @@
         let name = $("#loginName").val();
         let pw = $("#loginPassword").val();
 
+        path += "Back-End/login.php";
+
         $.getJSON(path, "loginName=" + name + "&loginPassword=" + pw, (data) => {
 
             if (data.errorCode === "success!") {
