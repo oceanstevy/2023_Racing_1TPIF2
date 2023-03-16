@@ -23,17 +23,21 @@
         let name = $("#loginName").val();
         let pw = $("#loginPassword").val();
 
-        path += "Back-End/login.php";
+        if (name != "" || pw != ""){
+            $.getJSON(path += "Back-End/login.php", "loginName=" + name + "&loginPassword=" + pw, (data) => {
 
-        $.getJSON(path, "loginName=" + name + "&loginPassword=" + pw, (data) => {
+                if (data.errorCode === "success!") {
 
-            if (data.errorCode === "success!") {
+                    alert("success");
 
-                alert("success");
+                }
 
-            }
+            });
+        }
+        else {
+            alert("Benutzername und/oder Passwort nicht eingegeben");
+        }
 
-        });
 
     })
 </script>
