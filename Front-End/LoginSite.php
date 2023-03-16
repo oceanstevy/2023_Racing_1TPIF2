@@ -28,7 +28,7 @@
 
                 if (data.errorCode === "success!") {
 
-                    alert("success");
+                    alert("Erfolgreich eingeloggt");
 
                 }
 
