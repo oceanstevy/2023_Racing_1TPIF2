@@ -9,11 +9,11 @@
 
 <?php
 
-if (isset($_POST['loginButton'])){
-    if ($_POST['loginName'] != "" && $_POST['loginPassword'] != ""){
+if (isset($_GET['loginName']) && isset($_GET['loginPassword'])){
+    if ($_GET['loginName'] != "" && $_GET['loginPassword'] != ""){
         $query = $connect->prepare("SELECT dtName,dtPassword FROM tblPlayer WHERE dtName = ?");
 
-        $query->bind_param('s',$_POST['loginName']);
+        $query->bind_param('s',$_GET['loginName']);
 
         $query->execute();
 
@@ -21,7 +21,7 @@ if (isset($_POST['loginButton'])){
 
         $row = mysqli_fetch_assoc($result);
 
-        $verify = password_verify($_POST['loginPassword'], $row['dtPassword']);
+        $verify = password_verify($_GET['loginPassword'], $row['dtPassword']);
 
         if (mysqli_num_rows($result) != 0){
             if ($verify){
@@ -40,6 +40,5 @@ if (isset($_POST['loginButton'])){
     else{
         echo 'Sie haben den Namen und/oder Passwort nicht eingegeben.';
     }
-
 }
 ?>
