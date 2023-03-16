@@ -51,7 +51,7 @@ if (mysqli_num_rows($result) === 1){
 }
 
 unset($_COOKIE);
- 
+
 echo json_encode($car);
 
 ?>

@@ -1,5 +1,5 @@
 <?php
-$path = $_SERVER['HTTP_HOST'] + "/Github/2023_Racing_1TPIF2/";
+$path = $_SERVER['HTTP_HOST'] . "/Github/2023_Racing_1TPIF2/";
 
 function db_Connect(){
 
