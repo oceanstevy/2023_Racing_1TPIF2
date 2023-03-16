@@ -1,7 +1,21 @@
-function getRandom(min, max) {
-    return Math.random() * (max - min) + min;
-}
+<?php
 
+$_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
+
+session_start();
+
+?>
+
+
+<html>
+
+$("#NULL").load("PATH? SeesionID="+getSessionIdFromCookies() , function(){
+});
+
+
+</html>
+
+<script>
 function getSessionIdFromCookies() {
     let name = "PHPSESSID=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -18,3 +32,5 @@ function getSessionIdFromCookies() {
     }
     return SessionID;
 }
+
+</script>
