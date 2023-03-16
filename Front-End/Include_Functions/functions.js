@@ -1,3 +1,4 @@
+let path = "http://localhost/Github/2023_Racing_1TPIF2/";
 function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }

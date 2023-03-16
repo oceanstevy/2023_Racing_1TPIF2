@@ -47,7 +47,7 @@ if (mysqli_num_rows($result) === 1){
         "carwidth" => 50,
         "carheight" => 100
     ];
-    
+
 }
 
 unset($_COOKIE);
