@@ -39,15 +39,23 @@
 
     //Fahrzeug wir generiert und Spiel wird gestartet
     function GameStart(){
-        $( "#MyCar" )[0].style.transform = "rotate(0deg)";
-        $( "#MyCar" )[0].style.top = "200px";
-        $( "#MyCar" )[0].style.left = "300px";
-
-        $( "#MyCar" )[0].style.width = carwidth+"px";
-        $( "#MyCar" )[0].style.height = carheight+"px";
-
-        $.getJSON("http://localhost/Github/2023_Racing_1TPIF2/Back-End/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
+        $.getJSON( path + "/Back-End/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
             console.log(data);
+
+            maxspeed = data.maxspeed;
+            maxbackspeed = data.maxbackspeed;
+            speedcontrol = data.speedcontrol;
+            maxxAchse = data.maxxAchse;
+            xAchseControl = data.xAchseControl;
+            carwidth = data.carwidth;
+            carheight = data.carheight;
+
+            $( "#MyCar" )[0].style.transform = "rotate(0deg)";
+            $( "#MyCar" )[0].style.top = "200px";
+            $( "#MyCar" )[0].style.left = "300px";
+
+            $( "#MyCar" )[0].style.width = carwidth+"px";
+            $( "#MyCar" )[0].style.height = carheight+"px";
 
             clearInterval(timergame);
             timergame = setInterval("step()",50);
