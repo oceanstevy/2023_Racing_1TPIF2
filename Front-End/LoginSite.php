@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>login</title>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="Include_Functions/jquery.html"></script>
 <body>
 <h1>Login</h1><br>
         <label for='loginName'>Name: </label>
