@@ -6,13 +6,7 @@
     $connect = db_Connect();
 ?>
 
-<form method="post">
-    <label for="loginName">Name: </label>
-    <input id="loginName" name="loginName" type="text"><br><br>
-    <label for="loginPassword">Passwort: </label>
-    <input id="loginPassword" name="loginPassword" type="password"><br><br>
-    <button id="loginButton" name="loginButton">Login</button>
-</form>
+
 <?php
 
 if (isset($_POST['loginButton'])){
