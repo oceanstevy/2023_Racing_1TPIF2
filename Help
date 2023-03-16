@@ -6,10 +6,12 @@ session_start();
 
 ?>
 
+
 <html>
+
 $("#NULL").load("PATH? SeesionID="+getSessionIdFromCookies() , function(){
 });
-}
+
 
 </html>
 
