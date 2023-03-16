@@ -23,6 +23,14 @@
     let speed = 0;
     let deg = 0;
 
+    let maxspeed = 0;
+    let maxbackspeed = 0;
+    let speedcontrol = 0;
+    let maxxAchse = 0;
+    let xAchseControl = 0;
+    let carwidth = 0;
+    let carheight = 0;
+
     //Coin
     let CoinWidth = 25;
     let CoinHeight = 25;
@@ -326,9 +334,18 @@
 <div id="img">
 </div>
 
-<?php
-    include_once "./Pause-Menu.html";
-?>
+<div id="PauseMenuTransperent">
+    <div id="PauseMenu">
+        <h3>Spiel wurde Pausiert</h3>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button onclick="ChangeGameStatus()">
+            Weiter
+        </button>
+    </div>
+</div>
 
 
 </body>
