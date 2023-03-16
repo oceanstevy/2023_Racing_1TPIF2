@@ -16,25 +16,29 @@
 <?php
 
 if (isset($_POST['loginButton'])){
-    $query = $connect->prepare("SELECT dtName,dtPassword FROM tblPlayer
-                      WHERE dtName = ?");
+    if ($_POST['loginName'] != "" && $_POST['loginPassword'] != ""){
+        $query = $connect->prepare("SELECT dtName,dtPassword FROM tblPlayer WHERE dtName = ?");
 
-    $query->bind_param('s',$_POST['loginName']);
+        $query->bind_param('s',$_POST['loginName']);
 
-    $query->execute();
+        $query->execute();
 
-    $result = $query->get_result();
+        $result = $query->get_result();
 
-    $row = mysqli_fetch_assoc($result);
+        $row = mysqli_fetch_assoc($result);
 
-    $verify = password_verify($_POST['loginPassword'], $row['dtPassword']);
+        $verify = password_verify($_POST['loginPassword'], $row['dtPassword']);
 
-    if ($verify){
-        $_SESSION['user'] = $row['dtName'];
-        header("location:RacingGame.php");
+        if ($verify){
+            $_SESSION['user'] = $row['dtName'];
+            header("location:RacingGame.php");
+        }
+        else{
+            echo 'nope';
+        }
     }
     else{
-        echo 'nope';
+        echo 'Sie haben den Namen und/oder Passwort nicht eingegeben.';
     }
 
 }
