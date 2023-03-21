@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Kult Racing</title>
-    <link rel="stylesheet" href="../Style/css.css">
-    <script src="Include_Functions/jquery.html"></script>
-    <script src="Include_Functions/functions.js"></script>
-</head>
 <script>
-
-    //Timer Definieren
+    //Fahrzeug wir generiert und Spiel wird gestartet
     let timergame = "";
     let timerItemGenerator = "";
 
@@ -37,8 +27,10 @@
 
     let GameStatusRunning = true;
 
-    //Fahrzeug wir generiert und Spiel wird gestartet
     function GameStart(){
+
+        //Timer Definieren
+
         $.getJSON( path + "/Back-End/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
             console.log(data);
 
@@ -328,8 +320,6 @@
     }, true);
 
 </script>
-<body onload="GameStart()">
-
 
 <img id="MyCar" src="../Images/Car_Police01.png">
 
@@ -357,7 +347,3 @@
         </button>
     </div>
 </div>
-
-
-</body>
-</html>

@@ -13,13 +13,40 @@
         //Checken ob der Benutzter schon eine cookie besitzt für die Seite
         if (hasNoCookies()){
             //Erstelle eine session auf dem Server
-            $.get( path + "/GetASession.php"  , function(data){
-                
+            $.get( path + "Back-End/GetASession.php"  , function(data){
+
             })
+
+            GetLoginPage();
+            
         }
 
 
     });
+
+    //Login Page bekommen
+    function GetLoginPage() {
+
+    }
+
+    //Menu Page bekommen
+    function GetMenuPage() {
+
+    }
+
+
+    //Game Page bekommen
+    function GetGamePage() {
+        $.get( path + "Back-End/RacingGame.html"  , function(data){
+            $( "body" ).html( data );
+
+            GameStart()
+
+        })
+
+
+    }
+
 
 </script>
 <body>

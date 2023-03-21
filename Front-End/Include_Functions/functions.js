@@ -6,10 +6,10 @@ function getRandom(min, max) {
 }
 
 function hasNoCookies() {
-    if ( getSessionIdFromCookies() == "false" ){
-        return false;
-    } else {
+    if ( getSessionIdFromCookies() === false ){
         return true;
+    } else {
+        return false;
     }
 
 }
