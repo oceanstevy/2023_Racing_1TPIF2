@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kult Racing</title>
+    <link rel="stylesheet" href="../Style/css.css">
+    <script src="Include_Functions/jquery.html"></script>
+    <script src="Include_Functions/functions.js"></script>
+</head>
+<script>
+    // Beim laden der Seite
+    $( document ).ready(()=>{
+        //Checken ob der Benutzter schon eine cookie besitzt für die Seite
+        if (hasNoCookies()){
+            //Erstelle eine session auf dem Server
+            $.get( path + "/GetASession.php"  , function(data){
+                
+            })
+        }
+
+
+    });
+
+</script>
+<body>
+
+
+
+
+
+
+
+</body>
+</html>

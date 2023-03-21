@@ -5,6 +5,15 @@ function getRandom(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+function hasNoCookies() {
+    if ( getSessionIdFromCookies() == "false" ){
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
 function getSessionIdFromCookies() {
     let name = "PHPSESSID=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -19,5 +28,5 @@ function getSessionIdFromCookies() {
             return cs[i].substring(name.length, cs[i].length);
         }
     }
-    return SessionID;
+    return false;
 }
