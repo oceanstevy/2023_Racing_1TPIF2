@@ -26,6 +26,12 @@
 
     //Login Page bekommen
     function GetLoginPage() {
+        $.get( path + "Front-End/LoginSite.php"  , function(data){
+            $( "body" ).html( data );
+
+            GameStart()
+
+        })
 
     }
 
