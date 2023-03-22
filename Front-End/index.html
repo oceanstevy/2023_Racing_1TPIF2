@@ -8,21 +8,30 @@
     <script src="Include_Functions/functions.js"></script>
 </head>
 <script>
+    //      --  Joni - Begin    --
     // Beim laden der Seite
     $( document ).ready(()=>{
         //Checken ob der Benutzter schon eine cookie besitzt für die Seite
         if (hasNoCookies()){
             //Erstelle eine session auf dem Server
-            $.get( path + "Back-End/GetASession.php"  , function(data){
+            $.get( path + "Back-End/GetASession.php"  , function(cookie){
 
             })
 
             GetLoginPage();
-            
+
+        } else {
+            //Check ob ein UserName in Seiner Session ist
+            $.getJSON( path + "Back-End/CheckSession.php?SeesionID="+getSessionIdFromCookies()  , function(Seesion){
+                if (!Seesion['check']){
+                    GetLoginPage();
+                }
+            })
+
         }
 
-
     });
+    //      --  Joni - Ende     --
 
     //Login Page bekommen
     function GetLoginPage() {
@@ -40,6 +49,7 @@
 
 
     //Game Page bekommen
+    //      --  Joni - Begin    --
     function GetGamePage() {
         $.get( path + "Back-End/RacingGame.html"  , function(data){
             $( "body" ).html( data );
@@ -50,6 +60,8 @@
 
 
     }
+    //      --  Joni - Ende     --
+
 
 
 </script>

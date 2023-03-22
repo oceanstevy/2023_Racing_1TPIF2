@@ -1,4 +1,3 @@
-
 <h1>Login</h1><br>
         <label for='loginName'>Name: </label>
         <input id='loginName' name='loginName' type='text'><br><br>
