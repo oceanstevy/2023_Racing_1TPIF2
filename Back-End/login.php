@@ -27,19 +27,21 @@ if (isset($_GET['loginName']) && isset($_GET['loginPassword'])){
             if ($verify){
                 echo json_encode (["errorCode" => "success!"]);
                 $_SESSION['user'] = $row['dtName'];
-                header("location:RacingGame.html");
             }
             else{
                 echo 'Falsches Passwort';
+                echo json_encode (["errorCode" => "error!"]);
             }
         }
         else{
             echo 'Falscher Benutzername';
+            echo json_encode (["errorCode" => "error!"]);
         }
 
     }
     else{
         echo 'Sie haben den Namen und/oder Passwort nicht eingegeben.';
+        echo json_encode (["errorCode" => "error!"]);
     }
 }
 ?>
