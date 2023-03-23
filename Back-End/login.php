@@ -13,6 +13,7 @@
     <input id="loginPassword" name="loginPassword" type="password"><br><br>
     <button id="loginButton" name="loginButton">Login</button>
 </form>
+
 <?php
 
 if (isset($_POST['loginButton'])){
