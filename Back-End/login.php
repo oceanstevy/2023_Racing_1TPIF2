@@ -25,6 +25,7 @@ if (isset($_GET['loginName']) && isset($_GET['loginPassword'])){
 
         if (mysqli_num_rows($result) != 0){
             if ($verify){
+                echo json_encode (["errorCode" => "success!"]);
                 $_SESSION['user'] = $row['dtName'];
                 header("location:RacingGame.html");
             }
