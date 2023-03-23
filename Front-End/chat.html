@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<label for = "writeName">Name:</label>
+<input type = "text" name = "name" class = "form-control" id = "writeName" required>
+<label for = "writeMessage">Text:</label>
+<input type = "text" name = "test" class = "form-control" id = "writeMessage" required>
+<button type = "button" id = "sendInfo">Send</button>
+<button type = "button" id = "loadInfo">Load</button>
+
+<div id = "container">
+
+
+</div>
+
+</body>
+<script>
+    //if button #sendInfo => clicked, execute callback function
+    $("#sendInfo").click(() => {
+        //save value from html objects into variables
+        let name = $("#writeName").val();
+        let text = $("#writeMessage").val();
+        //immediately requests data from server, turned into JSON !!!Important on load() we wioll receive a text, we have to define what type it is!!!
+        $.getJSON("./SocialMedia.php", "executionType=write&name=" + name + "&text=" + text, (data) => {
+            //informs user what happened to post
+            if (data.errorCode === "success!") {
+
+                alert("Success!!");
+
+            }
+
+        });
+
+    })
+
+    //if button #loadinfo => clicked, execute callback function
+    $("#loadInfo").click(() => {
+        //return value will always be in JSON format
+        $.getJSON("./SocialMedia.php", "executionType=read", (data) => {
+            //temporary variable to store html objects
+            let tmp = "";
+            //iterates through data array
+            for (let i = 0; i < data.length; i++) {
+                //generate HTML Structure, based on data from server
+                tmp += "<h5>Name:" + data[i].Name + "</h5><br><p>" + data[i].Text + "</p><br><br>";
+
+            }
+            //set content of #container to tmp
+            $("#container").html(tmp);
+            //insert/append content of #container to tmp (likely not to use)
+            // $("#container").append(tmp);
+
+        });
+
+    })
+
+
+</script>
+</html>
