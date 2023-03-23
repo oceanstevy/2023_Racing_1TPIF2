@@ -14,7 +14,7 @@
         //Checken ob der Benutzter schon eine cookie besitzt für die Seite
         if (hasNoCookies()){
             //Erstelle eine session auf dem Server
-            $.get( path + "Back-End/GetASession.php"  , function(cookie){
+            $.get( path + "Back-End/Interfaces/GetASession.php"  , function(cookie){
 
             })
 
@@ -22,9 +22,11 @@
 
         } else {
             //Check ob ein UserName in Seiner Session ist
-            $.getJSON( path + "Back-End/CheckSession.php?SeesionID="+getSessionIdFromCookies()  , function(Seesion){
+            $.getJSON( path + "Back-End/Interfaces/CheckSession.php?SeesionID="+getSessionIdFromCookies()  , function(Seesion){
                 if (!Seesion['check']){
                     GetLoginPage();
+                } else {
+                    GetMenuPage();
                 }
             })
 
@@ -35,7 +37,7 @@
 
     //Login Page bekommen
     function GetLoginPage() {
-        $.get( path + "Back-End/LoginSite.php"  , function(data){
+        $.get( path + "Back-End/Interfaces/LoginSite.html"  , function(data){
             $( "body" ).html( data );
 
         })
@@ -44,17 +46,17 @@
 
     //Menu Page bekommen
     function GetMenuPage() {
-
+        console.log(1);
     }
 
 
     //Game Page bekommen
     //      --  Joni - Begin    --
     function GetGamePage() {
-        $.get( path + "Back-End/RacingGame.html"  , function(data){
+        $.get( path + "Back-End/Interfaces/RacingGame.html"  , function(data){
             $( "body" ).html( data );
 
-            GameStart()
+            GameStart();
 
         })
 

@@ -30,9 +30,8 @@
     function GameStart(){
 
         //Timer Definieren
-
-        $.getJSON( path + "/Back-End/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
-            console.log(data);
+        console.log(path + "Back-End/Interfaces/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies());
+        $.getJSON( path + "Back-End/Interfaces/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
 
             maxspeed = parseInt(data.maxspeed);
             maxbackspeed = parseInt(data.maxbackspeed);
