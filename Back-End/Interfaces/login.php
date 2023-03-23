@@ -1,4 +1,7 @@
 <?php
+$_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
+session_start();
+
 //login.php created by Xu
     require_once "../Functions/Credentials.php";
     require_once "../Functions/Functions.php";
@@ -39,4 +42,5 @@ if (isset($_GET['loginName']) && isset($_GET['loginPassword'])){
         echo json_encode (["errorCode" => "error!"]);
     }
 }
+
 ?>

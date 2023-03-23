@@ -25,6 +25,8 @@
             $.getJSON( path + "Back-End/Interfaces/CheckSession.php?SeesionID="+getSessionIdFromCookies()  , function(Seesion){
                 if (!Seesion['check']){
                     GetLoginPage();
+                } else {
+                    GetMenuPage();
                 }
             })
 

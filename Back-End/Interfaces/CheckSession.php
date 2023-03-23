@@ -1,6 +1,7 @@
 <?php
 //      --  Joni - Begin     --
 $_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
+session_start();
 
 $r = [];
 
