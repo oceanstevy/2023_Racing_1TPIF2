@@ -23,6 +23,30 @@
         }
 
     })
+
+    $("#RegisterButton").click(() => {
+            let name = $("#Data_PlayerName").val();
+            let pw = $("#DATA_Password").val();
+            let pwre = $("#DATA_RE_Password").val();
+            if (name != "" || pw != "" || pwre != ""){
+                    if (pw === pwre){
+                            console.log(path + "Back-End/Interfaces/Register.php?RegisterName="+name+"&RegisterPassword="+pw+"&RegisterRePassword="+pwre+"&SeesionID="+getSessionIdFromCookies());
+                            $.getJSON(path + "Back-End/Interfaces/Register.php?RegisterName="+name+"&RegisterPassword="+pw+"&RegisterRePassword="+pwre+"&SeesionID="+getSessionIdFromCookies(), (data) => {
+
+                                    if (data.errorCode === "success!") {
+
+                                            GetMenuPage();
+                                    } else  {
+                                            alert("Error");
+                                    }
+
+                            });
+                    }
+            }
+            else {
+                    alert("Benutzername und/oder Passwort nicht eingegeben");
+            }
+    })
 </script>
 
 <h1>Login</h1><br>
