@@ -6,8 +6,6 @@
 </head>
 <body>
 
-<label for = "writeName">Name:</label>
-<input type = "text" name = "name" class = "form-control" id = "writeName" required>
 <label for = "writeMessage">Text:</label>
 <input type = "text" name = "test" class = "form-control" id = "writeMessage" required>
 <button type = "button" id = "sendInfo">Send</button>
@@ -23,10 +21,9 @@
     //if button #sendInfo => clicked, execute callback function
     $("#sendInfo").click(() => {
         //save value from html objects into variables
-        let name = $("#writeName").val();
         let text = $("#writeMessage").val();
         //immediately requests data from server, turned into JSON !!!Important on load() we wioll receive a text, we have to define what type it is!!!
-        $.getJSON("./SocialMedia.php", "executionType=write&name=" + name + "&text=" + text, (data) => {
+        $.getJSON("./Chat.php", "executionType=write&text=" + text, (data) => {
             //informs user what happened to post
             if (data.errorCode === "success!") {
 
@@ -41,7 +38,7 @@
     //if button #loadinfo => clicked, execute callback function
     $("#loadInfo").click(() => {
         //return value will always be in JSON format
-        $.getJSON("./SocialMedia.php", "executionType=read", (data) => {
+        $.getJSON("./chat.php", "executionType=read", (data) => {
             //temporary variable to store html objects
             let tmp = "";
             //iterates through data array

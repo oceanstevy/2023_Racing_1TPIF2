@@ -45,7 +45,8 @@ if (isset($_SESSION['user'])) {
             $arrayFeed[] = array (
                 "id" => $row[ 'idChat' ] ,
                 "Name" => $row[ 'fiPlayer' ] ,
-                "Message" => $row[ 'dtMessage' ]
+                "Message" => $row[ 'dtMessage' ],
+                "timestamp" => $row['dtTimestamp']
             );
 
         }
@@ -61,8 +62,8 @@ if (isset($_SESSION['user'])) {
     function insertData($dbc, $name , $text )
     {
         /*defines insert query with both parameters we want to add*/
-        $queryInsert = "INSERT into tblChat (fiPlayer, dtMessage)
-		                VALUES (?,?)";
+        $queryInsert = "INSERT INTO tblChat (fiPlayer, dtMessage, dtTimestamp)
+		                VALUES (?,?,CURRENT_TIMESTAMP)";
 
         /*sends queryframe to the database */
         $statement = $dbc->prepare($queryInsert);
