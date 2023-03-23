@@ -2,7 +2,7 @@
 <!--Created by Jann-->
 
 
-	
+	<form method="post">
 	<label>
 		Name
 		
@@ -21,7 +21,8 @@
 		<input type="password" maxlength="50" name="DATA_RE_Password" required >
 	</label>
     <br><br>
-
+        <input type="submit">
+    </form>
 
 <?php
     require_once "Functions/Credentials.php";
@@ -95,7 +96,7 @@
 		}
 		$dbc = db_Connect();
 		$hashedPassword = hashPassword($password);
-		
+        echo $hashedPassword;
 		$statement = $dbc->prepare(registerUser());
 		$statement->bind_param('ss', $Playerame, $hashedPassword);
 		

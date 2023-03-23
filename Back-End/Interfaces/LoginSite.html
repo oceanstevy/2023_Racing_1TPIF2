@@ -5,8 +5,8 @@
         let pw = $("#loginPassword").val();
 
         if (name != "" || pw != ""){
-                console.log(path + "Back-End/login.php?loginName=" + name + "&loginPassword=" + pw);
-            $.getJSON(path + "Back-End/login.php?loginName=" + name + "&loginPassword=" + pw, (data) => {
+                console.log(path + "Back-End/Interfaces/login.php?loginName=" + name + "&loginPassword=" + pw);
+            $.getJSON(path + "Back-End/Interfaces/login.php?loginName=" + name + "&loginPassword=" + pw, (data) => {
 
                 if (data.errorCode === "success!") {
 
