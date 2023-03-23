@@ -1,8 +1,5 @@
-
-<!--Created by Jann-->
-
 <?php
-	
+	//Created by Jann
 	function checkUsername() {
 		return "
     SELECT dtName

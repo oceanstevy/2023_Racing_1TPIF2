@@ -1,5 +1,7 @@
-<!--Created by Jann-->
 <?php
+//Created by Jann
+header('Content-Type: application/json; charset=utf-8');
+
 $_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
 session_start();
 
@@ -26,9 +28,11 @@ session_start();
 	$dbc = db_Connect();
 
 	$checkExistingUser = $dbc->prepare(checkUsername());
-	$checkExistingUser->bind_param('s', $email);
+	$checkExistingUser->bind_param('s', $Playerame);
+    $checkExistingUser->execute();
+    $result = $checkExistingUser->get_result();
 
-	if ($checkExistingUser->execute() === false){
+    if (mysqli_num_rows($result) != 0){
 
         echo json_encode (["errorCode" => "error!"]);
 
@@ -62,22 +66,19 @@ session_start();
 	}
 	$dbc = db_Connect();
 	$hashedPassword = hashPassword($password);
-    echo $hashedPassword;
 	$statement = $dbc->prepare(registerUser());
 	$statement->bind_param('ss', $Playerame, $hashedPassword);
 
-	if ($statement->execute() === false) {
-
-        echo json_encode (["errorCode" => "error!"]);
-
-		$dbc->close();
-		exit();
-	} else {
-
+	if ($statement->execute()) {
         echo json_encode (["errorCode" => "success!"]);
         $_SESSION['user'] = $Playerame;
 
-		$dbc->close();
+        $dbc->close();
+	} else {
+        echo json_encode (["errorCode" => "error!"]);
+
+        $dbc->close();
+        exit();
 	}
 
 ?>

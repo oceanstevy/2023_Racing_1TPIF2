@@ -30,11 +30,8 @@
             let pwre = $("#DATA_RE_Password").val();
             if (name != "" || pw != "" || pwre != ""){
                     if (pw === pwre){
-                            console.log(path + "Back-End/Interfaces/Register.php?RegisterName="+name+"&RegisterPassword="+pw+"&RegisterRePassword="+pwre+"&SeesionID="+getSessionIdFromCookies());
-                            $.getJSON(path + "Back-End/Interfaces/Register.php?RegisterName="+name+"&RegisterPassword="+pw+"&RegisterRePassword="+pwre+"&SeesionID="+getSessionIdFromCookies(), (data) => {
-
-                                    if (data.errorCode === "success!") {
-
+                            $.getJSON(path + "Back-End/Interfaces/Register.php?RegisterName="+name+"&RegisterPassword="+pw+"&RegisterRePassword="+pwre+"&SeesionID="+getSessionIdFromCookies(), (registerdata) => {
+                                    if (registerdata.errorCode === "success!") {
                                             GetMenuPage();
                                     } else  {
                                             alert("Error");
