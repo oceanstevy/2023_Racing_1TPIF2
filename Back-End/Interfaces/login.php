@@ -33,15 +33,18 @@ if (isset($_GET['loginName']) && isset($_GET['loginPassword'])){
                 $_SESSION['user'] = $row['dtName'];
             }
             else{
+                //Falsches Passwort
                 echo json_encode (["errorCode" => "error!"]);
             }
         }
         else{
+            //Benutzer existiert nicht
             echo json_encode (["errorCode" => "error!"]);
         }
 
     }
     else{
+        //Es fehlt mindestens etwas beim logi
         echo json_encode (["errorCode" => "error!"]);
     }
 }
