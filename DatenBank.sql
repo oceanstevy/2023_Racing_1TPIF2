@@ -37,6 +37,11 @@ ALTER TABLE tblPlayer
         FOREIGN KEY (fiPermissionGroup) REFERENCES tblPermissionGroup(idPermissionGroup)
             ON UPDATE CASCADE;
 
+ALTER TABLE tblChat
+    ADD CONSTRAINT FK_ChatPlayer
+        FOREIGN KEY (fiPlayer) REFERENCES tblPlayer(idPlayer)
+            ON UPDATE CASCADE;
+
 
 
 
