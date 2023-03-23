@@ -5,13 +5,16 @@
         let pw = $("#loginPassword").val();
 
         if (name != "" || pw != ""){
-            $.getJSON(path += "Back-End/login.php", "loginName=" + name + "&loginPassword=" + pw, (data) => {
+                console.log(path + "Back-End/login.php?loginName=" + name + "&loginPassword=" + pw);
+            $.getJSON(path + "Back-End/login.php?loginName=" + name + "&loginPassword=" + pw, (data) => {
 
                 if (data.errorCode === "success!") {
 
                     alert("Erfolgreich eingeloggt");
 
                     GetMenuPage();
+                } else  {
+                        alert("2");
                 }
 
             });
