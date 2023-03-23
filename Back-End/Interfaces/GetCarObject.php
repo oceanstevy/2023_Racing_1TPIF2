@@ -5,8 +5,8 @@ $_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
 
 session_start();
 
-include_once "./Functions/Credentials.php";
-include_once "./Functions/Functions.php";
+include_once "./../Functions/Credentials.php";
+include_once "./../Functions/Functions.php";
 
 $connect = db_Connect();
 
