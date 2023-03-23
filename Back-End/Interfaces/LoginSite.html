@@ -1,0 +1,47 @@
+<script>
+    $("#loginButton").click(() => {
+
+        let name = $("#loginName").val();
+        let pw = $("#loginPassword").val();
+
+        if (name != "" || pw != ""){
+            $.getJSON(path += "Back-End/login.php", "loginName=" + name + "&loginPassword=" + pw, (data) => {
+
+                if (data.errorCode === "success!") {
+
+                    alert("Erfolgreich eingeloggt");
+
+                }
+
+            });
+        }
+        else {
+            alert("Benutzername und/oder Passwort nicht eingegeben");
+        }
+
+    })
+</script>
+
+<h1>Login</h1><br>
+        <label for='loginName'>Name: </label>
+        <input id='loginName' name='loginName'  minlength="5" maxlength="50" type='text' required><br><br>
+        <label for='loginPassword'>Passwort: </label>
+
+        <input id='loginPassword' name='loginPassword'  minlength="5" maxlength="50" type='password' required><br><br>
+        <button id='loginButton' name='loginButton'>Login</button>
+
+
+<br><br><br>
+
+
+<h1>Register</h1><br>
+        <label for="Data_PlayerName">Name</label>
+        <input type="text" id="Data_PlayerName" minlength="5" maxlength="50" name="DATA_PlayerName" required><br><br>
+
+        <label for="DATA_Password">Password</label>
+        <input type="password" id="DATA_Password" minlength="5" maxlength="50" name="DATA_Password" required><br><br>
+
+        <label for="DATA_RE_Password">Retype password</label>
+        <input type="password" id="DATA_RE_Password" minlength="5" maxlength="50" name="DATA_RE_Password" required><br><br>
+
+<button id='RegisterButton' name='loginButton'>Register</button>

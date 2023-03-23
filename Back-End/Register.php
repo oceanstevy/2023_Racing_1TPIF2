@@ -1,7 +1,7 @@
 
 <!--Created by Jann-->
 
-<form method="post">
+
 	
 	<label>
 		Name
@@ -21,8 +21,7 @@
 		<input type="password" maxlength="50" name="DATA_RE_Password" required >
 	</label>
     <br><br>
-	<button class="button-register" type="submit" name="BUTTON_Register">Register</button>
-</form>
+
 
 <?php
     require_once "Functions/Credentials.php";
