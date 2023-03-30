@@ -51,8 +51,6 @@
             clearInterval(timergame);
             timergame = setInterval("step()",50);
 
-            clearInterval(timerItemGenerator);
-            timerItemGenerator = setInterval("generateCoin()",500);
         });
     }
 
@@ -82,13 +80,9 @@
 
     // Generiert auf der Map eine Münze
     function generateCoin() {
-        // Aktuelle Chance: 10% pro Sekunde = timer(500ms) * (1 - 0.95)
-        if (getRandom(0,1) > 0.95){
-            let top = Math.floor(getRandom(100,window.innerHeight-100));
-            let left = Math.floor(getRandom(100,window.innerWidth-100));
-            $('#img').append("<img src='../Images/Coin.png' alt='coin' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>");
-        }
-
+        let top = Math.floor(getRandom(100,window.innerHeight-100));
+        let left = Math.floor(getRandom(100,window.innerWidth-100));
+        $('#img').append("<img src='../Images/Coin.png' alt='coin' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>");
     }
 
     // Checkt op ein Coin getroffen wurde | Funktioniert noch nicht zu 100%
@@ -115,13 +109,74 @@
 
 
     function step(){
-        // Ckeckt op Game status
-        CheckGameStatus();
-        //Wenn Gamestatus false (not running), dann macht er kein zug
         if (!GameStatusRunning){
             return
         }
 
+
+        // Eine Neue Fahrgschwindigkeit berechnen
+        LookCarControl();
+
+        // Eine neue Fahrtrichtung wird berechnet
+        GenerateNewDegre();
+
+        // Eine neue Position wird berechnet
+        GenerateNewPosition();
+
+        // Checkt on er ein Coin Berührt, wenn ein neuere Coin gibt
+        if ($( ".coins" ).length > 0){
+            CeckHitCoin();
+        }
+
+        // Generate a new coin
+        // Aktuelle Chance von: 10% pro Sekunde = timer(50ms) * (1 - 0.99)
+        if (getRandom(0,1) > 0.99){
+            generateCoin();
+        }
+
+
+        // Nur zum testen
+        document.getElementById('speedMeter').innerHTML = speed;
+        document.getElementById('xAchse').innerHTML = xAchse;
+    }
+
+    // Was drückt er
+    document.addEventListener('keydown', function(event) {
+        if (event.keyCode === 87) { //Press w
+            arrowW = "w";
+        }
+        else if (event.keyCode === 65) { //Press a
+            arrowA = "a";
+        }
+        else if (event.keyCode === 83) { //Press s
+            arrowS = "s";
+        }
+        else if (event.keyCode === 68) { //Press d
+            arrowD = "d";
+        }
+        else if (event.keyCode === 27) { //Press ESC
+            ChangeGameStatus();
+        }
+    }, true);
+
+    // Was hat er losgelassen
+    document.addEventListener('keyup', function(event) {
+        if (event.keyCode === 87) { //Press w
+            arrowW = "";
+        }
+        else if (event.keyCode === 65) { //Press a
+            arrowA = "";
+        }
+        else if (event.keyCode === 83) { //Press s
+            arrowS = "";
+        }
+        else if (event.keyCode === 68) { //Press d
+            arrowD = "";
+        }
+    }, true);
+
+
+    function LookCarControl() {
         //Wenn er "W" gedrückt hat wird er schneller
         if (arrowW === "w"){
             if (speed < 0){
@@ -209,8 +264,9 @@
                 }
             }
         }
+    }
 
-        // Eine neue Fahrtrichtung wird berechnet,
+    function GenerateNewDegre() {
         // Wenn er sich bewegt und lenkt
         if (xAchse !== 0 && speed !== 0){
             //XAchseControlCalc = maxspeed/maxxAchse*xAchse/speed
@@ -228,8 +284,10 @@
             //console.log(parseInt(document.getElementById("MyCar").style.transform.slice(7)));
             $( "#MyCar" )[0].style.transform = "rotate("+ deg +"deg)";
         }
+    }
 
-        // Eine neue Position wird berechnet,
+    function GenerateNewPosition(){
+
         // Wenn er sich bewegt
         if (speed !== 0){
             let positioncontrol = 10;
@@ -239,7 +297,6 @@
 
             //in welche richtung schaut das Fahrzeug
             deg = parseInt($("#MyCar")[0].style.transform.slice(7));
-
             deg = deg%360;
 
             if (deg < 0){
@@ -272,52 +329,8 @@
             // Neue Position wird bestimmt
             $( "#MyCar" )[0].style.top = top-toppixel +"px";
             $( "#MyCar" )[0].style.left = left+leftpixel+"px";
-
-            // Checkt on er ein Coin Berührt hat
-            CeckHitCoin();
-        }
-
-
-        // Nur zum testen
-        document.getElementById('speedMeter').innerHTML = speed;
-        document.getElementById('xAchse').innerHTML = xAchse;
+            }
     }
-
-    // Was drückt er
-    document.addEventListener('keydown', function(event) {
-        if (event.keyCode === 87) { //Press w
-            arrowW = "w";
-        }
-        else if (event.keyCode === 65) { //Press a
-            arrowA = "a";
-        }
-        else if (event.keyCode === 83) { //Press s
-            arrowS = "s";
-        }
-        else if (event.keyCode === 68) { //Press d
-            arrowD = "d";
-        }
-        else if (event.keyCode === 27) { //Press ESC
-            ChangeGameStatus();
-        }
-    }, true);
-
-    // Was hat er losgelassen
-    document.addEventListener('keyup', function(event) {
-        if (event.keyCode === 87) { //Press w
-            arrowW = "";
-        }
-        else if (event.keyCode === 65) { //Press a
-            arrowA = "";
-        }
-        else if (event.keyCode === 83) { //Press s
-            arrowS = "";
-        }
-        else if (event.keyCode === 68) { //Press d
-            arrowD = "";
-        }
-    }, true);
-
 </script>
 
 <img id="MyCar" src="../Images/Car_Police01.png">
