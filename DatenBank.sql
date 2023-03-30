@@ -35,7 +35,7 @@ ALTER TABLE tblPlayer
 #     ADD CONSTRAINT FK_PlayerPermissionGroup
 #         FOREIGN KEY (fiPermissionGroup) REFERENCES tblPermissionGroup(idPermissionGroup)
 #             ON UPDATE CASCADE;
-
+/* tblScore by Xu Yang */
 CREATE TABLE tblScore(
     idScore INT AUTO_INCREMENT PRIMARY KEY,
     dtScore INT NOT NULL,
