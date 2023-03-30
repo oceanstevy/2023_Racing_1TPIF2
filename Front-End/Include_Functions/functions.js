@@ -1,4 +1,4 @@
-let path = "http://localhost/Github/2023_Racing_1TPIF2/";
+let path = "../../";
 
 
 function getRandom(min, max) {
