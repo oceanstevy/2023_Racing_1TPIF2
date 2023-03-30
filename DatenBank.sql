@@ -26,7 +26,7 @@ CREATE TABLE tblChat (
     idChat INT AUTO_INCREMENT PRIMARY KEY,
     fiPlayer INT NOT NULL,
     dtMessage VARCHAR(255) NOT NULL,
-    dtTimestamp TIMESTAMP NOT NULL DEFAULT 1
+    dtTimestamp TIMESTAMP NOT NULL
 );
 
 ALTER TABLE tblPlayer
@@ -70,6 +70,9 @@ VALUES (50,100,150,-25,3,50,3);
 INSERT INTO tblPermissionGroup
 VALUES (NULL,'user'),
        (NULL,'admin');
+
+INSERT INTO tblPlayer
+VALUES (1,'Jonathan','42tg61Io2p1b6',1,1);
 
 # SELECT idCar, dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl
 # FROM tblCar
