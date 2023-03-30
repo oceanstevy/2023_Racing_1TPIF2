@@ -2,40 +2,44 @@
 	$_SESSION["user"] = "Johnny";
 	
 	//@author Scheer Nicolas
-	//Logout Button
 	
-	if (isset($_GET['logout'])) {
+	if (isset($_SESSION["user"])) {
 		
-		if ($_GET['logout'] == true) {
+		//Logout Button
+		
+		if (isset($_GET['logout'])) {
 			
-			logout();
+			if ($_GET['logout'] == true) {
+				
+				logout();
+				
+			}
+			
+			//Logout END
+			//Settings Button
+		} else if (isset($_GET['settings'])) {
+			
+			if ($_GET["settings"] == true) {
+				
+				settings();
+				
+			}
+			
+			//Settings Button End
+			
+		} else if ($_GET['play']) {
+			
+			if ($_GET['play'] == true) {
+				
+				play();
+				
+			}
+			
+		} else {
+			
+			error();
 			
 		}
-		
-		//Logout END
-		//Settings Button
-	} else if (isset($_GET['settings'])) {
-		
-		if ($_GET["settings"] == true) {
-			
-			settings();
-			
-		}
-		
-		//Settings Button End
-		
-	} else if ($_GET['play']) {
-		
-		if ($_GET['play'] == true) {
-			
-			play();
-			
-		}
-		
-	} else {
-		
-		error();
-		
 	}
 	
 	//	Function for logging out button
