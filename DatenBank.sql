@@ -3,7 +3,7 @@ CREATE TABLE tblPlayer(
     dtName VARCHAR(255) NOT NULL UNIQUE,
     dtPassword VARCHAR(255) NOT NULL,
     fiCar INT NOT NULL DEFAULT 1,
-    fiPermissionGroup TINYINT NOT NULL
+    fiPermissionGroup TINYINT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE tblCar(
