@@ -56,9 +56,10 @@
 
 	//Xu: START OF RANKING
 	$.get( path + "Back-End/Ranking.php"  , function(data){
-		$( "body" ).html( data );
+		$( "#ranking" ).html( data );
 
 	})
 	//END OF RANKING
 
 </script>
+<div id="ranking"></div>
