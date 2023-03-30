@@ -17,11 +17,11 @@
 	//	@author Scheer Nicolas
 	function logout()
 	{
+		echo json_encode(["errorCode" => "success!"]);
 		
 		session_destroy();
 		session_unset();
 		
-		echo json_encode(["errorCode" => "success!"]);
 		
 	}
 

@@ -5,5 +5,6 @@
 		
 		include "../Front-End/logout.html";
 		include "../Front-End/settings.html";
+		include "../Front-End/play.html";
 		
 	}
