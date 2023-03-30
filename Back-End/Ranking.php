@@ -11,7 +11,7 @@ if ($_GET['Action'] = "ranking"){
 
     $row = mysqli_fetch_assoc($result);
 
-    $output = "<table>
+    $output = "<table border='1px black solid'>
             <tr><th>Rank</th><th>Spieler</th><th>Punkte</th></tr>";
 
     for ($i = 1; $i <= 10; $i++){
@@ -22,7 +22,7 @@ if ($_GET['Action'] = "ranking"){
 
     $output .= "</table>";
 
-    echo json_encode (["errorCode" => "error!"]);
+    echo json_encode ($output);
 }
 
 
