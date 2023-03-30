@@ -7,7 +7,7 @@ if ($_GET['Action'] = "ranking"){
 
     $query = "SELECT * FROM tblScore ORDER BY dtScore";
 
-    $result = mysqli_result($query);
+    $result = mysqli_query($query);
 
     $row = mysqli_fetch_assoc($result);
 
