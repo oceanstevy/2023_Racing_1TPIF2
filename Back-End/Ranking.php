@@ -15,7 +15,7 @@ if ($_GET['Action'] = "ranking"){
             <tr><th>Rank</th><th>Spieler</th><th>Punkte</th></tr>";
 
     for ($i = 1; $i <= 10; $i++){
-        $output += "<tr><td>{$i}</td><td>{$row['dtName']}</td><td>{$row['dtScore']}</td></tr>";
+        $output += "<tr><td>{$i}</td><td>{$row['fiPlayer']}</td><td>{$row['dtScore']}</td></tr>";
     }
 
     $output += "</table>";
