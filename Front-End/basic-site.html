@@ -1,0 +1,57 @@
+<!-- @author Scheer Nicolas-->
+<!-- BUTTONS -->
+
+<button type="button" name="BUTTON_play" id="play" style="font-size:24px">Play
+	<span><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span></button>
+<button type="button" name="BUTTON_settings" id="settings" style="font-size:24px">Settings
+	<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
+<button type="button" name="BUTTON_logout" id="logout" style="font-size:24px">Logout
+	<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
+
+<script>
+	
+	//START OF LOGOUT
+	
+	$("#logout").click(() => {
+		
+		$.getJSON(path + "Back-End/basic-site.php", "logout=true", (data) => {
+			//informs user what happened to post
+			if (data.errorCode === "success!") {
+				
+				alert("Success!!");
+				
+			}
+			
+		});
+		
+	});
+	
+	//END OF LOGOUT
+	
+	//START OF SETTINGSBUTTON
+	
+	$("#settings").click(() => {
+		
+		$.getJSON(path + "Back-End/basic-site.php", "settings=true", (data) => {
+		
+		
+		});
+		
+	});
+	
+	//END OF SETTINGSBUTTON
+	
+	//START OF PLAYBUTTON
+	
+	$("#play").click(() => {
+		
+		$.getJSON(path + "Back-End/basic-site.php", "play=true", (data) => {
+		
+		
+		});
+		
+	});
+	
+	//END OF PLAYBUTTON
+
+</script>
