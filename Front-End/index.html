@@ -65,7 +65,16 @@
     //      --  Joni - Ende     --
 
 
+    // -- Chris - Begin --
+    function GetChatPage() {
+        $.get( path + "Front-End/chat.html"  , function(data){
+            $( "body" ).html( data );
 
+        })
+
+
+    }
+    // -- Chris - Ende --
 </script>
 <body>
 
