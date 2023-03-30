@@ -1,3 +1,4 @@
+<!--Autor: Christopher Pinetti-->
 <?php
 require 'Functions/Credentials.php';
 require 'Functions/Functions.php';
@@ -20,7 +21,9 @@ if (isset($_SESSION['user'])) {
             /*if both paramaters are set*/
             if ( isset( $_GET[ 'text' ] ) ) {
 
-                insertData($dbc, $_SESSION['user'], $_GET[ 'text' ]);
+                $currentTimestamp = date("Y-m-d H:i:s");
+
+                insertData($dbc, $_SESSION['user'], $_GET[ 'text' ],$currentTimestamp);
 
             }
         }
@@ -59,17 +62,17 @@ if (isset($_SESSION['user'])) {
     }
 
     /*gets database connection + name + teyt out of the get parameter*/
-    function insertData($dbc, $name , $text )
+    function insertData($dbc, $name , $text, $currentTimestamp)
     {
         /*defines insert query with both parameters we want to add*/
         $queryInsert = "INSERT INTO tblChat (fiPlayer, dtMessage, dtTimestamp)
-		                VALUES (?,?,CURRENT_TIMESTAMP)";
+		                VALUES (?,?,?)";
 
         /*sends queryframe to the database */
         $statement = $dbc->prepare($queryInsert);
 
         /*sets type for parameters and transfers variables*/
-        $statement->bind_param('ss',$name,$text);
+        $statement->bind_param('sss',$name,$text,$currentTimestamp);
 
         /*executes the query*/
         $statement->execute();

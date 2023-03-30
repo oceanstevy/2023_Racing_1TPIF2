@@ -19,7 +19,7 @@ CREATE TABLE tblCar(
 
 CREATE TABLE tblPermissionGroup (
     idPermissionGroup TINYINT AUTO_INCREMENT PRIMARY KEY,
-    dtGroupName VARCHAR NOT NULL
+    dtGroupName VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE tblChat (
