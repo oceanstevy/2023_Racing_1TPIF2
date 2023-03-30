@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-    <script src="Include_Functions/jquery.html"></script>
-    <script src="Include_Functions/functions.js"></script>
+    <script src="./Include_Functions/jquery.html"></script>
+    <script src="./Include_Functions/functions.js"></script>
 </head>
 <body>
 
@@ -26,7 +26,7 @@
         //save value from html objects into variables
         let text = $("#writeMessage").val();
         //immediately requests data from server, turned into JSON !!!Important on load() we wioll receive a text, we have to define what type it is!!!
-        $.getJSON("../Back-End/Chat.php", "executionType=write&text=" + text, (data) => {
+        $.get("../Back-End/Chat.php", "executionType=write&text=" + text, (data) => {
             //informs user what happened to post
             if (data.errorCode === "success!") {
 
@@ -41,7 +41,7 @@
     //if button #loadinfo => clicked, execute callback function
     $("#loadInfo").click(() => {
         //return value will always be in JSON format
-        $.getJSON("../Back-End/chat.php", "executionType=read", (data) => {
+        $.get("../Back-End/chat.php", "executionType=read", (data) => {
             //temporary variable to store html objects
             let tmp = "";
             //iterates through data array
