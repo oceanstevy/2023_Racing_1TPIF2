@@ -26,7 +26,7 @@ CREATE TABLE tblChat (
     idChat INT AUTO_INCREMENT PRIMARY KEY,
     fiPlayer INT NOT NULL,
     dtMessage VARCHAR(255) NOT NULL,
-    dtTimestamp TIMESTAMP NOT NULL
+    dtTimestamp TIMESTAMP NOT NULL DEFAULT 1
 );
 
 ALTER TABLE tblPlayer
@@ -41,8 +41,23 @@ ALTER TABLE tblChat
     ADD CONSTRAINT FK_ChatPlayer
         FOREIGN KEY (fiPlayer) REFERENCES tblPlayer(idPlayer)
             ON UPDATE CASCADE;
+# <<<<<<< HEAD
+# =======
+#     ADD CONSTRAINT FK_PlayerPermissionGroup
+#         FOREIGN KEY (fiPermissionGroup) REFERENCES tblPermissionGroup(idPermissionGroup)
+#             ON UPDATE CASCADE;
+/* tblScore by Xu Yang */
+CREATE TABLE tblScore(
+    idScore INT AUTO_INCREMENT PRIMARY KEY,
+    dtScore INT NOT NULL,
+    fiPlayer INT
+);
+# >>>>>>> a1347ad557509fb867909d3f0fc62c17f20b6a17
 
-
+ALTER TABLE tblScore
+    ADD CONSTRAINT FK_ScorePlayer
+    FOREIGN KEY (fiPlayer) REFERENCES tblPlayer (idPlayer)
+    ON UPDATE CASCADE ;
 
 
 
@@ -56,7 +71,7 @@ INSERT INTO tblPermissionGroup
 VALUES (NULL,'user'),
        (NULL,'admin');
 
-SELECT idCar, dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl
-FROM tblCar
-WHERE idCar = 1;
+# SELECT idCar, dtWidth, dtHeight, dtMaxSpeed, dtMaxBackSpeed, dtSpeedControl, dtMaxAchse, dtXAchsControl
+# FROM tblCar
+# WHERE idCar = 1;
 

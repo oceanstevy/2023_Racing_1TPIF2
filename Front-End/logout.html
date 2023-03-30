@@ -1,23 +1,23 @@
 
-	
-	<button type="button" name="BUTTON_logout" id="logout" style="font-size:24px">Logout
-		<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
+<!-- @author Scheer Nicolas-->
+<button type="button" name="BUTTON_logout" id="logout" style="font-size:24px">Logout
+	<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
 
+
+<script>
 	
-	<script>
-	
-		$("#logout").click(() => {
-			
-			$.getJSON("http://127.0.0.1/PIF/SocialMedia/SocialMedia.php", "executionType=write&name=" + name + "&text=" + text, (data) => {
-				//informs user what happened to post
-				if (data.errorCode === "success!") {
-					
-					alert("Success!!");
-					
-				}
-				
-			});
+	$("#logout").click(() => {
 		
+		$.getJSON(path + "Back-End/logout.php", "logout=true", (data) => {
+			//informs user what happened to post
+			if (data.errorCode === "success!") {
+				
+				alert("Success!!");
+				
+			}
+			
 		});
-	
-	</script>
+		
+	});
+
+</script>

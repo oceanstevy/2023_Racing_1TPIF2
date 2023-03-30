@@ -1,6 +1,6 @@
 <script>
     $("#loginButton").click(() => {
-
+        //Xu
         let name = $("#loginName").val();
         let pw = $("#loginPassword").val();
 
@@ -22,6 +22,27 @@
             alert("Benutzername und/oder Passwort nicht eingegeben");
         }
 
+    })
+
+    $("#RegisterButton").click(() => {
+            let name = $("#Data_PlayerName").val();
+            let pw = $("#DATA_Password").val();
+            let pwre = $("#DATA_RE_Password").val();
+            if (name != "" || pw != "" || pwre != ""){
+                    if (pw === pwre){
+                            $.getJSON(path + "Back-End/Interfaces/Register.php?RegisterName="+name+"&RegisterPassword="+pw+"&RegisterRePassword="+pwre+"&SeesionID="+getSessionIdFromCookies(), (registerdata) => {
+                                    if (registerdata.errorCode === "success!") {
+                                            GetMenuPage();
+                                    } else  {
+                                            alert("Error");
+                                    }
+
+                            });
+                    }
+            }
+            else {
+                    alert("Benutzername und/oder Passwort nicht eingegeben");
+            }
     })
 </script>
 
