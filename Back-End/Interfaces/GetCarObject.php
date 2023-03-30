@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+
 $_GET['SeesionID'] = 1;
 $_GET['CarID'] = 1;
 $_COOKIE['PHPSESSID'] = $_GET['SeesionID'];

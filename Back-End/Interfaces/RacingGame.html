@@ -1,7 +1,6 @@
 <script>
     //Fahrzeug wir generiert und Spiel wird gestartet
     let timergame = "";
-    let timerItemGenerator = "";
 
     let arrowW = "";
     let arrowA = "";
@@ -30,7 +29,6 @@
     function GameStart(){
 
         //Timer Definieren
-        console.log(path + "Back-End/Interfaces/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies());
         $.getJSON( path + "Back-End/Interfaces/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
 
             maxspeed = parseInt(data.maxspeed);
@@ -52,19 +50,6 @@
             timergame = setInterval("step()",50);
 
         });
-    }
-
-    //Check ob der Status geändert wurde, wenn ja. startet/stoppt er das Spiel
-    function CheckGameStatus() {
-        if (GameStatusRunning){
-           if (timerItemGenerator === null){
-               clearInterval(timerItemGenerator);
-               timerItemGenerator = setInterval("generateCoin()",500);
-           }
-        } else {
-            clearInterval(timerItemGenerator);
-            timerItemGenerator = null;
-        }
     }
 
     // Game status wird geändert und das PauseMenü kommt
@@ -331,6 +316,11 @@
             $( "#MyCar" )[0].style.left = left+leftpixel+"px";
             }
     }
+
+    function ExitGame(){
+        clearInterval(timergame);
+        GetMenuPage();
+    }
 </script>
 
 <img id="MyCar" src="../Images/Car_Police01.png">
@@ -356,6 +346,9 @@
         <br>
         <button onclick="ChangeGameStatus()">
             Weiter
+        </button>
+        <button onclick="ExitGame()">
+            Exit
         </button>
     </div>
 </div>
