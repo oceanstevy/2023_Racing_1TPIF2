@@ -1,4 +1,4 @@
-let path = "../../";
+let path = "../";
 
 
 function getRandom(min, max) {
