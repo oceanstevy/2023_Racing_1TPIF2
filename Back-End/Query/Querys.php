@@ -21,7 +21,7 @@
 	function showProfile() {
 		return"
     SELECT dtName
-        FROM tblplayer
+        FROM tblPlayer
         WHERE dtName = ?
     ";
 	}

@@ -8,7 +8,6 @@
 	require_once "Functions/Functions.php";
 	require_once  "Query/Querys.php";
 	
-	
 	echo  "You are logged in as: " .  $_SESSION['user'] . "<br><br>";
 
 //shows the Profile information for the user who is currently logged in.
