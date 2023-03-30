@@ -1,7 +1,7 @@
 <!--Autor: Christopher Pinetti-->
 <?php
-require 'Functions/Credentials.php';
-require 'Functions/Functions.php';
+require './Functions/Credentials.php';
+require './Functions/Functions.php';
 
 if (isset($_SESSION['user'])) {
     $dbc = db_Connect();
