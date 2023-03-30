@@ -9,20 +9,21 @@ if ($_GET['Action'] = "ranking"){
 
     $result = mysqli_query($connect, $query);
 
-    $row = mysqli_fetch_assoc($result);
+    $arrayFeed = [];
 
-    $output = "<table border='1px black solid'>
-            <tr><th>Rank</th><th>Spieler</th><th>Punkte</th></tr>";
+    for ($i = 1; $i <= mysqli_num_rows($result); $i++){
 
-    for ($i = 1; $i <= 10; $i++){
+        $row = mysqli_fetch_assoc($result);
 
-        $output .= "<tr><td>{$i}</td><td>{$row['fiPlayer']}</td><td>{$row['dtScore']}</td></tr>";
+        $arrayFeed[] = array (
+            "Rank" => $i ,
+            "Name" => $row[ 'fiPlayer' ] ,
+            "Score" => $row[ 'dtScore' ],
+        );
 
     }
 
-    $output .= "</table>";
-
-    echo json_encode ($output);
+    json_encode ($arrayFeed);
 }
 
 
