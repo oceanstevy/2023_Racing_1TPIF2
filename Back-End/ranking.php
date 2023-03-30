@@ -22,7 +22,7 @@ if ($_GET['Action'] = "ranking"){
 
     $output .= "</table>";
 
-    echo json_encode (["errorCode" => "success!"]);
+    echo json_encode ($output);
 }
 
 
