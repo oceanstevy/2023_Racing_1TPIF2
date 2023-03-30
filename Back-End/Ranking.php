@@ -1,7 +1,7 @@
 <?php
 require_once "Functions/Credentials.php";
 require_once "Functions/Functions.php";
-
+// Xu Yang
 if ($_GET['Action'] = "ranking"){
     $connect = db_Connect();
 
