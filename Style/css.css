@@ -12,7 +12,8 @@ h3{
 }
 .mapblock{
     position: fixed;
-    width: max-content
+    width: max-content;
+    transition-duration: 50ms;
 }
 .tiles{
     height: 100px;
@@ -24,7 +25,7 @@ h3{
     background-color: dimgrey;
     z-index: 1;
     transition-property: top, left;
-    transition-duration: 100ms;
+    transition-duration: 50ms;
 }
 #Tempomat{
     position: fixed;

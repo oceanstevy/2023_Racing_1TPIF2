@@ -17,6 +17,11 @@
     let arrowS = "";
     let arrowD = "";
 
+    //Map
+    let xtiles = 20;
+    let ytiles = 7;
+    let tilessize = 100;
+
     //Auto einstellungen
     let xAchse = 0;
     let speed = 0;
@@ -57,7 +62,7 @@
             $( "#MyCar" )[0].style.height = carheight+"px";
 
             clearInterval(timergame);
-            timergame = setInterval("step()",50);
+            timergame = setInterval("step()",25);
 
         });
     }
@@ -317,19 +322,61 @@
             map.push(data)
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: 700})
+            data.unshift({x: 0}, {y: tilessize * ytiles})
             map.push(data)
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: 1400})
+            data.unshift({x: 0}, {y: tilessize * ytiles * 2})
             map.push(data)
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: 2100})
+            data.unshift({x: 0}, {y: tilessize * ytiles * 3})
             map.push(data)
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: 2800})
+            data.unshift({x: 0}, {y: tilessize * ytiles * 4})
+            map.push(data)
+        });
+
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: tilessize * xtiles}, {y: 0})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles * 2})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles * 3})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles * 4})
+            map.push(data)
+        });
+
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: -(tilessize * xtiles)}, {y: 0})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 2})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 3})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 4})
             map.push(data)
         });
     }
@@ -337,15 +384,20 @@
     function GenerateMap() {
         let mapmodel = "";
         for (let i=0; i<map.length; i++){
-                mapmodel += "<div class='mapblock' style='top:"+ map[i][1].y+"px;right:"+map[i][0].x+"px'>"
-            for ( let j=2; j<map[i].length; j++ ) {
-                if ((j-1)%20 != 0){
-                    mapmodel += "<img class='tiles' src='"+map[i][j].src+"'>";
-                } else {
-                    mapmodel += "<img class='tiles' src='"+map[i][j].src+"'><br>";
+            if (window.innerHeight>map[i][1].y && map[i][1].y>-1000
+            || window.innerWidth>map[i][0].x && map[i][0].x>-1000) {
+                mapmodel += "<div class='mapblock' style='top:" + map[i][1].y + "px;right:" + map[i][0].x + "px'>"
+
+                for (let j = 2; j < map[i].length; j++) {
+                    if ((j - 1) % xtiles != 0) {
+                        mapmodel += "<img class='tiles' src='" + map[i][j].src + "'>";
+                    } else {
+                        mapmodel += "<img class='tiles' src='" + map[i][j].src + "'><br>";
+                    }
                 }
+                mapmodel += "</div>";
             }
-            mapmodel += "</div>";
+
         }
 
         document.getElementById("map").innerHTML = mapmodel;
