@@ -1,6 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kult Racing</title>
+    <link rel="stylesheet" href="../Style/css.css">
+    <script src="Include_Functions/jquery.html"></script>
+    <script src="Include_Functions/functions.js"></script>
+</head>
 <script>
     //Fahrzeug wir generiert und Spiel wird gestartet
     let timergame = "";
+    let map = [];
 
     let arrowW = "";
     let arrowA = "";
@@ -40,8 +50,8 @@
             carheight = parseInt(data.carheight);
 
             $( "#MyCar" )[0].style.transform = "rotate(0deg)";
-            $( "#MyCar" )[0].style.top = "200px";
-            $( "#MyCar" )[0].style.left = "300px";
+            $( "#MyCar" )[0].style.top = (window.innerHeight-carheight)/2 + "px";
+            $( "#MyCar" )[0].style.left = (window.innerWidth-carwidth)/2 + "px";
 
             $( "#MyCar" )[0].style.width = carwidth+"px";
             $( "#MyCar" )[0].style.height = carheight+"px";
@@ -51,6 +61,8 @@
 
         });
     }
+
+    LoadMap();
 
     // Game status wird geändert und das PauseMenü kommt
     function ChangeGameStatus(){
@@ -108,7 +120,9 @@
         // Eine neue Position wird berechnet
         GenerateNewPosition();
 
-        // Checkt on er ein Coin Berührt, wenn ein neuere Coin gibt
+        GenerateMap()
+
+        // Checkt on er ein Coin Berührt, wenn ein ein Coin gibt
         if ($( ".coins" ).length > 0){
             CeckHitCoin();
         }
@@ -116,7 +130,7 @@
         // Generate a new coin
         // Aktuelle Chance von: 10% pro Sekunde = timer(50ms) * (1 - 0.99)
         if (getRandom(0,1) > 0.99){
-            generateCoin();
+            //generateCoin();
         }
 
 
@@ -125,7 +139,7 @@
         document.getElementById('xAchse').innerHTML = xAchse;
     }
 
-    // Was drückt er
+    // Was drückt der Spieler
     document.addEventListener('keydown', function(event) {
         if (event.keyCode === 87) { //Press w
             arrowW = "w";
@@ -209,29 +223,55 @@
 
         //Wenn er "A" gedrückt hat, lenkt er nach Rechts
         if (arrowA === "a"){
-            if (xAchse > -maxxAchse){
-                if (xAchse > 0){
-                    xAchse=xAchse-xAchseControl*3
+            if (speed > 0){
+                if (xAchse > -maxxAchse){
+                    if (xAchse > 0){
+                        xAchse=xAchse-xAchseControl*3
+                    } else {
+                        xAchse=xAchse-xAchseControl
+                    }
                 } else {
-                    xAchse=xAchse-xAchseControl
+                    xAchse = -maxxAchse;
                 }
             } else {
-                xAchse = -maxxAchse;
+                if (xAchse > -maxxAchse){
+                    if (xAchse > 0){
+                        xAchse=xAchse+xAchseControl*3
+                    } else {
+                        xAchse=xAchse+xAchseControl
+                    }
+                } else {
+                    xAchse = +maxxAchse;
+                }
             }
+
 
         }
 
         //Wenn er "D" gedrückt hat, lenkt er nach links
         if (arrowD === "d"){
-            if (xAchse < maxxAchse){
-                if (xAchse < 0){
-                    xAchse=xAchse+xAchseControl*3
+            if (speed > 0){
+                if (xAchse < maxxAchse){
+                    if (xAchse < 0){
+                        xAchse=xAchse+xAchseControl*3
+                    } else {
+                        xAchse=xAchse+xAchseControl
+                    }
                 } else {
-                    xAchse=xAchse+xAchseControl
+                    xAchse = maxxAchse;
                 }
             } else {
-                xAchse = maxxAchse;
+                if (xAchse < maxxAchse){
+                    if (xAchse < 0){
+                        xAchse=xAchse-xAchseControl*3
+                    } else {
+                        xAchse=xAchse-xAchseControl
+                    }
+                } else {
+                    xAchse = -maxxAchse;
+                }
             }
+
         }
 
         //Wenn er kein "A + D" gedrückt hat, färt er gerade aus
@@ -271,17 +311,52 @@
         }
     }
 
-    function GenerateNewPosition(){
+    function LoadMap() {
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: 0}, {y: 0})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: 0}, {y: 700})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: 0}, {y: 1400})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: 0}, {y: 2100})
+            map.push(data)
+        });
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+            data.unshift({x: 0}, {y: 2800})
+            map.push(data)
+        });
+    }
 
-        // Wenn er sich bewegt
+    function GenerateMap() {
+        let mapmodel = "";
+        for (let i=0; i<map.length; i++){
+                mapmodel += "<div class='mapblock' style='top:"+ map[i][1].y+"px;right:"+map[i][0].x+"px'>"
+            for ( let j=2; j<map[i].length; j++ ) {
+                if ((j-1)%20 != 0){
+                    mapmodel += "<img class='tiles' src='"+map[i][j].src+"'>";
+                } else {
+                    mapmodel += "<img class='tiles' src='"+map[i][j].src+"'><br>";
+                }
+            }
+            mapmodel += "</div>";
+        }
+
+        document.getElementById("map").innerHTML = mapmodel;
+    }
+
+    function GenerateNewPosition(){
         if (speed !== 0){
             let positioncontrol = 10;
-            let pixel = 0;
-            let toppixel = 0;
-            let leftpixel = 0;
-
-            //in welche richtung schaut das Fahrzeug
+            let top,left;
             deg = parseInt($("#MyCar")[0].style.transform.slice(7));
+
             deg = deg%360;
 
             if (deg < 0){
@@ -291,30 +366,25 @@
 
             pixel = (deg%90)/0.9;
 
-            // Neue Position wird bestimmt
             if ((deg) < 90){
-                toppixel = (positioncontrol*speed/100)*((100-pixel)/100);
-                leftpixel = (positioncontrol*speed/100)*(pixel/100);
+                top = (positioncontrol*speed/100)*((100-pixel)/100);
+                left = (positioncontrol*speed/100)*(pixel/100);
             } else if ((deg) < 180){
-                leftpixel = (positioncontrol*speed/100)*((100-pixel)/100);
-                toppixel = -((positioncontrol*speed/100)*(pixel/100));
+                left = (positioncontrol*speed/100)*((100-pixel)/100);
+                top = -((positioncontrol*speed/100)*(pixel/100));
             } else if ((deg) < 270){
-                toppixel = -(positioncontrol*speed/100)*((100-pixel)/100);
-                leftpixel = -(positioncontrol*speed/100)*(pixel/100);
+                top = -(positioncontrol*speed/100)*((100-pixel)/100);
+                left = -(positioncontrol*speed/100)*(pixel/100);
             } else{
-                leftpixel = -(positioncontrol*speed/100)*((100-pixel)/100);
-                toppixel = ((positioncontrol*speed/100)*(pixel/100));
+                left = -(positioncontrol*speed/100)*((100-pixel)/100);
+                top = ((positioncontrol*speed/100)*(pixel/100));
             }
 
-
-            // Alte Position wird genommen
-            let top = parseFloat($( "#MyCar" )[0].style.top);
-            let left = parseFloat($( "#MyCar" )[0].style.left);
-
-            // Neue Position wird bestimmt
-            $( "#MyCar" )[0].style.top = top-toppixel +"px";
-            $( "#MyCar" )[0].style.left = left+leftpixel+"px";
+            for (let i=0; i<map.length; i++){
+                map[i][0].x = map[i][0].x + left;
+                map[i][1].y = map[i][1].y + top;
             }
+        }
     }
 
     function ExitGame(){
@@ -323,9 +393,11 @@
     }
 </script>
 
+<div id="map">
+
+</div>
+
 <img id="MyCar" src="../Images/Car_Police01.png">
-
-
 
 
 <div id="Tempomat">
@@ -352,3 +424,6 @@
         </button>
     </div>
 </div>
+<script>
+    GameStart();
+</script>

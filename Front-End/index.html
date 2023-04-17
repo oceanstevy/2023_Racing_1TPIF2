@@ -38,7 +38,7 @@
     //Login Page bekommen
     function GetLoginPage() {
         //Xu
-        $.get( path + "Back-End/Interfaces/LoginSite.html"  , function(data){
+        $.get( path + "Front-End/LoginSite.html"  , function(data){
             $( "body" ).html( data );
 
         })
@@ -57,7 +57,7 @@
     //Game Page bekommen
     //      --  Joni - Begin    --
     function GetGamePage() {
-        $.get( path + "Back-End/Interfaces/RacingGame.html"  , function(data){
+        $.get( path + "Front-End/RacingGame.html"  , function(data){
             $( "body" ).html( data );
 
             GameStart();

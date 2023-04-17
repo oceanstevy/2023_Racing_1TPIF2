@@ -776,8 +776,15 @@
                 output += "{<br>";
                 output += "    src: &quot;"+  map[id].src +"&quot;,<br>";
                 output += "    collison: "+map[id].collison +"<br>";
-                output += "},<br>";
+                if (i == tiles.length-1){
+                    output += "}";
+                } else {
+                    output += "},<br>";
+                }
+
             }
+
+            //let myJSON = JSON.stringify(output);
 
             $("#ArrayOutput").html(output);
         });

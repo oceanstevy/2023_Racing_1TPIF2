@@ -2,8 +2,22 @@
     margin: 0;
     padding: 0;
 }
+body {
+    overflow: hidden;
+}
 h3{
     font-size: 2.1rem;
+}
+#map{
+}
+.mapblock{
+    position: fixed;
+    width: max-content
+}
+.tiles{
+    height: 100px;
+    width: 100px;
+    margin-bottom: -4px;
 }
 #MyCar{
     position: fixed;
