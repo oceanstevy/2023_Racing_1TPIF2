@@ -15,11 +15,8 @@ session_start();
 		
 	// Check email: minlength, maxlength
 	if (strlen($Playerame) < 5 || strlen($Playerame) > 50) {
-		?>
-<!--		<script>-->
-<!--			alert('Name does not have the right Length')-->
-<!--		</script>-->
-		<?php
+
+        echo json_encode (["errorCode" => "Der Name ist nicht groß genug!"]);
 
 		exit();
 	}
@@ -34,7 +31,7 @@ session_start();
 
     if (mysqli_num_rows($result) != 0){
 
-        echo json_encode (["errorCode" => "error!"]);
+        echo json_encode (["errorCode" => "Es gibt schon ein Benuzer mit dem Namen!"]);
 
 		$dbc->close();
 		exit();
@@ -43,7 +40,7 @@ session_start();
 	// Check password: minlength, maxlength
 	if (strlen($password) < 5 || strlen($password) > 50) {
 
-        echo json_encode (["errorCode" => "error!"]);
+        echo json_encode (["errorCode" => "Das Passwort ist nicht groß genug!"]);
 
 		$dbc->close();
 		exit();
@@ -51,7 +48,7 @@ session_start();
 	// Check retypePassword: minlength, maxlength
 	if (strlen($retypePassword) < 5 || strlen($retypePassword) > 50) {
 
-        echo json_encode (["errorCode" => "error!"]);
+        echo json_encode (["errorCode" => "Das Passwort ist nicht groß genug!!"]);
 
 		$dbc->close();
 		exit();
@@ -59,7 +56,7 @@ session_start();
 
 	if ($password !== $retypePassword){
 
-        echo json_encode (["errorCode" => "error!"]);
+        echo json_encode (["errorCode" => "Die Passworter sind nicht gleich!"]);
 
 		$dbc->close();
 		exit();
@@ -75,7 +72,7 @@ session_start();
 
         $dbc->close();
 	} else {
-        echo json_encode (["errorCode" => "error!"]);
+        echo json_encode (["errorCode" => "Ein Fehler ist aufgetreten!"]);
 
         $dbc->close();
         exit();
