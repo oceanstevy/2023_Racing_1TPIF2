@@ -16,12 +16,13 @@
         height: max-content;
     }
     .mapblock{
-        position: relative;
+        height: 400px;
     }
     .tiles{
         height: 100px;
         width: 100px;
         margin-bottom: -4px;
+        position: absolute;
     }
     .tiles:hover{
         opacity: 0.5;
@@ -59,12 +60,15 @@
     #selectTiles img:hover{
         opacity: 0.5;
     }
-    #selectTiles2 img{
+    #selectTiles2 img:hover{
+        opacity: 0.5;
+    }
+    #selectTiles3 img{
         width: 50px;
         height: 50px;
         margin: -2px 0px;
     }
-    #selectTiles2 img:hover{
+    #selectTiles3 img:hover{
         opacity: 0.5;
     }
     .hitbox{
@@ -91,6 +95,9 @@
     <div id="selectTiles2">
 
     </div>
+    <div id="selectTiles3">
+
+    </div>
 </div>
 <button id="GetArray">Get Map</button>
 <div id="ArrayOutput">
@@ -106,569 +113,848 @@
     ]
 
     let map = [
-        "0px",
-        "0px",
+        "0xp",
+        "0xp",
         {
             src: "../Images/Town/Tileset_1.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_2.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_3.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_16.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_17.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_29.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_30.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_31.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_53.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_71.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_44.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_73.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_66.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_57.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_71.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_114.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Town/Tileset_73.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_5.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_6.png",
-            collison: false
+            collison: false,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
+            collison: true,
+            x: 1,
+            y: 1
         },
         {
             src: "../Images/Street/Tileset_15.png",
-            collison: true
-        }
-    ];
+            collison: true,
+            x: 1,
+            y: 1
+        }]
 
 
 //tile = {
@@ -677,16 +963,37 @@
 //}
 
 //map.push(tile);
-
+    let placeSet = [];
     function generateMap() {
+        let counter = 1;
+        let counterx = 0;
+        let countery = 0;
+        let jumps = 1;
+
         let mapmodel = "<div class='mapblock' style='top:"+map[0]+";left:"+map[1]+"'>"
         for ( let i=2; i<map.length; i++ ) {
-            if ((i-1)%20 != 0){
-                mapmodel += "<img class='tiles' id='"+i+"' src='"+map[i].src+"'>";
-            } else {
-                mapmodel += "<img class='tiles' id='"+i+"' src='"+map[i].src+"'><br>";
+            if (map[i].y > 1){
+                placeSet[i+20] = map[i].y;
             }
 
+            if (placeSet[i+jumps] != null){
+                let number = parseInt(placeSet[i+jumps]);
+                counter += number
+                countery += number
+                jumps += number
+            }
+
+            mapmodel += "<img class='tiles' style='width: "+50*map[i].x+"px;height: "+50*map[i].y+"px;top: "+50*counterx+"px;left: "+50*countery+"px' id='"+i+"' src='"+map[i].src+"'>";
+
+
+            if (counter%20 != 0){
+                countery += parseInt(map[i].x)
+            } else {
+                countery = 0;
+                counterx++
+            }
+
+            counter += parseInt(map[i].x)
         }
         mapmodel += "</div>";
 
@@ -697,7 +1004,6 @@
     }
     function generateMapWithHitBox() {
         let mapmodel = "<div class='mapblock' style='top:"+map[0]+";left:"+map[1]+"'>"
-
         for ( let i=2; i<map.length; i++ ) {
             if ((i-1)%20 != 0){
                 mapmodel += "<img class='tiles' id='"+i+"' src='"+map[i].src+"'><p class='hitbox'>"+map[i].collison+"</p>";
@@ -718,17 +1024,51 @@
     //}
     for ( let k=1; k<=169; k++ ) {
         if (k%13==0){
-            $("#selectTiles").append("<img class='showTiles' src='../Images/Street/Tileset_"+ k +".png'><br>")
+            $("#selectTiles").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Street/Tileset_"+ k +".png'><br>")
         } else {
-            $("#selectTiles").append("<img class='showTiles' src='../Images/Street/Tileset_"+ k +".png'>")
+            $("#selectTiles").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Street/Tileset_"+ k +".png'>")
         }
     }
 
-    for ( let k=1; k<=224; k++ ) {
+
+    let SpeczialTyles = [
+        true,
+        [
+            2,
+            2
+        ],
+        [
+            1,
+            2
+        ],
+        [
+            2,
+            1
+        ],
+        [
+            2,
+            2
+        ],
+        [
+            2,
+            2
+        ],
+    ]
+
+    for ( let k=1; k<SpeczialTyles.length; k++ ) {
+
         if (k%14==0){
-            $("#selectTiles2").append("<img class='showTiles' src='../Images/Town/Tileset_"+ k +".png'><br>")
+            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTyles[k][0]+"px;height: "+50*SpeczialTyles[k][1]+"px' data-sizex='"+SpeczialTyles[k][0]+"'  data-sizey='"+SpeczialTyles[k][1]+"'  src='../Images/Street/Special_"+ k +".png'><br>")
         } else {
-            $("#selectTiles2").append("<img class='showTiles' src='../Images/Town/Tileset_"+ k +".png'>")
+            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTyles[k][0]+"px;height: "+50*SpeczialTyles[k][1]+"px' data-sizex='"+SpeczialTyles[k][0]+"'  data-sizey='"+SpeczialTyles[k][1]+"' src='../Images/Street/Special_"+ k +".png'>")
+        }
+    }
+
+    for ( let k=1; k<=169; k++ ) {
+        if (k%13==0){
+            $("#selectTiles3").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Town/Tileset_"+ k +".png'><br>")
+        } else {
+            $("#selectTiles3").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Town/Tileset_"+ k +".png'>")
         }
     }
 
@@ -743,7 +1083,25 @@
                 generateMapWithHitBox();
             } else {
 
-                map[id].src = $('#edit #saveimg').attr('src');
+                let savex = $('#edit #saveimg').attr('data-sizex');
+                let savey = $('#edit #saveimg').attr('data-sizey');
+
+                if ((savex * savey) === 1){
+                    map[id].src = $('#edit #saveimg').attr('src');
+                } else {
+                    map[id].src = $('#edit #saveimg').attr('src');
+                    map[id].x = savex
+                    map[id].y = savey
+
+                    if (savex>1){
+                        map.splice(id+1, savex-1)
+                    }
+
+                    if (savey>1) {
+                        map.splice(id+19, savey)
+                    }
+
+                }
 
                 generateMap();
             }
@@ -751,8 +1109,12 @@
 
         $(".showTiles").click(function() {
             let savesrc = $(this).attr('src');
+            let savex = $(this).attr('data-sizex');
+            let savey = $(this).attr('data-sizey');
 
             $('#edit #saveimg').attr('src', savesrc);
+            $('#edit #saveimg').attr('data-sizex', savex);
+            $('#edit #saveimg').attr('data-sizey', savey);
         });
 
         $("#saveimg").click(function() {
@@ -768,14 +1130,16 @@
         });
 
         $('#GetArray').click(function (){
-            let output = "";
+            let output = "0px,<br>0px,<br>";
             let tiles = $(".tiles");
             for ( let i=0; i<tiles.length; i++ ) {
                 let id = $(tiles[i]).attr('id');
 
                 output += "{<br>";
                 output += "    src: &quot;"+  map[id].src +"&quot;,<br>";
-                output += "    collison: "+map[id].collison +"<br>";
+                output += "    collison: "+map[id].collison +",<br>";
+                output += "    x: 1,<br>";
+                output += "    y: 1<br>";
                 if (i == tiles.length-1){
                     output += "}";
                 } else {
@@ -784,9 +1148,9 @@
 
             }
 
-            //let myJSON = JSON.stringify(output);
+            let myJSON = JSON.stringify(map);
 
-            $("#ArrayOutput").html(output);
+            $("#ArrayOutput").html(myJSON);
         });
     }
 
