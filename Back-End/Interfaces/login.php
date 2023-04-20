@@ -31,7 +31,6 @@ if (isset($_GET['loginName']) && isset($_GET['loginPassword'])){
                 //Falls alles richtig ist, wird der Benutzer eingeloggt
                 echo json_encode (["errorCode" => "success!"]);
                 $_SESSION['user'] = $row['dtName'];
-				echo $_SESSION["user"];
             }
             else{
                 //Falsches Passwort
