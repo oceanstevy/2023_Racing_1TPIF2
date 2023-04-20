@@ -17,7 +17,7 @@ header('Content-Type: application/json; charset=utf-8');
         if ($i <= 10){
             $row = mysqli_fetch_assoc($result);
 
-            $arrayFeed[$i] = array (
+            $arrayFeed[] = array (
                 "Rank" => $i ,
                 "Name" => $row[ 'fiPlayer' ] ,
                 "Score" => $row[ 'dtScore' ],
