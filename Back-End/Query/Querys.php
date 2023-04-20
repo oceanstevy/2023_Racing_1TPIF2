@@ -26,3 +26,7 @@
     ";
 	}
 //	--------------------------------------------------
+// XU:
+    function createRank(){
+        return "SELECT * FROM tblScore ORDER BY dtScore";
+    }
