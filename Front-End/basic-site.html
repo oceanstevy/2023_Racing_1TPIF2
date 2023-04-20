@@ -75,19 +75,10 @@
 	});
 	
 	//END OF CHATBUTTON
-<<<<<<< Updated upstream
-
-
-	// //Xu: START OF RANKING
-	$.get( path + "Back-End/Interfaces/ranking.php"  , function(data){
-		console.log(data)
-		for (var i = 0;i < data.length;i++){
-=======
 	
 	//Xu: START OF RANKING
 	$.get(path + "Back-End/ranking.php", function (data) {
 		for (var i = 1; i <= data.length; i++) {
->>>>>>> Stashed changes
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
 		
