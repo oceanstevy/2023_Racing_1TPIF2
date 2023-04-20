@@ -25,4 +25,11 @@
         WHERE dtName = ?
     ";
 	}
+	function updatePassword(){
+		return "
+    UPDATE tblBenutzer
+    SET dtPasswort = ?
+    WHERE idEMail = ?
+    ";
+	}
 //	--------------------------------------------------
