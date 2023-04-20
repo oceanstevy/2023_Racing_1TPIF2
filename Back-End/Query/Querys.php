@@ -37,6 +37,6 @@
 
 // XU:
     function createRank(){
-        return "SELECT * FROM tblScore ORDER BY dtScore DESC";
+        return "SELECT * FROM tblScore LEFT JOIN tblPlayer ON fiPlayer = idPlayer ORDER BY dtScore DESC";
     }
 
