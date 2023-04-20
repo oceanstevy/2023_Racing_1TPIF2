@@ -19,7 +19,7 @@ header('Content-Type: application/json; charset=utf-8');
 
             $arrayFeed[] = array (
                 "Rank" => $i ,
-                "Name" => $row[ 'fiPlayer' ] ,
+                "Name" => $row[ 'dtName' ] ,
                 "Score" => $row[ 'dtScore' ],
             );
         }
