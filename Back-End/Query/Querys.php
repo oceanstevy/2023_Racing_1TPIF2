@@ -25,6 +25,7 @@
         WHERE dtName = ?
     ";
 	}
+<<<<<<< HEAD
 	function updatePassword(){
 		return "
     UPDATE tblBenutzer
@@ -33,3 +34,10 @@
     ";
 	}
 //	--------------------------------------------------
+=======
+//	--------------------------------------------------
+// XU:
+    function createRank(){
+        return "SELECT * FROM tblScore ORDER BY dtScore";
+    }
+>>>>>>> 5c5a7099c12c300af6280f49155a33e130a73c0f

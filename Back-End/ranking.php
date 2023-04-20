@@ -1,11 +1,12 @@
 <?php
 require_once "Functions/Credentials.php";
 require_once "Functions/Functions.php";
+require_once "Query/Querys.php";
 // Xu Yang
 if ($_GET['Action'] = "ranking"){
     $connect = db_Connect();
 
-    $query = "SELECT * FROM tblScore ORDER BY dtScore";
+    $query = createRank();
 
     $result = mysqli_query($connect, $query);
 
