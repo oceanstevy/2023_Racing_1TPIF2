@@ -1,5 +1,4 @@
 <?php
-	$_SESSION["user"] = "Johnny";
 	
 	//@author Scheer Nicolas
 	
@@ -8,12 +7,8 @@
 		//Logout Button
 		
 		if (isset($_GET['logout'])) {
-			
-			if ($_GET['logout'] == true) {
 				
 				logout();
-				
-			}
 			
 			//Logout END
 			//Settings Button
