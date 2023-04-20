@@ -957,44 +957,42 @@
         }]
 
 
-//tile = {
-//    src: path+"Images/Street/Tileset_17.png",
-//    collison: false
-//}
+    //tile = {
+    //    src: path+"Images/Street/Tileset_17.png",
+    //    collison: false
+    //}
 
-//map.push(tile);
+    //map.push(tile);
     let placeSet = [];
     function generateMap() {
+        let k = 0
         let counter = 1;
-        let counterx = 0;
-        let countery = 0;
-        let jumps = 1;
+        let jumps = [
+            0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0
+        ];
 
         let mapmodel = "<div class='mapblock' style='top:"+map[0]+";left:"+map[1]+"'>"
-        for ( let i=2; i<map.length; i++ ) {
-            if (map[i].y > 1){
-                placeSet[i+20] = map[i].y;
+            for (let j=0; j<=jumps.length; j++){
+                for ( let row=0; row<=19; row++) {
+                    k = (j*20)+row+2;
+                    if(k < 142){
+                        console.log(jumps);
+
+                        mapmodel += "<img class='tiles' style='width: " + 50 * map[k].x + "px;height: " + 50 * map[k].y + "px;top: " + 50 * j + "px;left: " + 50 * row + "px' id='" + k + "' src='" + map[k].src + "'>";
+
+
+                        if (map[k].x > 1){
+                            for ( let m=0; m<=map[k].x; m++) {
+                                jumps[row+m+1] = jumps[row+m+1] + parseInt(map[k].y)
+                            }
+                        } else {
+                            jumps[row] = jumps[row] + parseInt(map[k].y);
+                        }
+                    }
+
+                }
+
             }
-
-            if (placeSet[i+jumps] != null){
-                let number = parseInt(placeSet[i+jumps]);
-                counter += number
-                countery += number
-                jumps += number
-            }
-
-            mapmodel += "<img class='tiles' style='width: "+50*map[i].x+"px;height: "+50*map[i].y+"px;top: "+50*counterx+"px;left: "+50*countery+"px' id='"+i+"' src='"+map[i].src+"'>";
-
-
-            if (counter%20 != 0){
-                countery += parseInt(map[i].x)
-            } else {
-                countery = 0;
-                counterx++
-            }
-
-            counter += parseInt(map[i].x)
-        }
         mapmodel += "</div>";
 
         document.getElementById("map").innerHTML = mapmodel;
