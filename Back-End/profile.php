@@ -37,10 +37,18 @@
 <label for="DATA_Password">Passwort</label><br>
 <input type="text" id="DATA_Password"><br>
 <label for="DATA_RePassword">Passwort bestätigen</label><br>
-<input type="text" id="ReDATA_Password"><br>
+<input type="text" id="ReDATA_Password">
 <button type="button" id="CONFIRM_Info">Save</button>
 
-
+<script>
+	//if button is pressed
+	$("#CONFIRM_Info").click(() => {
+		
+		$("#CONFIRM_Info")
+		
+		alert('worked')
+	});
+</script>
 
 <?php
 
