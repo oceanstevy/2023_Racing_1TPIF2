@@ -8,7 +8,6 @@
 		
 
 		echo json_encode(["errorCode" => "success!"]);
-		$.removeCookie('');
 		//Logout END
 		//Settings Button
 	} else if (isset($_GET['settings'])) {
