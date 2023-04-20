@@ -22,8 +22,8 @@
 			
 		} else {
 			//Check ob ein UserName in Seiner Session ist
-			$.getJSON(path + "Back-End/Interfaces/CheckSession.php?SeesionID=" + getSessionIdFromCookies(), function (Seesion) {
-				if (!Seesion['check']) {
+			$.getJSON(path + "Back-End/Interfaces/CheckSession.php?SeesionID=" + getSessionIdFromCookies(), function (Session) {
+				if (!Session['check']) {
 					GetLoginPage();
 				} else {
 					GetMenuPage();
@@ -52,7 +52,15 @@
 			
 		})
 	}
-	
+
+	//Profile change User
+	//      -- Jann - Begin     --
+	function GetProfileUser() {
+		$.get(path + "Front-End/profile.html", function (data) {
+			$("body").html(data);
+			
+		})
+	}
 	
 	//Game Page bekommen
 	//      --  Joni - Begin    --
