@@ -15,16 +15,12 @@
 	//START OF LOGOUT
 	
 	$("#logout").click(() => {
-		
-		$.getJSON(path + "Back-End/basic-site.php", "logout=true", (data) => {
-			//informs user what happened to post
-			if (data.errorCode === "success!") {
-				
-				alert("Success!!");
-				
-			}
-			
-		});
+		alert("success");
+		// $.getJSON(path + "Back-End/basic-site.php", "logout=true", (data) => {
+		//
+		// 	alert("success");
+		//
+		// });
 		
 	});
 	
@@ -46,10 +42,7 @@
 	
 	$("#play").click(() => {
 		
-		//$.getJSON(path + "Back-End/basic-site.php", "play=true", (data) => {
-		
-		
-		//});
+
 		GetGamePage();
 
 		

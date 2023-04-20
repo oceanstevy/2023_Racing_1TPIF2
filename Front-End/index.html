@@ -1,91 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Kult Racing</title>
-    <link rel="stylesheet" href="../Style/css.css">
-    <script src="Include_Functions/jquery.html"></script>
-    <script src="Include_Functions/functions.js"></script>
+	<meta charset="UTF-8">
+	<title>Kult Racing</title>
+	<link rel="stylesheet" href="../Style/css.css">
+	<script src="Include_Functions/jquery.html"></script>
+	<script src="Include_Functions/functions.js"></script>
 </head>
 <script>
-    //      --  Joni - Begin    --
-    // Beim laden der Seite
-    $( document ).ready(()=>{
-        //Checken ob der Benutzter schon eine cookie besitzt für die Seite
-        if (hasNoCookies()){
-            //Erstelle eine session auf dem Server
-            $.get( path + "Back-End/Interfaces/GetASession.php"  , function(cookie){
-
-            })
-
-            GetLoginPage();
-
-        } else {
-            //Check ob ein UserName in Seiner Session ist
-            $.getJSON( path + "Back-End/Interfaces/CheckSession.php?SeesionID="+getSessionIdFromCookies()  , function(Seesion){
-                if (!Seesion['check']){
-                    GetLoginPage();
-                } else {
-                    GetMenuPage();
-                }
-            })
-
-        }
-
-    });
-    //      --  Joni - Ende     --
-
-    //Login Page bekommen
-    function GetLoginPage() {
-        //Xu
-        $.get( path + "Front-End/LoginSite.html"  , function(data){
-            $( "body" ).html( data );
-
-        })
-
-    }
-
-    //Menu Page bekommen
-    function GetMenuPage() {
-	    $.get( path + "Front-End/basic-site.html"  , function(data){
-		    $( "body" ).html( data );
+	//      --  Joni - Begin    --
+	// Beim laden der Seite
+	$(document).ready(() => {
+		//Checken ob der Benutzter schon eine cookie besitzt für die Seite
+		if (hasNoCookies()) {
+			//Erstelle eine session auf dem Server
+			$.get(path + "Back-End/Interfaces/GetASession.php", function (cookie) {
+			
+			})
+			
+			GetLoginPage();
+			
+		} else {
+			//Check ob ein UserName in Seiner Session ist
+			$.getJSON(path + "Back-End/Interfaces/CheckSession.php?SeesionID=" + getSessionIdFromCookies(), function (Seesion) {
+				if (!Seesion['check']) {
+					GetLoginPage();
+				} else {
+					GetMenuPage();
+				}
+			})
+			
+		}
 		
-	    })
-    }
-
-
-    //Game Page bekommen
-    //      --  Joni - Begin    --
-    function GetGamePage() {
-        $.get( path + "Front-End/RacingGame.html"  , function(data){
-            $( "body" ).html( data );
-
-            GameStart();
-
-        })
-
-
-    }
-    //      --  Joni - Ende     --
-
-
-    // -- Chris - Begin --
-    function GetChatPage() {
-        $.get( path + "Front-End/chat.html"  , function(data){
-            $( "body" ).html( data );
-
-        })
-
-
-    }
-    // -- Chris - Ende --
+	});
+	//      --  Joni - Ende     --
+	
+	//Login Page bekommen
+	function GetLoginPage() {
+		//Xu
+		$.get(path + "Front-End/LoginSite.html", function (data) {
+			$("body").html(data);
+			
+		})
+		
+	}
+	
+	//Menu Page bekommen
+	function GetMenuPage() {
+		$.get(path + "Front-End/basic-site.html", function (data) {
+			$("body").html(data);
+			
+		})
+	}
+	
+	
+	//Game Page bekommen
+	//      --  Joni - Begin    --
+	function GetGamePage() {
+		$.get(path + "Front-End/RacingGame.html", function (data) {
+			$("body").html(data);
+			
+			GameStart();
+			
+		})
+		
+		
+	}
+	
+	//      --  Joni - Ende     --
+	
+	
+	// -- Chris - Begin --
+	function GetChatPage() {
+		$.get(path + "Front-End/chat.html", function (data) {
+			$("body").html(data);
+			
+		})
+		
+		
+	}
+	
+	// -- Chris - Ende --
 </script>
 <body>
-
-
-
-
-
 
 
 </body>

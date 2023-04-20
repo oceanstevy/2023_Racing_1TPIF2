@@ -1,4 +1,5 @@
 <?php
+	echo $_SESSION["user"];
 	
 	//@author Scheer Nicolas
 	
@@ -7,8 +8,10 @@
 		//Logout Button
 		
 		if (isset($_GET['logout'])) {
-				
-				logout();
+			
+			session_destroy();
+			session_unset();
+			echo json_encode(["errorCode" => "success!"]);
 			
 			//Logout END
 			//Settings Button
@@ -35,18 +38,6 @@
 			error();
 			
 		}
-	}
-	
-	//	Function for logging out button
-	//	@author Scheer Nicolas
-	function logout()
-	{
-		echo json_encode(["errorCode" => "success!"]);
-		
-		session_destroy();
-		session_unset();
-		
-		
 	}
 	
 	//Function for Settingsbutton
