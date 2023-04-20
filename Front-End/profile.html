@@ -9,15 +9,17 @@
 	<script src="Include_Functions/jquery.html"></script>
 	<script src="Include_Functions/functions.js"></script>
 	<script>
+		// includes profile.php
 		$.get( path + "Back-End/profile.php"  , function(data){
 			$( "body" ).html( data );
 			
 		})
 		
+		//if button is pressed
 		$("#CONFIRM_Info").click(() => {
 			
 			
-			GetGamePage();
+			alert('it worked');
 			
 			
 		});
@@ -27,6 +29,11 @@
 </head>
 <body>
 
+<label for="DATA_Password">Passwort</label><br>
+<input type="text" id="DATA_Password"><br>
+<label for="DATA_RePassword">Passwort bestätigen</label><br>
+<input type="text" id="DATA_RePassword"><br>
+<button type="button" id="CONFIRM_Info">Save</button>
 
 </body>
 </html>
