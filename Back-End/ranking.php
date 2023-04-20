@@ -12,7 +12,7 @@ if ($_GET['Action'] = "ranking"){
     $arrayFeed = [];
 
     for ($i = 1; $i <= mysqli_num_rows($result); $i++){
-        if ($i <= 10){
+        if ($i >= 10){
             $row = mysqli_fetch_assoc($result);
 
             $arrayFeed[] = array (
