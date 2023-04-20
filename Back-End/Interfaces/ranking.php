@@ -11,7 +11,7 @@ header('Content-Type: application/json; charset=utf-8');
 
     $result = mysqli_query($connect, $query);
 
-    $arrayFeed = [];
+    $arrayFeed = "";
 
     for ($i = 1; $i <= mysqli_num_rows($result); $i++){
         if ($i <= 10){
