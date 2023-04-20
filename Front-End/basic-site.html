@@ -9,12 +9,16 @@
 	<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
 <button type="button" name="BUTTON_logout" id="logout" style="font-size:24px">Logout
 	<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
-<button type="button" name="BUTTON_logout" id="profile" style="font-size:24px">Profile
+<button type="button" name="BUTTON_profile" id="profile" style="font-size:24px">Profile
 	<span><img src="../Images/profile_symbol.png" alt="Logout Symbol" width="24px"></span></button>
 <div id="ranking">
 	<table id="rank" border="1px solid black">
-		<tr><th>Rang</th><th>Spieler</th><th>Punkte</th></tr>
-
+		<tr>
+			<th>Rang</th>
+			<th>Spieler</th>
+			<th>Punkte</th>
+		</tr>
+	
 	</table>
 </div>
 <script>
@@ -27,12 +31,11 @@
 			
 			if (data.errorCode === "success!") {
 				
-				$.removeCookie('PHPSESSID');
+					$.removeCookie("PHPSESSID");
+					// $.cookie('PHPSESSID');
+				
 				alert("Success!!");
-
 			}
-			console.log(data);
-		
 		});
 		
 	});
@@ -44,7 +47,7 @@
 	$("#settings").click(() => {
 		
 		$.getJSON(path + "Back-End/basic-site.php", "settings=true", (data) => {
-
+			
 		});
 		
 	});
@@ -55,32 +58,39 @@
 	
 	$("#play").click(() => {
 		
-
+		
 		GetGamePage();
-
+		
 		
 	});
 	
 	//END OF PLAYBUTTON
-
+	
 	//Chris: START OF CHATBUTTON
-
+	
 	$("#chat").click(() => {
-
+		
 		GetChatPage();
-
+		
 	});
-
+	
 	//END OF CHATBUTTON
+<<<<<<< Updated upstream
 
 
 	// //Xu: START OF RANKING
 	$.get( path + "Back-End/Interfaces/ranking.php"  , function(data){
 		console.log(data)
 		for (var i = 0;i < data.length;i++){
+=======
+	
+	//Xu: START OF RANKING
+	$.get(path + "Back-End/ranking.php", function (data) {
+		for (var i = 1; i <= data.length; i++) {
+>>>>>>> Stashed changes
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
-
+		
 	})
 	// //END OF RANKING
 	
