@@ -8,9 +8,7 @@
 		
 
 		echo json_encode(["errorCode" => "success!"]);
-//		session_unset();
-		$_SESSION["check"] = false;
-		
+		$.removeCookie('');
 		//Logout END
 		//Settings Button
 	} else if (isset($_GET['settings'])) {
