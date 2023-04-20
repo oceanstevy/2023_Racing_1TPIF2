@@ -12,15 +12,15 @@ if ($_GET['Action'] = "ranking"){
     $arrayFeed = [];
 
     for ($i = 1; $i <= mysqli_num_rows($result); $i++){
+        if ($i <= 10){
+            $row = mysqli_fetch_assoc($result);
 
-        $row = mysqli_fetch_assoc($result);
-
-        $arrayFeed[] = array (
-            "Rank" => $i ,
-            "Name" => $row[ 'fiPlayer' ] ,
-            "Score" => $row[ 'dtScore' ],
-        );
-
+            $arrayFeed[] = array (
+                "Rank" => $i ,
+                "Name" => $row[ 'fiPlayer' ] ,
+                "Score" => $row[ 'dtScore' ],
+            );
+        }
     }
 
     json_encode ($arrayFeed);
