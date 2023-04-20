@@ -38,7 +38,7 @@
 <input type="text" id="DATA_Password"><br>
 <label for="DATA_RePassword"></label>
 <input type="text" id="ReDATA_Password"><br>
-<button type="button" id="CONFIRM_Info">Save</button>
+<button type="submit" id="CONFIRM_Info">Save</button>
 
 
 
