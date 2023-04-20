@@ -1,9 +1,10 @@
 <?php
-require_once "Functions/Credentials.php";
-require_once "Functions/Functions.php";
-require_once "Query/Querys.php";
+require_once "../Functions/Credentials.php";
+require_once "../Functions/Functions.php";
+require_once "../Query/Querys.php";
 // Xu Yang
-if ($_GET['Action'] = "ranking"){
+header('Content-Type: application/json; charset=utf-8');
+
     $connect = db_Connect();
 
     $query = createRank();
@@ -13,10 +14,10 @@ if ($_GET['Action'] = "ranking"){
     $arrayFeed = [];
 
     for ($i = 1; $i <= mysqli_num_rows($result); $i++){
-        if ($i >= 10){
+        if ($i <= 10){
             $row = mysqli_fetch_assoc($result);
 
-            $arrayFeed[$i] = array (
+            $arrayFeed[] = array (
                 "Rank" => $i ,
                 "Name" => $row[ 'fiPlayer' ] ,
                 "Score" => $row[ 'dtScore' ],
@@ -25,7 +26,7 @@ if ($_GET['Action'] = "ranking"){
     }
 
     echo json_encode ($arrayFeed);
-}
+
 
 
 

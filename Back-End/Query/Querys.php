@@ -37,6 +37,6 @@
 
 // XU:
     function createRank(){
-        return "SELECT * FROM tblScore ORDER BY dtScore";
+        return "SELECT * FROM tblScore ORDER BY dtScore DESC";
     }
 
