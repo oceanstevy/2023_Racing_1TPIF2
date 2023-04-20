@@ -2,8 +2,15 @@
 <html lang="en">
 <script>
     $.get( path + "Back-End/Ranking.php"  , function(data){
-        $( "body" ).html( data );
-
+        for (var i = 0;i <= data.length;i++){
+            $("#rank").html("<tr><td>" + data[i]["Rank"] + "<td><td>" + data[i]["Name"] + "<td><td>" + data[i]["Score"] + "<td></th>");
+        }
     })
 </script>
+<body>
+    <table id="rank">
+        <tr><th>Rang</th><th>Spieler</th><th>Punkte</th></tr>
+
+    </table>
+</body>
 </html>
