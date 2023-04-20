@@ -23,7 +23,7 @@ if ($_GET['Action'] = "ranking"){
         }
     }
 
-    json_encode ($arrayFeed);
+    echo json_encode ($arrayFeed);
 }
 
 
