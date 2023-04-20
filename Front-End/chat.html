@@ -4,20 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-    <script src="./Include_Functions/jquery.html"></script>
-    <script src="./Include_Functions/functions.js"></script>
+<!--    <script src="./Include_Functions/jquery.html"></script>-->
+<!--    <script src="./Include_Functions/functions.js"></script>-->
 </head>
 <body>
 
-<label for = "writeMessage">Text:</label>
-<input type = "text" name = "test" class = "form-control" id = "writeMessage" required>
-<button type = "button" id = "sendInfo">Send</button>
-<button type = "button" id = "loadInfo">Load</button>
+<label for="writeMessage">Text:</label>
+<input type="text" name="DATA_message" class="form-control" id="writeMessage" required>
+<button type="button" id="sendInfo">Send</button>
+<button type="button" id="loadInfo">Load</button>
 
-<div id = "container">
-
-
-</div>
+<div id="container"></div>
 
 </body>
 <script>
@@ -25,9 +22,11 @@
     $("#sendInfo").click(() => {
         //save value from html objects into variables
         let text = $("#writeMessage").val();
-        //immediately requests data from server, turned into JSON !!!Important on load() we wioll receive a text, we have to define what type it is!!!
-        $.get("../Back-End/Chat.php", "executionType=write&text=" + text, (data) => {
+        // alert(text);
+        //immediately requests data from server, turned into JSON !!!Important on load() we will receive a text, we have to define what type it is!!!
+        $.get(path + "Back-End/Chat.php", "executionType=write&text=" + text, (data) => {
             //informs user what happened to post
+            alert(data);
             if (data.errorCode === "success!") {
 
                 alert("Success!!");
@@ -40,20 +39,18 @@
 
     //if button #loadinfo => clicked, execute callback function
     $("#loadInfo").click(() => {
-        //return value will always be in JSON format
-        $.get("../Back-End/chat.php", "executionType=read", (data) => {
+        // return value will always be in JSON format
+        $.get(path + "Back-End/chat.php", "executionType=read", (data) => {
             //temporary variable to store html objects
             let tmp = "";
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                tmp += "<h5>Name:" + data[i].Name + "</h5><br><p>" + data[i].Text + "</p><br><br>";
+                tmp += "<p><span>" + data[i].Name + ":</span> " + data[i].Text + "</p><br><br>";
 
             }
             //set content of #container to tmp
             $("#container").html(tmp);
-            //insert/append content of #container to tmp (likely not to use)
-            // $("#container").append(tmp);
 
         });
 
