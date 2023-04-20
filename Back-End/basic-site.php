@@ -1,44 +1,42 @@
 <?php
-	echo $_SESSION["user"];
-	
 	//@author Scheer Nicolas
 	
-	if (isset($_SESSION["user"])) {
+	
+	//Logout Button
+	
+	if (isset($_GET['logout'])) {
 		
-		//Logout Button
+
+		echo json_encode(["errorCode" => "success!"]);
+//		session_unset();
+		$_SESSION["check"] = false;
 		
-		if (isset($_GET['logout'])) {
+		//Logout END
+		//Settings Button
+	} else if (isset($_GET['settings'])) {
+		
+		if ($_GET["settings"] == true) {
 			
-			session_destroy();
-			session_unset();
-			echo json_encode(["errorCode" => "success!"]);
-			
-			//Logout END
-			//Settings Button
-		} else if (isset($_GET['settings'])) {
-			
-			if ($_GET["settings"] == true) {
-				
-				settings();
-				
-			}
-			
-			//Settings Button End
-			
-		} else if ($_GET['play']) {
-			
-			if ($_GET['play'] == true) {
-				
-				play();
-				
-			}
-			
-		} else {
-			
-			error();
+			settings();
 			
 		}
+		
+		//Settings Button End
+		
+	} else if ($_GET['play']) {
+		
+		if ($_GET['play'] == true) {
+			
+			play();
+			
+		}
+		
+	} else {
+		
+		error();
+		
 	}
+	
 	
 	//Function for Settingsbutton
 	//	@author Scheer Nicolas
