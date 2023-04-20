@@ -68,7 +68,7 @@
 	//Xu: START OF RANKING
 	$.get( path + "Back-End/Ranking.php"  , function(data){
 		for (var i = 1;i <= data.length;i++){
-			$("#rank").append("<tr><td>" + data[i]["Rank"] + "<td><td>" + data[i]["Name"] + "<td><td>" + data[i]["Score"] + "<td></th>");
+			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></th>");
 		}
 
 	})
