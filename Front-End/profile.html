@@ -9,11 +9,6 @@
 	<script src="Include_Functions/jquery.html"></script>
 	<script src="Include_Functions/functions.js"></script>
 	<script>
-		// includes profile.php
-		$.get( path + "Back-End/profile.php"  , function(data){
-			$( "body" ).html( data );
-			
-		})
 		
 		//if button is pressed
 		$("#CONFIRM_Info").click(() => {
@@ -23,6 +18,16 @@
 			
 			
 		});
+		
+		
+		// includes profile.php
+		$.get( path + "Back-End/profile.php"  , function(data){
+			$( "body" ).html( data );
+			
+		})
+		
+	
+		
 		
 		
 	</script>
