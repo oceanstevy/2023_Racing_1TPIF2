@@ -25,4 +25,18 @@
         WHERE dtName = ?
     ";
 	}
+
+	function updatePassword(){
+		return "
+    UPDATE tblBenutzer
+    SET dtPasswort = ?
+    WHERE idEMail = ?
+    ";
+	}
 //	--------------------------------------------------
+
+// XU:
+    function createRank(){
+        return "SELECT * FROM tblScore ORDER BY dtScore";
+    }
+
