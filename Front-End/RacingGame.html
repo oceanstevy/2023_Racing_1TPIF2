@@ -372,6 +372,7 @@
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
             data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 4})
             map.push(data)
+            console.log(data);
         });
     }
 
@@ -380,22 +381,37 @@
         for (let i=0; i<map.length; i++){
             if (window.innerHeight>map[i][1].y && map[i][1].y>-(ytiles*tilessize)
             || window.innerWidth>map[i][0].x && map[i][0].x>-(ytiles*tilessize)) {
-                mapmodel += "<div class='mapblock' style='top:" + map[i][1].y + "px;right:" + map[i][0].x + "px'>"
+                let k = 0
+                let counter = 0;
+                let jumps = [
+                    0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+                ];
+                mapmodel += "<div class='mapblock' style='top:"+map[i][1].y+"px ;left:"+map[i][0].x+"px '>"
+                for (let row=0; row<=6; row++){
 
-                for (let j = 2; j < map[i].length; j++) {
-                    if ((j - 1) % xtiles != 0) {
-                        mapmodel += "<img class='tiles' src='" + map[i][j].src + "'>";
-                    } else {
-                        mapmodel += "<img class='tiles' src='" + map[i][j].src + "'><br>";
+                    for ( let j=0; j<=19; j++) {
+                        k = (row*20)+j+2-counter;
+                        if (jumps[j] === row){
+                            if (map[i][k] != null){
+                                mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
+
+                                for ( let m=0; m<map[i][k].x; m++) {
+                                    jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+                                }
+                            }
+                        } else {
+                            counter++
+                        }
                     }
                 }
+
                 mapmodel += "</div>";
             }
 
         }
 
         changeMap = false
-        document.getElementById("map").innerHTML = mapmodel;
+        document.getElementById("Playground").innerHTML = mapmodel;
     }
 
     function GenerateNewPosition(){
@@ -415,15 +431,15 @@
 
             if ((deg) < 90){
                 top = (positioncontrol*speed/100)*((100-pixel)/100);
-                left = (positioncontrol*speed/100)*(pixel/100);
+                left = -(positioncontrol*speed/100)*(pixel/100);
             } else if ((deg) < 180){
-                left = (positioncontrol*speed/100)*((100-pixel)/100);
+                left = -(positioncontrol*speed/100)*((100-pixel)/100);
                 top = -((positioncontrol*speed/100)*(pixel/100));
             } else if ((deg) < 270){
                 top = -(positioncontrol*speed/100)*((100-pixel)/100);
-                left = -(positioncontrol*speed/100)*(pixel/100);
+                left = (positioncontrol*speed/100)*(pixel/100);
             } else{
-                left = -(positioncontrol*speed/100)*((100-pixel)/100);
+                left =  (positioncontrol*speed/100)*((100-pixel)/100);
                 top = ((positioncontrol*speed/100)*(pixel/100));
             }
 
@@ -441,7 +457,7 @@
     }
 </script>
 
-<div id="map">
+<div id="Playground">
 
 </div>
 

@@ -71,6 +71,10 @@
     #selectTiles3 img:hover{
         opacity: 0.5;
     }
+
+    #selectTiles4 img:hover{
+        opacity: 0.5;
+    }
     .hitbox{
         display: inline-block;
         position: relative;
@@ -79,7 +83,7 @@
         width: 25px;
     }
 </style>
-<body onload="generateMap()">
+<body onload="getmap()">
 <div id="map">
 
 </div>
@@ -98,6 +102,9 @@
     <div id="selectTiles3">
 
     </div>
+    <div id="selectTiles4">
+
+    </div>
 </div>
 <button id="GetArray">Get Map</button>
 <div id="ArrayOutput">
@@ -105,11 +112,17 @@
 </div>
 
 <script>
-    let map
-    $.getJSON(path + "Back-End/Maps/map00.json", function (data) {
-        data.unshift({x: 0}, {y: 0})
-        map = data
-    });
+    let map = [];
+    function getmap() {
+        $.getJSON(path + "Back-End/Maps/map00.json", function (data) {
+
+            data.unshift({x: 0}, {y: 0})
+            map = data
+            generateMap()
+        });
+
+    }
+
 
 
 
@@ -128,7 +141,7 @@
 
                 for ( let j=0; j<=19; j++) {
                     k = (row*20)+j+2-counter;
-                    if (jumps[j] == row){
+                    if (jumps[j] === row){
                         if (map[k] != null){
                             mapmodel += "<img class='tiles' style='width: " + 50 * map[k].x + "px;height: " + 50 * map[k].y + "px;top: " + 50 * row + "px;left: " + 50 * j + "px' id='" + k + "' src='" + map[k].src + "'>";
 
@@ -178,14 +191,10 @@
     }
 
 
-    let SpeczialTyles = [
+    let SpeczialTylesStreet = [
         true,
         [
             2,
-            2
-        ],
-        [
-            1,
             2
         ],
         [
@@ -193,6 +202,10 @@
             1
         ],
         [
+            1,
+            2
+        ],
+        [
             2,
             2
         ],
@@ -200,14 +213,42 @@
             2,
             2
         ],
+        [
+            4,
+            2
+        ],
+        [
+            8,
+            2
+        ],
+        [
+            4,
+            1
+        ],
+        [
+            8,
+            1
+        ],
+        [
+            4,
+            7
+        ],
+        [
+            4,
+            2
+        ],
+        [
+            8,
+            2
+        ]
     ]
 
-    for ( let k=1; k<SpeczialTyles.length; k++ ) {
+    for ( let k=1; k<SpeczialTylesStreet.length; k++ ) {
 
         if (k%14==0){
-            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTyles[k][0]+"px;height: "+50*SpeczialTyles[k][1]+"px' data-sizex='"+SpeczialTyles[k][0]+"'  data-sizey='"+SpeczialTyles[k][1]+"'  src='../Images/Street/Special_"+ k +".png'><br>")
+            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTylesStreet[k][0]+"px;height: "+50*SpeczialTylesStreet[k][1]+"px' data-sizex='"+SpeczialTylesStreet[k][0]+"'  data-sizey='"+SpeczialTylesStreet[k][1]+"'  src='../Images/Street/Special_"+ k +".png'><br>")
         } else {
-            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTyles[k][0]+"px;height: "+50*SpeczialTyles[k][1]+"px' data-sizex='"+SpeczialTyles[k][0]+"'  data-sizey='"+SpeczialTyles[k][1]+"' src='../Images/Street/Special_"+ k +".png'>")
+            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTylesStreet[k][0]+"px;height: "+50*SpeczialTylesStreet[k][1]+"px' data-sizex='"+SpeczialTylesStreet[k][0]+"'  data-sizey='"+SpeczialTylesStreet[k][1]+"' src='../Images/Street/Special_"+ k +".png'>")
         }
     }
 
@@ -216,6 +257,31 @@
             $("#selectTiles3").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Town/Tileset_"+ k +".png'><br>")
         } else {
             $("#selectTiles3").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Town/Tileset_"+ k +".png'>")
+        }
+    }
+
+    let SpeczialTylesTown = [
+        true,
+        [
+            3,
+            2
+        ],
+        [
+            3,
+            3
+        ],
+        [
+            3,
+            5
+        ],
+    ]
+
+    for ( let k=1; k<SpeczialTylesTown.length; k++ ) {
+
+        if (k%14==0){
+            $("#selectTiles4").append("<img class='showTiles' style='width: "+50*SpeczialTylesTown[k][0]+"px;height: "+50*SpeczialTylesTown[k][1]+"px' data-sizex='"+SpeczialTylesTown[k][0]+"'  data-sizey='"+SpeczialTylesTown[k][1]+"'  src='../Images/Town/Special_"+ k +".png'><br>")
+        } else {
+            $("#selectTiles4").append("<img class='showTiles' style='width: "+50*SpeczialTylesTown[k][0]+"px;height: "+50*SpeczialTylesTown[k][1]+"px' data-sizex='"+SpeczialTylesTown[k][0]+"'  data-sizey='"+SpeczialTylesTown[k][1]+"' src='../Images/Town/Special_"+ k +".png'>")
         }
     }
 
@@ -230,33 +296,72 @@
                 generateMapWithHitBox();
             } else {
 
+
                 let savex = $('#edit #saveimg').attr('data-sizex');
                 let savey = $('#edit #saveimg').attr('data-sizey');
 
                 if ((savex * savey) === 1){
                     map[id].src = $('#edit #saveimg').attr('src');
                 } else {
+                    if (savey>1) {
+
+
+                        for (let i=savey;i>1;i--){
+                            let jumps = [
+                                0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+                            ];
+                            let n = 1;
+                            console.log("id:", id);
+                            let tile = 2;
+                            let row = 0;
+                            let tilenumber = 0;
+
+                            while ((n)/(i-1) < 20) {
+                                //console.log("row:", row);
+                                //console.log("tilenumber:", tilenumber);
+                                if (jumps[tilenumber] === row) {
+                                    if (map[tile] != null) {
+                                        if (id < tile) {
+                                            n++
+                                        }
+                                        //console.log("tile:", tile);
+                                        //console.log("x:", parseInt(map[tile].x));
+
+                                        for ( let m=0; m<map[tile].x; m++) {
+                                            jumps[tilenumber+m] = jumps[tilenumber+m] + parseInt(map[tile].y);
+                                        }
+                                        tile++
+                                        tilenumber++
+                                    }
+                                } else {
+                                    tilenumber++;
+                                    if (id < tile) {
+                                        n++
+                                    }
+                                }
+
+                                if (tilenumber > 19){
+                                    row++
+                                    tilenumber=0
+                                }
+                                //console.log("n:", n)
+                                //console.log("tile:", tile);
+                                //console.log("x:", parseInt(map[tile].x));
+                                //console.log("----------");
+                            }
+                            console.log(tile);
+                            map.splice(tile,savex);
+                        }
+                    }
+
                     map[id].src = $('#edit #saveimg').attr('src');
                     map[id].x = savex
                     map[id].y = savey
 
+
                     if (savex>1){
                         map.splice(id+1, savex-1)
                     }
-
-                    if (savey>1) {
-                        let count1 = 0;
-                        let count2 = 0;
-                        while (count1 < 20){
-                            count1 += parseInt(map[id+count1].x);
-                            console.log(count1);
-                            count2++
-                        }
-                        console.log(id+count2)
-                        map.splice(id+count2, savey)
-                    }
-
-
 
 
                 }
@@ -294,10 +399,10 @@
                 let id = $(tiles[i]).attr('id');
 
                 output += "{<br>";
-                output += "    src: &quot;"+  map[id].src +"&quot;,<br>";
-                output += "    collison: "+map[id].collison +",<br>";
-                output += "    x: 1,<br>";
-                output += "    y: 1<br>";
+                output += "    &quotsrc&quot: &quot;"+  map[id].src +"&quot;,<br>";
+                output += "    &quotcollison&quot: "+map[id].collison +",<br>";
+                output += "    &quotx&quot: 1,<br>";
+                output += "    &quoty&quot: 1<br>";
                 if (i == tiles.length-1){
                     output += "}";
                 } else {

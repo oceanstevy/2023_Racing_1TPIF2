@@ -18,6 +18,7 @@ h3{
 .tiles{
     height: 100px;
     width: 100px;
+    position: absolute;
     margin-bottom: -4px;
 }
 #MyCar{
