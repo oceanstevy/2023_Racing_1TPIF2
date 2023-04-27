@@ -14,9 +14,9 @@
 <div id="ranking">
 	<table id="rank" border="1px solid black">
 		<tr>
-			<th>Rang</th>
-			<th>Spieler</th>
-			<th>Punkte</th>
+			<th class="th">Rang</th>
+			<th class="th">Spieler</th>
+			<th class="th">Punkte</th>
 		</tr>
 	
 	</table>
@@ -97,6 +97,11 @@
 		}
 
 	})
+	$.get("https://www.thecolorapi.com/id?rgb=rgb(255,0,0)" ,function (color){
+		$(".th").css("color", "#FF0000");
+		//color.hex.value
+	})
+
 	// //END OF RANKING
 	
 	//Jann: START OF PROFILE
