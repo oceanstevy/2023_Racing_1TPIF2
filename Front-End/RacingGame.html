@@ -380,7 +380,7 @@
         let mapmodel = "";
         for (let i=0; i<map.length; i++){
             if (window.innerHeight>map[i][1].y && map[i][1].y>-(ytiles*tilessize)
-            || window.innerWidth>map[i][0].x && map[i][0].x>-(ytiles*tilessize)) {
+            || window.innerWidth>map[i][0].x && map[i][0].x>-(xtiles*tilessize)) {
                 let k = 0
                 let counter = 0;
                 let jumps = [
@@ -461,13 +461,23 @@
         let y = map[0][1].y;
         let carX = parseInt($( "#MyCar" )[0].style.left);
         let carY = parseInt($( "#MyCar" )[0].style.top);
+        console.log("-----");
         for (let i=0; i<map.length; i++){
-            if ( carY >map[i][1].y && carY<map[i][1].y+(ytiles*tilessize)
-                && carX>map[i][0].x && carX<map[i][0].x+(ytiles*tilessize)) {
-
-                for (let j=0; j<map.length; j++){
+            if (map[i][0].x < carX && carX < (map[i][0].x + (tilessize*xtiles))
+                && map[i][1].y < carY && carY < (map[i][1].y + (tilessize*ytiles))) {
+                console.log(i);
+                let j = 0;
+                let mapFound = false;
+                while (!mapFound){
+                    console.log(j);
                     if (map[j][1].y === map[i][1].y-(ytiles*tilessize)){
+                        mapFound = true;
+                    }
 
+                        j++
+
+                    if (map.length === j){
+                        mapFound = true;
                     }
                 }
 
@@ -475,7 +485,6 @@
                 y = tilessize * ytiles
             }
         }
-
     }
 
 </script>
