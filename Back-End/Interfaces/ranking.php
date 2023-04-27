@@ -2,7 +2,7 @@
 require_once "../Functions/Credentials.php";
 require_once "../Functions/Functions.php";
 require_once "../Query/Querys.php";
-// Xu Yang
+// Created by Xu
 header('Content-Type: application/json; charset=utf-8');
 
     $connect = db_Connect();
