@@ -25,6 +25,13 @@
 
 </div>
 <script>
+	function SetRNColor() {
+		$(document).ready(function () {
+			$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
+				$("th").css("color", color.hex.value);
+			})
+		});
+	}
 	
 	//START OF LOGOUT
 	
@@ -97,13 +104,7 @@
 		}
 		SetRNColor();
 	})
-	function SetRNColor() {
-		$(document).ready(function () {
-			$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
-				$("th").css("color", color.hex.value);
-			})
-		});
-	}
+
 	// //END OF RANKING
 	
 	//Jann: START OF PROFILE
