@@ -38,7 +38,9 @@
 <input type="text" id="DATA_Password"><br>
 <label for="DATA_RePassword">Passwort bestätigen</label><br>
 <input type="text" id="ReDATA_Password">
-<button type="button" id="CONFIRM_Info">Save</button>
+<button type="button" id="CONFIRM_Info">Save</button><br><br><br>
+<button type="button" id="BACK_Home">Back</button>
+
 
 <script>
 	//if button is pressed
@@ -48,7 +50,7 @@
 			ReDATA_Password: $("#ReDATA_Password").val()
 		};
 		$.get("../Back-End/profilePWCheck.php", data, (response) => {
-			alert(response);
+			alert('response');
 			
 		});
 		const jsonData = JSON.stringify(data);

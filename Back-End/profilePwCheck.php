@@ -1,6 +1,6 @@
 <?php
 	
-				if (isset($_GET['DATA_Password'], $_GET['DATA_Re_Password'])) {
+				if (isset($_GET['DATA_Password'], $_GET['ReDATA_Password'])) {
 					$dbc = db_Connect();
 				$password_u = $_GET[ 'DATA_Password' ];
 				$retypePassword_u = $_GET[ 'DATA_Re-Password' ];
