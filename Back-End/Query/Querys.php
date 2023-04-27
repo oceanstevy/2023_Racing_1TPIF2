@@ -25,12 +25,12 @@
         WHERE dtName = ?
     ";
 	}
-
+//Update Pw
 	function updatePassword(){
 		return "
-    UPDATE tblBenutzer
-    SET dtPasswort = ?
-    WHERE idEMail = ?
+    UPDATE tblPlayer
+    SET dtPassword = ?
+    WHERE dtName = ?
     ";
 	}
 //	--------------------------------------------------

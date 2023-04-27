@@ -50,7 +50,7 @@
 			ReDATA_Password: $("#ReDATA_Password").val()
 		};
 		$.get("../Back-End/profilePWCheck.php", data, (response) => {
-			alert('response');
+			alert(response);
 			
 		});
 		const jsonData = JSON.stringify(data);
