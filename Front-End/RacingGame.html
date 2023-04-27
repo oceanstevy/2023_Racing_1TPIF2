@@ -443,10 +443,9 @@
                 top = ((positioncontrol*speed/100)*(pixel/100));
             }
 
-            console.log(left , top)
             for (let i=0; i<map.length; i++){
-                map[i][0].x = (Math.round((map[i][0].x + left)*100))/100;
-                map[i][1].y = (Math.round((map[i][1].y + top)*100))/100;
+                map[i][0].x = Math.floor(map[i][0].x + left);
+                map[i][1].y = Math.floor(map[i][1].y + top);
                 changeMap = true
             }
         }
@@ -457,7 +456,28 @@
         GetMenuPage();
     }
 
-    LockForNewMapModel();
+    function LockForNewMapModel(){
+        let x = map[0][0].x;
+        let y = map[0][1].y;
+        let carX = parseInt($( "#MyCar" )[0].style.left);
+        let carY = parseInt($( "#MyCar" )[0].style.top);
+        for (let i=0; i<map.length; i++){
+            if ( carY >map[i][1].y && carY<map[i][1].y+(ytiles*tilessize)
+                && carX>map[i][0].x && carX<map[i][0].x+(ytiles*tilessize)) {
+
+                for (let j=0; j<map.length; j++){
+                    if (map[j][1].y === map[i][1].y-(ytiles*tilessize)){
+
+                    }
+                }
+
+                x = tilessize * xtiles
+                y = tilessize * ytiles
+            }
+        }
+
+    }
+
 </script>
 
 <div id="Playground">
