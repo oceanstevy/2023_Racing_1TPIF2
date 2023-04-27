@@ -25,11 +25,7 @@
 
 </div>
 <script>
-	function SetRNColor() {
-		$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
-			$("th").css("color", color.hex.value);
-		})
-	}
+
 	
 	//START OF LOGOUT
 	
@@ -97,6 +93,11 @@
 	//Xu: START OF RANKING
 	$.get( path + "Back-End/Interfaces/ranking.php"  , function(data){
 		console.log(data)
+		function SetRNColor() {
+			$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
+				$("th").css("color", color.hex.value);
+			})
+		}
 		for (var i = 0;i < data.length;i++){
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
