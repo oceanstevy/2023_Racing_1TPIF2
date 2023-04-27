@@ -13,7 +13,7 @@
 	<span><img src="../Images/profile_symbol.png" alt="Logout Symbol" width="24px"></span></button>
 <div id="ranking">
 	<table id="rank" border="1px solid black">
-		<tr>
+		<tr id="tableHeader">
 			<th class="th">Rang</th>
 			<th class="th">Spieler</th>
 			<th class="th">Punkte</th>
@@ -25,7 +25,13 @@
 
 </div>
 <script>
-
+	//Xu : Start of Color API
+	function SetRNColor() {
+		$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
+			$("#tableHeader").css("color", color.hex.value);
+		})
+	}
+	//end of color API
 	
 	//START OF LOGOUT
 	
