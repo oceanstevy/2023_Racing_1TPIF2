@@ -3,18 +3,22 @@
 <?php
 require './Functions/Credentials.php';
 require './Functions/Functions.php';
+require  "Query/Querys.php";
 
 $dbc = db_Connect();
+
+//echo $_SESSION['user'];
+
 /*if get is set*/
 if (isset($_GET['executionType'])) {
 
 
     /*is get read?*/
-//        if ( $_GET[ 'executionType' ] == "read" ) {
-//
-////            showData($dbc);
-//
-//        }
+        if ( $_GET[ 'executionType' ] == "read" ) {
+
+            showData($dbc);
+
+        }
     /*is get write?*/
     if ($_GET['executionType'] == "write") {
 
@@ -30,9 +34,11 @@ if (isset($_GET['executionType'])) {
 /*shows the content of the database*/
 function showData($dbc)
 {
-    $queryNewFeed = "SELECT * FROM tblChat";
+    $queryNewFeed = "SELECT * FROM tblChat ORDER BY idChat DESC";
 
     $result = mysqli_query($dbc, $queryNewFeed);
+
+//    print_r($result);
 
     $arrayFeed = array();
 
@@ -51,6 +57,7 @@ function showData($dbc)
         );
 
     }
+//    print_r($arrayFeed);
     /*converts array to json*/
     echo json_encode($arrayFeed);
 
@@ -63,17 +70,25 @@ function showData($dbc)
 function insertData($dbc)
 {
 //    echo $dbc . "; " . $name . "; " . $text . "; " . $currentTimestamp;
-    $currentTimestamp = date("Y-m-d H:i:s");
-    $text = $_GET['text'];
+//    $currentTimestamp = date("Y-m-d H:i:s");
+//    $text = $_GET['text'];
     $name = $_SESSION['user'];
 
+    $queryGetUserID = "SELECT idPlayer
+                        FROM tblPlayer
+                        WHERE dtName = $name";
+
+    $userID = mysqli_query($dbc, $queryGetUserID);
+
+    print_r($userID);
+
     /*defines insert query with both parameters we want to add*/
-    $queryInsert = "INSERT INTO tblChat (fiPlayer, dtMessage, dtTimestamp)
-		                VALUES ($name,$text,$currentTimestamp)";
+//    $queryInsert = "INSERT INTO tblChat (fiPlayer, dtMessage, dtTimestamp)
+//		                VALUES (4,$text,$currentTimestamp)";
+//
+//    mysqli_query($dbc, $queryInsert);
 
-    mysqli_query($dbc, $queryInsert);
-
-    /*sends queryframe to the database */
+//    /*sends queryframe to the database */
 //    $statement = $dbc->prepare($queryInsert);
 //
 //    /*sets type for parameters and transfers variables*/

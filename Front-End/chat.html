@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-<!--    <script src="./Include_Functions/jquery.html"></script>-->
-<!--    <script src="./Include_Functions/functions.js"></script>-->
+<!--    <script src="Include_Functions/jquery.html"></script>-->
+<!--    <script src="Include_Functions/functions.js"></script>-->
 </head>
 <body>
 
@@ -46,7 +46,7 @@
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                tmp += "<p><span>" + data[i].Name + ":</span> " + data[i].Text + "</p><br><br>";
+                tmp += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
 
             }
             //set content of #container to tmp
