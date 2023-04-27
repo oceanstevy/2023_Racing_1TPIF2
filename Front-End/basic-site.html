@@ -36,26 +36,17 @@
 	//START OF LOGOUT
 	
 	$("#logout").click(() => {
-		console.log("test")
-
-		$.getJSON(path + "Back-End/basic-site.php", "logout=true", (data) => {
-			
-			if (data.errorCode === "success!") {
-					// var expDate = new Date();
-					// expDate.setTime(expDate.getTime() + (15 * 60 * 1000));
-					//
-					// $.cookie(PHPSESSID, {expires: expdate});
-					// $.removeCookie("PHPSESSID");
-					// $.cookie('PHPSESSID');
-				data.errorCode === "logged out!";
-				alert("See you later Alligator!");
-				GetLoginPage();
-				// function pageRedirect() {
-				// 	window.location.replace(path + "Front-End/LoginSite.html");
-				// }
-				// setTimeout(pageRedirect(), 1000);
-			}
+		
+		var expDate = new Date();
+		
+		expDate.setTime(expDate.getTime() - 3600);
+		$.cookie('PHPSESSID', null, { path: '/', expires: expDate});
+		
+		$.getJSON(path + "Back-End/basic-site.php?SeesionID=" + getSessionIdFromCookies(), function (Session) {
+		
+		
 		});
+		GetLoginPage();
 		
 	});
 	
@@ -94,17 +85,15 @@
 	});
 	
 	//END OF CHATBUTTON
-
-
+	
 	
 	//Xu: START OF RANKING
-	$.get( path + "Back-End/Interfaces/ranking.php"  , function(data){
+	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
 		console.log(data)
 
 		for (var i = 0;i < data.length;i++){
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
-		SetRNColor();
 	})
 
 	// //END OF RANKING
@@ -117,22 +106,23 @@
 		
 	})
 	//END OF PROFILE
-
+	
 	// Jonathan
 	// Weater API
-
+	
 	function GetWeaterData() {
 		$.getJSON("https://api.open-meteo.com/v1/forecast?latitude=49.62&longitude=6.14&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m", function (data) {
 			let output = "";
-			output += "<p>Temperatur:<span>"+ data.current_weather.temperature +"</span></p>";
-			output += "<p>Wind Richtung:<span style='transform: rotate("+data.current_weather.winddirection+ "deg);'>&uarr;</span>"+data.current_weather.winddirection+"</p>";
-			output += "<p>Wind Geschwindigkeit:<span>"+ data.current_weather.windspeed +"</span></p>";
+			output += "<p>Temperatur:<span>" + data.current_weather.temperature + "</span></p>";
+			output += "<p>Wind Richtung:<span style='transform: rotate(" + data.current_weather.winddirection + "deg);'>&uarr;</span>" + data.current_weather.winddirection + "</p>";
+			output += "<p>Wind Geschwindigkeit:<span>" + data.current_weather.windspeed + "</span></p>";
 			console.log(output);
 			console.log(data);
-
+			
 			$("#weather").html(output);
 		})
 	}
+	
 	// End Jonathan
 
 
