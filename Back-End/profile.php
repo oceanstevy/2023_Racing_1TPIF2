@@ -6,7 +6,7 @@
 	
 	require_once "Functions/Credentials.php";
 	require_once "Functions/Functions.php";
-	require_once  "Query/Querys.php";
+	require_once "Query/Querys.php";
 	
 	echo  "You are logged in as: " .  $_SESSION['user'] . "<br><br>";
 
