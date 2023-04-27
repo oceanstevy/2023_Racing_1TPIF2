@@ -69,3 +69,6 @@ h3{
     color: white;
     font-weight: bolder;
 }
+span{
+    display: inline-block;
+}
