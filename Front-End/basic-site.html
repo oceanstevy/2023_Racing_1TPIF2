@@ -30,7 +30,8 @@
 	//START OF LOGOUT
 	
 	$("#logout").click(() => {
-		
+		console.log("test")
+
 		$.getJSON(path + "Back-End/basic-site.php", "logout=true", (data) => {
 			
 			if (data.errorCode === "success!") {
@@ -93,6 +94,7 @@
 	//Xu: START OF RANKING
 	$.get( path + "Back-End/Interfaces/ranking.php"  , function(data){
 		console.log(data)
+
 		for (var i = 0;i < data.length;i++){
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}

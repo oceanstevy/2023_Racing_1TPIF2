@@ -32,9 +32,7 @@ function getSessionIdFromCookies() {
 }
 
 function SetRNColor() {
-    $(document).ready(function () {
-        $.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
-            $("th").css("color", color.hex.value);
-        })
-    });
+    $.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
+        $("th").css("color", color.hex.value);
+    })
 }
