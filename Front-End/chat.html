@@ -46,7 +46,7 @@
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                tmp += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
+                tmp += "<p><b>" + data[i]["Name"] + ":</b> " + data[i]["Message"] + " " + data[i]["timestamp"] + "</p><br>";
 
             }
             //set content of #container to tmp

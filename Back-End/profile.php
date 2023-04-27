@@ -43,10 +43,16 @@
 <script>
 	//if button is pressed
 	$("#CONFIRM_Info").click(() => {
-		
-		$("#CONFIRM_Info")
-		
-		alert('worked')
+		const data = {
+			DATA_Password: $("#DATA_Password").val(),
+			ReDATA_Password: $("#ReDATA_Password").val()
+		};
+		$.get("profilePWCheck.php", data, (response) => {
+			alert(response);
+			
+		});
+		const jsonData = JSON.stringify(data);
+		alert(jsonData);
 	});
 </script>
 
