@@ -47,7 +47,7 @@
 			DATA_Password: $("#DATA_Password").val(),
 			ReDATA_Password: $("#ReDATA_Password").val()
 		};
-		$.get("profilePWCheck.php", data, (response) => {
+		$.get("../Back-End/profilePWCheck.php", data, (response) => {
 			alert(response);
 			
 		});
