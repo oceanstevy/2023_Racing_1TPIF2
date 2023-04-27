@@ -95,15 +95,15 @@
 		for (var i = 0;i < data.length;i++){
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
-
+		SetRNColor();
 	})
-	$(document).ready(function(){
-		$.get("https://www.thecolorapi.com/id?rgb=rgb("+ Math.floor(Math.random() * 255) + ","+ Math.floor(Math.random() * 255) + ","+ Math.floor(Math.random() * 255) + ")" ,function (color){
-			$("th").css("color", color.hex.value);
-			//
-		})
-	});
-
+	function SetRNColor() {
+		$(document).ready(function () {
+			$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
+				$("th").css("color", color.hex.value);
+			})
+		});
+	}
 	// //END OF RANKING
 	
 	//Jann: START OF PROFILE
