@@ -33,11 +33,19 @@
 		$.getJSON(path + "Back-End/basic-site.php", "logout=true", (data) => {
 			
 			if (data.errorCode === "success!") {
-				
-					$.removeCookie("PHPSESSID");
+					// var expDate = new Date();
+					// expDate.setTime(expDate.getTime() + (15 * 60 * 1000));
+					//
+					// $.cookie(PHPSESSID, {expires: expdate});
+					// $.removeCookie("PHPSESSID");
 					// $.cookie('PHPSESSID');
-				
-				alert("Success!!");
+				data.errorCode === "logged out!";
+				alert("See you later Alligator!");
+				GetLoginPage();
+				// function pageRedirect() {
+				// 	window.location.replace(path + "Front-End/LoginSite.html");
+				// }
+				// setTimeout(pageRedirect(), 1000);
 			}
 		});
 		

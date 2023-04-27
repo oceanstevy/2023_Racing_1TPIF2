@@ -6,6 +6,8 @@
 	
 	if (isset($_GET['logout'])) {
 		
+		unset($_GET["SeesionID"]);
+		unset($_SESSION["user"]);
 
 		echo json_encode(["errorCode" => "success!"]);
 		//Logout END
