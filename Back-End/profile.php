@@ -32,13 +32,14 @@
 	echo "</table><br>";
 	
 	?>
-<label for="DATA_Password">Passwort</label><br>
-<input type="text" id="DATA_Password"><br>
-<label for="DATA_RePassword">Passwort bestätigen</label><br>
-<input type="text" id="ReDATA_Password">
-<button type="button" id="CONFIRM_Info">Save</button>
-<button type="button" id="BACK_Home">Back</button>
-
+<div id="PROFILE_Div">
+<label for="DATA_Password" class="PROFILE_Label">Passwort</label><br>
+<input type="text" id="DATA_Password" class="PROFILE_Input"><br><br>
+<label for="DATA_RePassword" class="PROFILE_Label">Passwort bestätigen</label><br>
+<input type="text" id="ReDATA_Password" class="PROFILE_Input"><br><br>
+<button type="button" id="CONFIRM_Info" class="PROFILE_Button">Save</button>
+<button type="button" id="BACK_Home" class="PROFILE_Button">Back</button>
+</div>
 
 <script>
 	//if button is pressed
