@@ -21,6 +21,4 @@
 				$queryUpdatePW -> bind_param ( 'ss' , $hashedPassword_u , $_SESSION[ 'user' ] );
 				$queryUpdatePW -> execute ();
 				$dbc ->close ();
-					echo $hashedPassword_u , $_SESSION['user'];
-					echo updatePassword ();
 			}

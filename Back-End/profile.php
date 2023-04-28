@@ -7,8 +7,6 @@
 	require_once "Functions/Credentials.php";
 	require_once "Functions/Functions.php";
 	require_once "Query/Querys.php";
-	
-	echo  "You are logged in as: " .  $_SESSION['user'] . "<br><br>";
 
 //shows the Profile information for the user who is currently logged in.
 	
@@ -38,7 +36,7 @@
 <input type="text" id="DATA_Password"><br>
 <label for="DATA_RePassword">Passwort bestätigen</label><br>
 <input type="text" id="ReDATA_Password">
-<button type="button" id="CONFIRM_Info">Save</button><br><br><br>
+<button type="button" id="CONFIRM_Info">Save</button>
 <button type="button" id="BACK_Home">Back</button>
 
 
@@ -50,11 +48,16 @@
 			ReDATA_Password: $("#ReDATA_Password").val()
 		};
 		$.get("../Back-End/profilePWCheck.php", data, (response) => {
-			alert(response);
+		
 			
 		});
 		const jsonData = JSON.stringify(data);
-		alert(jsonData);
+		alert("login succhessfull");
+		GetMenuPage()
+	});
+	
+	$("#BACK_Home").click(() => {
+		GetMenuPage()
 	});
 </script>
 
