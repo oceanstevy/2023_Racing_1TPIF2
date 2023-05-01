@@ -58,7 +58,7 @@
 			
 		});
 		const jsonData = JSON.stringify(data);
-		alert("login succhessfull");
+		alert("Password change sucessfull");
 		GetMenuPage()
 	});
 	
