@@ -74,17 +74,23 @@ span{
     display: inline-block;
 }
 
-/*Profile CSS Jann*/
+/*CSS Jann*/
 
-#PROFILE_Div{
-    width: 50%;
-    margin: auto;
+.JANN_Div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: black solid 2px;
+    padding: 20px;
 }
 
-.PROFILE_Label{
+.JANN_Label{
+    font-family: sans-serif;
+    font-size: large;
 
 }
-.PROFILE_Input{
+.JANN_Input{
     padding: 6px 12px;
     font-size: 16px;
     font-weight: 400;
@@ -96,15 +102,16 @@ span{
     appearance: none;
     border-radius: 4px;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    width: 450px;
 }
-.PROFILE_Input:focus{
+.JANN_Input:focus{
     color: #212529;
     background-color: #fff;
     border-color: #86b7fe;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 }
-.PROFILE_Button{
+.JANN_Button{
     --b: 3px;   /* border thickness */
     --s: .45em; /* size of the corner */
     --color: #373B44;
@@ -126,13 +133,13 @@ span{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-.PROFILE_Button:hover,
-.PROFILE_Button:focus-visible{
+.JANN_Button:hover,
+.JANN_Button:focus-visible{
     --_p: 0px;
     outline-color: var(--color);
     outline-offset: .05em;
 }
-.PROFILE_Button:active {
+.JANN_Button:active {
     background: var(--color);
     color: #fff;
 }

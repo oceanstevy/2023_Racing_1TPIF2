@@ -19,6 +19,11 @@
 	
 	$result = $showProfile->get_result();
 	
+	?>
+
+<div class="JANN_Div">
+	
+	<?php
 	
 	echo "<table>";
 	echo "<tr><th>Email</th>";
@@ -32,13 +37,13 @@
 	echo "</table><br>";
 	
 	?>
-<div id="PROFILE_Div">
-<label for="DATA_Password" class="PROFILE_Label">Passwort</label><br>
-<input type="text" id="DATA_Password" class="PROFILE_Input"><br><br>
-<label for="DATA_RePassword" class="PROFILE_Label">Passwort bestätigen</label><br>
-<input type="text" id="ReDATA_Password" class="PROFILE_Input"><br><br>
-<button type="button" id="CONFIRM_Info" class="PROFILE_Button">Save</button>
-<button type="button" id="BACK_Home" class="PROFILE_Button">Back</button>
+
+<label for="DATA_Password" class="JANN_Label">Passwort ändern</label><br>
+<input type="text" id="DATA_Password" class="JANN_Input"><br><br>
+<label for="DATA_RePassword" class="JANN_Label">Passwort bestätigen</label><br>
+<input type="text" id="ReDATA_Password" class="JANN_Input"><br><br>
+<button type="button" id="CONFIRM_Info" class="JANN_Button">Save</button>
+<button type="button" id="BACK_Home" class="JANN_Button">Back</button>
 </div>
 
 <script>
