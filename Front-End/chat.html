@@ -18,74 +18,49 @@
 
 </body>
 <script>
+    function load() {
+        // return value will always be in JSON format
+        $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
+            //temporary variable to store html objects
+            // let test = JSON.parse(data);
+
+            let chat = "";
+            //iterates through data array
+            for (let i = 0; i < data.length; i++) {
+                //generate HTML Structure, based on data from server
+                chat += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
+            }
+            //set content of #container to tmp
+            $("#container").html(chat);
+        });
+    }
+
     //if button #sendInfo => clicked, execute callback function
     $("#sendInfo").click(() => {
         //save value from html objects into variables
         let text = $("#writeMessage").val();
-        // alert(text);
         //immediately requests data from server, turned into JSON !!!Important on load() we will receive a text, we have to define what type it is!!!
         $.get(path + "Back-End/Chat.php", "executionType=write&text=" + text, (data) => {
             //informs user what happened to post
-            alert(data);
             if (data.errorCode === "success!") {
 
-                alert("Success!!");
+                console.log("Success!!");
 
             }
 
         });
 
-        $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
-            //temporary variable to store html objects
-            // let test = JSON.parse(data);
-
-            let chat = "";
-            //iterates through data array
-            for (let i = 0; i < data.length; i++) {
-                //generate HTML Structure, based on data from server
-                chat += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
-            }
-            //set content of #container to tmp
-            $("#container").html(chat);
-        });
-
+        load();
     })
+
     //if button #loadinfo => clicked, execute callback function
     $("#loadInfo").click(() => {
-        // return value will always be in JSON format
-        $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
-            //temporary variable to store html objects
-            // let test = JSON.parse(data);
-
-            let chat = "";
-            //iterates through data array
-            for (let i = 0; i < data.length; i++) {
-                //generate HTML Structure, based on data from server
-                chat += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
-            }
-            //set content of #container to tmp
-            $("#container").html(chat);
-        });
-
+        load();
     })
 
     //document load
     $(document).ready(() => {
-        // return value will always be in JSON format
-        $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
-            //temporary variable to store html objects
-            // let test = JSON.parse(data);
-
-            let chat = "";
-            //iterates through data array
-            for (let i = 0; i < data.length; i++) {
-                //generate HTML Structure, based on data from server
-                chat += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
-            }
-            //set content of #container to tmp
-            $("#container").html(chat);
-        });
-
+        load();
     })
 
 
