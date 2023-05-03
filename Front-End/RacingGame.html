@@ -337,13 +337,13 @@
         });
     }
 
-
+    let oldMaploadcounter = 0
     function GenerateMap() {
         let mapmodel = "";
         let maploadcounter = 0
         map.forEach((value,i) => {
-            if (window.innerHeight>map[i][2].y && map[i][2].y>-(ytiles*tilessize)
-            || window.innerWidth>map[i][1].x && map[i][1].x>-(xtiles*tilessize)) {
+            if (-(ytiles*tilessize) <= map[i][2].y && map[i][2].y <= window.innerHeight
+                && -(xtiles*tilessize) <= map[i][1].x && map[i][1].x <= window.innerWidth) {
                 maploadcounter++
                 let k = 0
                 let counter = 0;
@@ -374,7 +374,10 @@
             }
 
         });
-        console.log(maploadcounter);
+        if (oldMaploadcounter !== maploadcounter){
+            oldMaploadcounter = maploadcounter
+            console.log("Map Loaded:" ,maploadcounter);
+        }
         LockForNewMapModel()
         changeMap = false
         document.getElementById("Playground").innerHTML = mapmodel;
@@ -552,6 +555,7 @@
             data.unshift({mapname: mapname}, {x: mx}, {y: my})
 
             map[mapid] = data;
+            console.log("New Map Tile", mapid);
         })
     }
 
