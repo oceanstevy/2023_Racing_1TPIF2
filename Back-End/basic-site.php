@@ -4,12 +4,11 @@
 	
 	//Logout Button
 	
-	if (isset($_GET['logout'])) {
-		
-		unset($_GET["SeesionID"]);
-		unset($_SESSION["user"]);
-
-		echo json_encode(["errorCode" => "success!"]);
+	if (isset($_GET['SeesionID'])) {
+		$_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
+		session_start();
+		session_unset();
+		session_destroy();
 		//Logout END
 		//Settings Button
 	} else if (isset($_GET['settings'])) {

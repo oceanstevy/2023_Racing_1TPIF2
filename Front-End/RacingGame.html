@@ -2,6 +2,7 @@
     //Fahrzeug wir generiert und Spiel wird gestartet
     let timergame = "";
     let map = [];
+    let mapRequest = [];
     let changeMap = true;
 
     let arrowW = "";
@@ -206,10 +207,10 @@
 
         //Wenn er kein "W + S" gedrückt hat wird er auf 8-0km/h gebracht
         if (arrowW !== "w" && arrowS !== "s"){
-            if (speed > 8){
+            if (speed > 0){
                 speed=speed-speedcontrol/100*20
-                if (speed > 7 && speed < 9){
-                    speed = 8
+                if (speed > -1 && speed < 1){
+                    speed = 0
                 }
             }
             if (speed < 0){
@@ -301,8 +302,6 @@
                 XAchseControlCalc = -5;
             }
 
-
-
             deg = XAchseControlCalc + parseInt($( "#MyCar" )[0].style.transform.slice(7));
 
             //console.log(parseInt(document.getElementById("MyCar").style.transform.slice(7)));
@@ -312,85 +311,51 @@
 
     function LoadMap() {
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: 0})
-            map.push(data)
+            data.unshift({mapname: "map01"}, {x: 0}, {y: 0})
+            map[500500] = data;
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: tilessize * ytiles})
-            map.push(data)
+            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles})
+            map[500501] = data;
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: tilessize * ytiles * 2})
-            map.push(data)
+            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 2})
+            map[500502] = data;
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: tilessize * ytiles * 3})
-            map.push(data)
+            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 3})
+            map[500503] = data;
         });
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: 0}, {y: tilessize * ytiles * 4})
-            map.push(data)
-        });
-
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: tilessize * xtiles}, {y: 0})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles * 2})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles * 3})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: tilessize * xtiles}, {y: tilessize * ytiles * 4})
-            map.push(data)
+            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 4})
+            map[500504] = data;
         });
 
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: -(tilessize * xtiles)}, {y: 0})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 2})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 3})
-            map.push(data)
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({x: -(tilessize * xtiles)}, {y: tilessize * ytiles * 4})
-            map.push(data)
-            console.log(data);
+            data.unshift({mapname: "map01"}, {x: tilessize * xtiles}, {y: 0})
+            map[501500] = data;
         });
     }
 
+    let oldMaploadcounter = 0
     function GenerateMap() {
         let mapmodel = "";
-        for (let i=0; i<map.length; i++){
-            if (window.innerHeight>map[i][1].y && map[i][1].y>-(ytiles*tilessize)
-            || window.innerWidth>map[i][0].x && map[i][0].x>-(ytiles*tilessize)) {
+        let maploadcounter = 0
+        map.forEach((value,i) => {
+            if (-(ytiles*tilessize) <= map[i][2].y && map[i][2].y <= window.innerHeight
+                && -(xtiles*tilessize) <= map[i][1].x && map[i][1].x <= window.innerWidth) {
+                maploadcounter++
                 let k = 0
                 let counter = 0;
                 let jumps = [
                     0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
                 ];
-                mapmodel += "<div class='mapblock' style='top:"+map[i][1].y+"px ;left:"+map[i][0].x+"px '>"
+                mapmodel += "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+
                 for (let row=0; row<=6; row++){
 
                     for ( let j=0; j<=19; j++) {
-                        k = (row*20)+j+2-counter;
+                        k = (row*20)+j+3-counter;
                         if (jumps[j] === row){
                             if (map[i][k] != null){
                                 mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
@@ -408,6 +373,10 @@
                 mapmodel += "</div>";
             }
 
+        });
+        if (oldMaploadcounter !== maploadcounter){
+            oldMaploadcounter = maploadcounter
+            console.log("Map Loaded:" ,maploadcounter);
         }
         LockForNewMapModel()
         changeMap = false
@@ -443,12 +412,11 @@
                 top = ((positioncontrol*speed/100)*(pixel/100));
             }
 
-            console.log(left , top)
-            for (let i=0; i<map.length; i++){
-                map[i][0].x = (Math.round((map[i][0].x + left)*100))/100;
-                map[i][1].y = (Math.round((map[i][1].y + top)*100))/100;
+            map.forEach((value,i) => {
+                map[i][1].x = Math.floor(map[i][1].x + left);
+                map[i][2].y = Math.floor(map[i][2].y + top);
                 changeMap = true
-            }
+            })
         }
     }
 
@@ -457,7 +425,140 @@
         GetMenuPage();
     }
 
-    LockForNewMapModel();
+    function LockForNewMapModel(){
+        let carX = parseInt($( "#MyCar" )[0].style.left);
+        let carY = parseInt($( "#MyCar" )[0].style.top);
+        map.forEach((value,i) => {
+            if (map[i][1].x < carX && carX < (map[i][1].x + (tilessize*xtiles))
+                && map[i][2].y < carY && carY < (map[i][2].y + (tilessize*ytiles))) {
+
+                numberarr = i.toString().split('');
+
+                let xi = parseInt(numberarr[0] + numberarr[1] + numberarr[2]);
+                let yi = parseInt(numberarr[3] + numberarr[4] + numberarr[5]);
+                let xisave = "";
+                let yisave = "";
+
+
+                //Up
+                yisave = yi - 1;
+                if (map[xi + "" + yisave] == null){
+                    LookforMapRequest(xi + "" + yisave);
+                }
+
+                //Right
+                xisave = xi + 1;
+                if (map[xisave + "" + yi] == null){
+                    LookforMapRequest(xisave + "" + yi);
+                }
+
+                //Down
+                yisave = yi + 1;
+                if (map[xi + "" + yisave] == null){
+                    LookforMapRequest(xi + "" + yisave);
+                }
+
+                //Left
+                xisave = xi - 1;
+                if (map[xisave + "" + yi] == null){
+                    LookforMapRequest(xisave + "" + yi);
+                }
+
+                x = tilessize * xtiles;
+                y = tilessize * ytiles;
+
+            }
+        })
+    }
+
+    // Eine Map Fehlt?, schaut welche map gesendet werden soll.
+    function LookforMapRequest(mapid) {
+        if (mapRequest.includes(mapid)){
+            return
+        }
+
+        numberarr = mapid.toString().split('');
+
+        let xi = parseInt(numberarr[0] + numberarr[1] + numberarr[2]);
+        let yi = parseInt(numberarr[3] + numberarr[4] + numberarr[5]);
+        let xisave = "";
+        let yisave = "";
+        let requestText = "";
+
+
+        //Up
+        yisave = yi - 1;
+        if (map[xi + "" + yisave] != null){
+            requestText += "up="+map[xi + "" + yisave][0].mapname+"&";
+        }
+
+        //Right
+        xisave = xi + 1;
+        if (map[xisave + "" + yi] != null){
+            requestText += "right="+map[xisave + "" + yi][0].mapname+"&";
+        }
+
+        //Down
+        yisave = yi + 1;
+        if (map[xi + "" + yisave] != null){
+            requestText += "down="+map[xi + "" + yisave][0].mapname+"&";
+        }
+
+        //Left
+        xisave = xi - 1;
+        if (map[xisave + "" + yi] != null){
+            requestText += "left="+map[xisave + "" + yi][0].mapname+"&";
+        }
+
+        mapRequest.push(mapid);
+
+        requestText += "newmapid="+mapid;
+
+        $.getJSON(path + "Back-End/Interfaces/GetNewMapModel.php?"+requestText, function (data) {
+            let mapname = data.mapname;
+            let mapid = parseInt(data.mapid);
+            let request = data.maprequest;
+
+            let numberarr = mapid.toString().split('');
+            let xi = parseInt(numberarr[0] + numberarr[1] + numberarr[2]);
+            let yi = parseInt(numberarr[3] + numberarr[4] + numberarr[5]);
+
+            if (request === "up"){
+                yi--
+            } else if (request === "right"){
+                xi++
+            } else if (request === "down"){
+                yi++
+            } else {
+                xi--
+            }
+
+            let mx = map[xi +""+ yi][1].x;
+            let my = map[xi +""+ yi][2].y;
+
+            if (request === "up"){
+                my += ytiles * tilessize
+            } else if (request === "right"){
+                mx -= xtiles * tilessize
+            } else if (request === "down"){
+                my -= ytiles * tilessize
+            } else {
+                mx += xtiles * tilessize
+            }
+
+            delete data.mapname;
+            delete data.mapid;
+            delete data.maprequest;
+
+            data = Object.values(data);
+
+            data.unshift({mapname: mapname}, {x: mx}, {y: my})
+
+            map[mapid] = data;
+            console.log("New Map Tile", mapid);
+        })
+    }
+
 </script>
 
 <div id="Playground">
