@@ -144,6 +144,15 @@ span{
     color: #fff;
 }
 
+/*End of CSS Jann*/
+#chuckNorris{
+    position: absolute;
+    top: 80%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    border: black solid 2px;
+    padding: 20px;
+}
 
 
 
