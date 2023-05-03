@@ -36,3 +36,5 @@ function SetRNColor() {
         $("th").css("color", color.hex.value);
     })
 }
+
+
