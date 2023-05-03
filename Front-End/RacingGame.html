@@ -11,6 +11,7 @@
     let arrowD = "";
 
     //Map
+    let mapSeachID = 500500;
     let xtiles = 20;
     let ytiles = 7;
     let tilessize = 100;
@@ -37,7 +38,7 @@
     function GameStart(){
 
         //Timer Definieren
-        $.getJSON( path + "Back-End/Interfaces/GetCarObject.php?CarID=1&SeesionID="+getSessionIdFromCookies() , function(data){
+        $.getJSON(path + "Back-End/Interfaces/GetCarObject.php?CarID=1&SeesionID=" + getSessionIdFromCookies(), function (data) {
 
             maxspeed = parseInt(data.maxspeed);
             maxbackspeed = parseInt(data.maxbackspeed);
@@ -47,15 +48,15 @@
             carwidth = parseInt(data.carwidth);
             carheight = parseInt(data.carheight);
 
-            $( "#MyCar" )[0].style.transform = "rotate(0deg)";
-            $( "#MyCar" )[0].style.top = (window.innerHeight-carheight)/2 + "px";
-            $( "#MyCar" )[0].style.left = (window.innerWidth-carwidth)/2 + "px";
+            $("#MyCar")[0].style.transform = "rotate(0deg)";
+            $("#MyCar")[0].style.top = (window.innerHeight - carheight) / 2 + "px";
+            $("#MyCar")[0].style.left = (window.innerWidth - carwidth) / 2 + "px";
 
-            $( "#MyCar" )[0].style.width = carwidth+"px";
-            $( "#MyCar" )[0].style.height = carheight+"px";
+            $("#MyCar")[0].style.width = carwidth + "px";
+            $("#MyCar")[0].style.height = carheight + "px";
 
             clearInterval(timergame);
-            timergame = setInterval("step()",25);
+            timergame = setInterval("step()", 25);
 
         });
     }
@@ -99,7 +100,6 @@
 
         }
     }
-
 
 
     function step(){
@@ -330,54 +330,128 @@
             data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 4})
             map[500504] = data;
         });
-
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: tilessize * xtiles}, {y: 0})
-            map[501500] = data;
-        });
     }
 
     let oldMaploadcounter = 0
+
+    //mapSeachID 500500
     function GenerateMap() {
         let mapmodel = "";
         let maploadcounter = 0
-        map.forEach((value,i) => {
-            if (-(ytiles*tilessize) <= map[i][2].y && map[i][2].y <= window.innerHeight
-                && -(xtiles*tilessize) <= map[i][1].x && map[i][1].x <= window.innerWidth) {
-                maploadcounter++
-                let k = 0
-                let counter = 0;
-                let jumps = [
-                    0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
-                ];
-                mapmodel += "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+        let mapLoaded = false;
+        let mapFound = false;
 
-                for (let row=0; row<=6; row++){
 
-                    for ( let j=0; j<=19; j++) {
-                        k = (row*20)+j+3-counter;
-                        if (jumps[j] === row){
-                            if (map[i][k] != null){
-                                mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
+        let xi = 500;
+        let yi = 500;
+        let xs = map[500500][1].x;
+        let ys = map[500500][2].y;
+        if (xs > 0){
+            while ( 0 < xs){
+                xs -= (xtiles * tilessize)
+                xi--
+            }
+        } else {
+            while ( xs+(xtiles * tilessize) < 0 ){
+                xs += (xtiles * tilessize)
+                xi++
+            }
+        }
+        if (ys > 0){
+            while ( 0 < ys){
+                ys -= (ytiles * tilessize)
+                yi--
+            }
+        } else {
+            while ( ys+(ytiles * tilessize) < 0 ){
+                ys += (ytiles * tilessize)
+                yi++
+            }
+        }
 
-                                for ( let m=0; m<map[i][k].x; m++) {
-                                    jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+        mapSeachID = xi+""+yi;
+
+
+        let i=mapSeachID;
+        let c=xi;
+        let r=yi;
+        while (!mapLoaded){
+            //console.log(i);
+            if (map[i] != null){
+                if (-(ytiles*tilessize) <= map[i][2].y && map[i][2].y <= window.innerHeight
+                    && -(xtiles*tilessize) <= map[i][1].x && map[i][1].x <= window.innerWidth) {
+                    maploadcounter++
+                    let k = 0
+                    let counter = 0;
+                    let jumps = [
+                        0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+                    ];
+                    mapmodel += "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+
+                    for (let row=0; row<=6; row++){
+
+                        for ( let j=0; j<=19; j++) {
+                            k = (row*20)+j+3-counter;
+                            if (jumps[j] === row){
+                                if (map[i][k] != null){
+                                    mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
+
+                                    for ( let m=0; m<map[i][k].x; m++) {
+                                        jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+                                    }
                                 }
+                            } else {
+                                counter++
                             }
-                        } else {
-                            counter++
                         }
                     }
-                }
 
-                mapmodel += "</div>";
+                    mapmodel += "</div>";
+                }
             }
 
-        });
+            if (map[NewMapModelID(i,"x++")] != null){
+                if (map[NewMapModelID(i,"x++")][1].x < window.innerWidth){
+                    i = NewMapModelID(i,"x++");
+                    c++
+                    //console.log("1",i,c,r)
+                } else {
+                    c = xi;
+                    r++
+                    i = c+""+r;
+                    //console.log("2",i,c,r)
+                }
+            } else {
+                //console.log(c-xi)
+                if (window.innerWidth < xtiles * tilessize * (c-xi)){
+                    c = xi;
+                    r++
+                    i = c+""+r;
+                    //console.log("3",i,c,r)
+                }
+                c++
+                //console.log("10",i,c,r)
+            }
+            if (map[i] != null) {
+                if (map[i][2].y > window.innerHeight) {
+                    mapLoaded = true;
+                    //console.log("4",i,c,r)
+                }
+            } else {
+                //console.log(r-yi);
+                if (window.innerHeight < ytiles * tilessize * (r-yi)){
+                    mapLoaded = true;
+                    //console.log("5",i,c,r)
+                }
+            }
+        }
+
+
         if (oldMaploadcounter !== maploadcounter){
             oldMaploadcounter = maploadcounter
             console.log("Map Loaded:" ,maploadcounter);
         }
+
         LockForNewMapModel()
         changeMap = false
         document.getElementById("Playground").innerHTML = mapmodel;
@@ -429,8 +503,8 @@
         let carX = parseInt($( "#MyCar" )[0].style.left);
         let carY = parseInt($( "#MyCar" )[0].style.top);
         map.forEach((value,i) => {
-            if (map[i][1].x < carX && carX < (map[i][1].x + (tilessize*xtiles))
-                && map[i][2].y < carY && carY < (map[i][2].y + (tilessize*ytiles))) {
+            if (map[i][1].x <= carX && carX <= (map[i][1].x + (tilessize*xtiles))
+                && map[i][2].y <= carY && carY <= (map[i][2].y + (tilessize*ytiles))) {
 
                 numberarr = i.toString().split('');
 
@@ -462,6 +536,34 @@
                 xisave = xi - 1;
                 if (map[xisave + "" + yi] == null){
                     LookforMapRequest(xisave + "" + yi);
+                }
+
+                //Up-Right
+                yisave = yi - 1
+                xisave = xi + 1;
+                if (map[xisave + "" + yisave] == null){
+                    LookforMapRequest(xisave + "" + yisave);
+                }
+
+                //Down-Right
+                yisave = yi + 1;
+                xisave = xi + 1;
+                if (map[xisave + "" + yisave] == null){
+                    LookforMapRequest(xisave + "" + yisave);
+                }
+
+                //Down-Left
+                yisave = yi + 1;
+                xisave = xi - 1;
+                if (map[xisave + "" + yisave] == null){
+                    LookforMapRequest(xisave + "" + yisave);
+                }
+
+                //Up-Left
+                yisave = yi - 1
+                xisave = xi - 1;
+                if (map[xisave + "" + yisave] == null){
+                    LookforMapRequest(xisave + "" + yisave);
                 }
 
                 x = tilessize * xtiles;
@@ -584,10 +686,10 @@
         <br>
         <br>
         <br>
-        <button onclick="ChangeGameStatus()">
+        <button onClick="ChangeGameStatus()">
             Weiter
         </button>
-        <button onclick="ExitGame()">
+        <button onClick="ExitGame()">
             Exit
         </button>
     </div>
@@ -595,3 +697,7 @@
 <script>
     GameStart();
 </script>
+
+
+
+
