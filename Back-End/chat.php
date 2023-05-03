@@ -1,9 +1,10 @@
-<!--Autor: Christopher Pinetti-->
-<!--Hello-->
 <?php
+//Autor: Christopher Pinetti
+session_start();
+
 require './Functions/Credentials.php';
 require './Functions/Functions.php';
-require  "Query/Querys.php";
+require  "./Query/Querys.php";
 
 $dbc = db_Connect();
 
@@ -34,13 +35,14 @@ if (isset($_GET['executionType'])) {
 /*shows the content of the database*/
 function showData($dbc)
 {
-    $queryNewFeed = "SELECT * FROM tblChat ORDER BY idChat DESC";
+    $queryNewFeed = "SELECT dtName, dtMessage, dtTimestamp
+                        FROM tblChat, tblPlayer
+                        WHERE idPlayer = fiPlayer
+                        ORDER BY dtTimestamp ASC";
 
     $result = mysqli_query($dbc, $queryNewFeed);
 
-//    print_r($result);
-
-    $arrayFeed = array();
+    $arrayFeed = [];
 
     /*checks how many dataset are set */
     for ($count = 0; $count < mysqli_num_rows($result); $count++) {
@@ -48,16 +50,15 @@ function showData($dbc)
         /*cuts row by row*/
         $row = mysqli_fetch_assoc($result);
 
-        /*pushes an assotiative array into empty array based on rows*/
+        /*pushes an associative array into empty array based on rows*/
         $arrayFeed[] = array(
-            "id" => $row['idChat'],
-            "Name" => $row['fiPlayer'],
+            "Name" => $row['dtName'],
             "Message" => $row['dtMessage'],
             "timestamp" => $row['dtTimestamp']
         );
 
     }
-//    print_r($arrayFeed);
+
     /*converts array to json*/
     echo json_encode($arrayFeed);
 
@@ -69,36 +70,34 @@ function showData($dbc)
 /*gets database connection + name + text out of the get parameter*/
 function insertData($dbc)
 {
-//    echo $dbc . "; " . $name . "; " . $text . "; " . $currentTimestamp;
-//    $currentTimestamp = date("Y-m-d H:i:s");
-//    $text = $_GET['text'];
+    $currentTimestamp = date("Y-m-d H:i:s");
+    $text = $_GET['text'];
     $name = $_SESSION['user'];
 
-    $queryGetUserID = "SELECT idPlayer
-                        FROM tblPlayer
-                        WHERE dtName = $name";
+    $sql = "SELECT idPlayer FROM tblPlayer WHERE dtName=?"; // SQL with parameters
+    $stmt = $dbc->prepare($sql);
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    $result = $stmt->get_result(); // get the mysqli result
+    $userID = $result->fetch_assoc(); // fetch the data
 
-    $userID = mysqli_query($dbc, $queryGetUserID);
-
-    print_r($userID);
+    $userIDtoInt = intval(implode($userID));
 
     /*defines insert query with both parameters we want to add*/
-//    $queryInsert = "INSERT INTO tblChat (fiPlayer, dtMessage, dtTimestamp)
-//		                VALUES (4,$text,$currentTimestamp)";
-//
-//    mysqli_query($dbc, $queryInsert);
+    $queryInsert = "INSERT INTO tblChat (fiPlayer, dtMessage, dtTimestamp)
+		                VALUES (?,?,?)";
 
-//    /*sends queryframe to the database */
-//    $statement = $dbc->prepare($queryInsert);
-//
-//    /*sets type for parameters and transfers variables*/
-//    $statement->bind_param('sss', $name, $text, $currentTimestamp);
-//
-//    /*executes the query*/
-//    $statement->execute();
-//
-//    /*closes database connection*/
-//    $statement->close();
+    /*sends queryframe to the database */
+    $statement = $dbc->prepare($queryInsert);
+
+    /*sets type for parameters and transfers variables*/
+    $statement->bind_param('iss', $userIDtoInt, $text, $currentTimestamp);
+
+    /*executes the query*/
+    $statement->execute();
+
+    /*closes database connection*/
+    $statement->close();
     echo json_encode(["errorCode" => "success!"]);
 
 }

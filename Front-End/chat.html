@@ -40,18 +40,18 @@
     //if button #loadinfo => clicked, execute callback function
     $("#loadInfo").click(() => {
         // return value will always be in JSON format
-        $.get(path + "Back-End/chat.php", "executionType=read", (data) => {
+        $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
             //temporary variable to store html objects
-            let tmp = "";
+            // let test = JSON.parse(data);
+
+            let chat = "";
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                tmp += "<p><b>" + data[i]["Name"] + ":</b> " + data[i]["Message"] + " " + data[i]["timestamp"] + "</p><br>";
-
+                chat += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
             }
             //set content of #container to tmp
-            $("#container").html(tmp);
-
+            $("#container").html(chat);
         });
 
     })
