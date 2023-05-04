@@ -3,23 +3,23 @@
 <br><br>
 
 <div id="JANN_MainPlay">
-	<button type="button" name="BUTTON_play" id="play" class="JANN_Button_Main" style="font-size:24px">Play
+	<button type="button" name="BUTTON_play" id="play" class="JANN_Button_Main" >Play
 		<span><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span></button>
 	<br><br>
-	<button type="button" name="BUTTON_chat" id="chatButton" class="JANN_Button_Main" style="font-size:24px">Chat
+	<button type="button" name="BUTTON_chat" id="chatButton" class="JANN_Button_Main" >Chat
 		<span><img src="../Images/chat_symbol.png" alt="Chat Symbol" width="24px"></span></button>
 	<br><br>
-	<button type="button" name="BUTTON_settings" id="settings" class="JANN_Button_Main" style="font-size:24px">Settings
+	<button type="button" name="BUTTON_settings" id="settings" class="JANN_Button_Main" >Settings
 		<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
 	<br><br>
 </div>
 
 <div id="JANN_ProfileLog">
-	<button type="button" name="BUTTON_profile" id="profile" class="JANN_Button_Main" style="font-size:24px">Profile
+	<button type="button" name="BUTTON_profile" id="profile" class="JANN_Button_Main">Profile
 		<span><img src="../Images/profile_symbol.png" alt="Logout Symbol" width="24px"></span></button>
-	<button type="button" name="BUTTON_admin" id="admin" class="JANN_Button_Main" style="font-size:24px">Admin
+	<button type="button" name="BUTTON_admin" id="admin" class="JANN_Button_Main" >Admin
 		<span><img src="../Images/admin_symbol.png" alt="Admin Symbol" width="24px"></span></button>
-	<button type="button" name="BUTTON_logout" id="logout" class="JANN_Button_Main" style="font-size:24px">Logout
+	<button type="button" name="BUTTON_logout" id="logout" class="JANN_Button_Main">Logout
 		<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
 </div>
 
@@ -37,8 +37,6 @@
 		</table>
 		<h4>My Highscore</h4>
 		<table id="pBestTable" border="1px solid black">
-			<tr id="pBest">
-			</tr>
 		</table>
 	</div>
 </div>
@@ -147,19 +145,17 @@
 	
 	
 	//Xu: START OF RANKING
-	$.get(path + "Back-End/Interfaces/ranking.php?rank=top10", function (data) {
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=top10", function (ranking) {
 		SetRNColor()
 		getEmoji()
 		
-		for (var i = 0; i < data.length; i++) {
-			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
+		for (var i = 0; i < ranking.length; i++) {
+			$("#rank").append("<tr><td>" + ranking[i]["Rank"] + "</td><td>" + ranking[i]["Name"] + "</td><td>" + ranking[i]["Score"] + "</td></tr>");
 		}
 	})
-	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
-		SetRNColor()
-		getEmoji()
-		for (var i = 0;i < data.length;i++){
-			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=personal", function (personal) {
+		for (var i = 0;i < personal.length;i++){
+			$("#pBestTable").append("<tr><td>" + personal[i]["Rank"] + "</td><td>" + personal[i]["Name"] + "</td><td>" + personal[i]["Score"] + "</td></tr>");
 		}
 	})
 
