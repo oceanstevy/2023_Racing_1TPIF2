@@ -9,11 +9,13 @@
 </head>
 <body>
 
-<label for="writeMessage">Text:</label>
-<input type="text" name="DATA_message" class="form-control" id="writeMessage">
-<button type="button" id="sendInfo">Send</button>
+<div id="chat"></div>
 
-<div id="container"></div>
+<div id="chatInput">
+<!--    <label for="writeMessage">Text:</label>-->
+    <input type="text" name="DATA_message" class="form-control" id="writeMessage">
+    <button type="button" id="sendInfo" class="">Send</button>
+</div>
 
 </body>
 <script>
@@ -27,10 +29,10 @@
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                chat += "<p><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
+                chat += "<p id='chatText'><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
             }
             //set content of #container to tmp
-            $("#container").html(chat);
+            $("#chat").html(chat);
         });
     }
 
