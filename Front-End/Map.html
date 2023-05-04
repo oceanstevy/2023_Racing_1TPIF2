@@ -16,7 +16,7 @@
         height: max-content;
     }
     .mapblock{
-        height: 400px;
+        height: 800px;
     }
     .tiles{
         height: 100px;
@@ -77,8 +77,7 @@
     }
     .hitbox{
         display: inline-block;
-        position: relative;
-        left: -69px;
+        position: absolute;
         color: red;
         width: 25px;
     }
@@ -114,10 +113,10 @@
 <script>
     let map = [];
     function getmap() {
-        $.getJSON(path + "Back-End/Maps/map00.json", function (data) {
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
 
-            data.unshift({x: 0}, {y: 0})
-            map = data
+            data.unshift({mapname: "map01"},{x: 0}, {y: 0})
+            map.push(data);
             generateMap()
         });
 
@@ -130,23 +129,25 @@
     //map.push(tile);
     let placeSet = [];
     function generateMap() {
+        i = 0;
         let k = 0
         let counter = 0;
         let jumps = [
             0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
         ];
 
-        let mapmodel = "<div class='mapblock' style='top:"+map[0]+";left:"+map[1]+"'>"
-            for (let row=0; row<=6; row++){
+        let mapmodel = "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+
+        for (let row=0; row<=6; row++){
 
                 for ( let j=0; j<=19; j++) {
-                    k = (row*20)+j+2-counter;
+                    k = (row*20)+j+3-counter;
                     if (jumps[j] === row){
-                        if (map[k] != null){
-                            mapmodel += "<img class='tiles' style='width: " + 50 * map[k].x + "px;height: " + 50 * map[k].y + "px;top: " + 50 * row + "px;left: " + 50 * j + "px' id='" + k + "' src='" + map[k].src + "'>";
+                        if (map[i][k] != null){
+                            mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
 
-                            for ( let m=0; m<map[k].x; m++) {
-                                jumps[j+m] = jumps[j+m] + parseInt(map[k].y);
+                            for ( let m=0; m<map[i][k].x; m++) {
+                                jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
                             }
                         }
                     } else {
@@ -163,14 +164,33 @@
         refrechbuttons();
     }
     function generateMapWithHitBox() {
-        let mapmodel = "<div class='mapblock' style='top:"+map[0]+";left:"+map[1]+"'>"
-        for ( let i=2; i<map.length; i++ ) {
-            if ((i-1)%20 != 0){
-                mapmodel += "<img class='tiles' id='"+i+"' src='"+map[i].src+"'><p class='hitbox'>"+map[i].collison+"</p>";
-            } else {
-                mapmodel += "<img class='tiles' id='"+i+"' src='"+map[i].src+"'><p class='hitbox'>"+map[i].collison+"</p><br>";
+        i = 0;
+        let k = 0
+        let counter = 0;
+        let jumps = [
+            0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+        ];
+
+        let mapmodel = "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+
+        for (let row=0; row<=6; row++){
+
+            for ( let j=0; j<=19; j++) {
+                k = (row*20)+j+3-counter;
+                if (jumps[j] === row){
+                    if (map[i][k] != null){
+                        mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'><p style='top: " + 100 * row + "px;left: " + 100 * j + "px' class='hitbox'>"+map[i][k].collison+"</p>";
+
+                        for ( let m=0; m<map[i][k].x; m++) {
+                            jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+                        }
+                    }
+                } else {
+                    counter++
+                }
             }
         }
+
         mapmodel += "</div>";
 
         document.getElementById("map").innerHTML = mapmodel;
@@ -291,7 +311,7 @@
             let id = parseInt($(this).attr('id'));
             if ($('#changeCollisonMode').prop('checked')){
 
-                map[id].collison = !map[id].collison;
+                map[0][id].collison = !map[0][id].collison;
 
                 generateMapWithHitBox();
             } else {
