@@ -1,24 +1,7 @@
-
 <!-- @author Scheer Nicolas-->
 <!-- BUTTONS -->
-<br>
-<button type="button" name="BUTTON_play" id="play" class="JANN_Button NICO_Button" style="font-size:24px">
-	<span class="NICO_spans"><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span>Play
-</button>
-<button type="button" name="BUTTON_chat" id="chatButton" class="JANN_Button NICO_Button" style="font-size:24px">
-	<span class="NICO_spans"><img src="../Images/chat_symbol.png" alt="Chat Symbol" width="24px"></span>Chat
-</button>
-<button type="button" name="BUTTON_profile" id="profile" class="JANN_Button NICO_Button" style="font-size:24px">
-	<span class="NICO_spans"><img src="../Images/profile_symbol.png" alt="Profile Symbol" width="24px"></span>Profile
-</button>
-<button type="button" name="BUTTON_admin" id="admin" class="JANN_Button NICO_Button" style="font-size:24px">
-	<span class="NICO_spans"><img src="../Images/admin_symbol.png" alt="Admin Symbol" width="24px"></span>Admin
-</button>
-<button type="button" name="BUTTON_logout" id="logout" class="JANN_Button NICO_Button" style="font-size:24px">
-	<span class="NICO_spans"><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span>Logout
-</button>
-
 <br><br>
+<<<<<<< HEAD
 <div id="ranking">
 	<table id="rank" border="1px solid black">
 		<tr id="tableHeader">
@@ -32,13 +15,52 @@
 		<tr id="pBest">
 		</tr>
 	</table>
+=======
+
+<div id="JANN_MainPlay">
+	<button type="button" name="BUTTON_play" id="play" class="JANN_Button_Main" style="font-size:24px">Play
+		<span><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span></button>
+	<br><br>
+	<button type="button" name="BUTTON_chat" id="chatButton" class="JANN_Button_Main" style="font-size:24px">Chat
+		<span><img src="../Images/chat_symbol.png" alt="Chat Symbol" width="24px"></span></button>
+	<br><br>
+	<button type="button" name="BUTTON_settings" id="settings" class="JANN_Button_Main" style="font-size:24px">Settings
+		<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
+	<br><br>
+</div>
+
+<div id="JANN_ProfileLog">
+	<button type="button" name="BUTTON_profile" id="profile" class="JANN_Button_Main" style="font-size:24px">Profile
+		<span><img src="../Images/profile_symbol.png" alt="Logout Symbol" width="24px"></span></button>
+	<button type="button" name="BUTTON_admin" id="admin" class="JANN_Button_Main" style="font-size:24px">Admin
+		<span><img src="../Images/admin_symbol.png" alt="Admin Symbol" width="24px"></span></button>
+	<button type="button" name="BUTTON_logout" id="logout" class="JANN_Button_Main" style="font-size:24px">Logout
+		<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
+</div>
+
+
+<div id="JANN_Ranking">
+	
+	<div id="ranking">
+		<table id="rank" border="1px solid black">
+			<tr id="tableHeader">
+				<th id="rankHeader">Rang</th>
+				<th>Spieler</th>
+				<th>Punkte</th>
+			</tr>
+		
+		</table>
+	</div>
+>>>>>>> 272776991c00e8193b830308f229ae33beec1068
 </div>
 <div id="weather">
 
 </div>
+
 <div id="cars">
 
 </div>
+
 <script>
 	//Xu : Start of Color API
 	function SetRNColor() {
@@ -46,6 +68,7 @@
 			$("#tableHeader").css("color", color.hex.value);
 		})
 	}
+	
 	//end of color API
 	function getEmoji() {
 		$.get("https://unpkg.com/emoji.json@14.0.0/emoji.json", function (emoji) {
@@ -56,16 +79,16 @@
 	
 	//Nicolas : Start of Car API
 	
-	const settings = {
-		async: true,
-		crossDomain: true,
-		url: 'https://all-cars-names-image-and-variants-info.p.rapidapi.com/motororchestrator/api/v1/mmv?vehicle_type=car',
-		method: 'GET',
-		headers: {
-			'X-RapidAPI-Key': '1f230dc38amshfe017f3dc38acfdp1ae18bjsned015b97f6b2',
-			'X-RapidAPI-Host': 'all-cars-names-image-and-variants-info.p.rapidapi.com'
-		}
-	};
+	// const settings = {
+	// 	async: true,
+	// 	crossDomain: true,
+	// 	url: 'https://all-cars-names-image-and-variants-info.p.rapidapi.com/motororchestrator/api/v1/mmv?vehicle_type=car',
+	// 	method: 'GET',
+	// 	headers: {
+	// 		'X-RapidAPI-Key': '1f230dc38amshfe017f3dc38acfdp1ae18bjsned015b97f6b2',
+	// 		'X-RapidAPI-Host': 'all-cars-names-image-and-variants-info.p.rapidapi.com'
+	// 	}
+	// };
 	
 	// $.ajax(settings).done(function (response) {
 	// 	console.log(response);
@@ -80,14 +103,14 @@
 	// });
 	
 	
-	//START OF LOGOUT
+	//Nicolas : START OF LOGOUT
 	
 	$("#logout").click(() => {
 		
 		var expDate = new Date();
 		
 		expDate.setTime(expDate.getTime() - 3600);
-		$.cookie('PHPSESSID', null, { path: '/', expires: expDate});
+		$.cookie('PHPSESSID', null, {path: '/', expires: expDate});
 		
 		$.getJSON(path + "Back-End/basic-site.php?SeesionID=" + getSessionIdFromCookies(), function (Session) {
 		
@@ -98,6 +121,18 @@
 	});
 	
 	//END OF LOGOUT
+	
+	//Nicolas : START OF ADMIN
+	
+	$("#admin").click(() => {
+		
+		
+		GetAdminPage();
+		
+		
+	});
+	
+	//END OF ADMIN
 	
 	//START OF PLAYBUTTON
 	
@@ -126,10 +161,12 @@
 	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
 		SetRNColor()
 		getEmoji()
-		for (var i = 0;i < data.length;i++){
+		
+		for (var i = 0; i < data.length; i++) {
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
 	})
+<<<<<<< HEAD
 	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
 		SetRNColor()
 		getEmoji()
@@ -138,6 +175,9 @@
 		}
 	})
 
+=======
+	
+>>>>>>> 272776991c00e8193b830308f229ae33beec1068
 	// //END OF RANKING
 	
 	//Jann: START OF PROFILE

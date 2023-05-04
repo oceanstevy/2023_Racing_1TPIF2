@@ -82,12 +82,12 @@
 	
 	$(document).ready(function(){
 		$.getJSON("https://api.chucknorris.io/jokes/random", function(data){
-			$("#chuckNorris").text(data.value);
+			$("#JANN_Chuck").text(data.value);
 		});
 	});
 </script>
 
-<div id="chuckNorris"></div>
+<div id="JANN_Chuck"></div>
 
 <?php
 
