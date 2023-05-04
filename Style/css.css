@@ -228,12 +228,15 @@ span{
 
 /*Chat CSS Chris*/
 #chatInput {
-    text-align: center;
+    position: relative;
+    bottom: 10px;
 }
 
 #chat {
-    padding-top: 20%;
-    text-align: center;
+    /*text-align: center;*/
+    height: 40rem;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #sendInfo {
@@ -245,19 +248,30 @@ span{
 }
 
 #Message {
-
+    width: 43%;
+    text-align: center;
+    display: inline-block;
 }
 
 #username {
-    margin-left: 20px;
+    float: left;
+    text-align: left;
+    width: 5rem;
 }
 
 #time {
-
+    float: right;
+    width: 33%;
+    text-align: right;
 }
 
 #chatPage {
-    
+
+}
+
+#chatText {
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 
