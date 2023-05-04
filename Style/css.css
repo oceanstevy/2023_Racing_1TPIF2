@@ -161,6 +161,7 @@ span{
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 40rem;
     transform: translate(-50%, -50%);
     /*border: black solid 2px;*/
 }
