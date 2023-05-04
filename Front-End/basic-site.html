@@ -1,15 +1,15 @@
 <!-- @author Scheer Nicolas-->
 <!-- BUTTONS -->
 
-<button type="button" name="BUTTON_play" id="play" style="font-size:24px">Play
+<button type="button" name="BUTTON_play" id="play" class="JANN_Button" style="font-size:24px">Play
 	<span><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span></button>
-<button type="button" name="BUTTON_chat" id="chatButton" style="font-size:24px">Chat
+<button type="button" name="BUTTON_chat" id="chatButton" class="JANN_Button" style="font-size:24px">Chat
 	<span><img src="../Images/chat_symbol.png" alt="Chat Symbol" width="24px"></span></button>
-<button type="button" name="BUTTON_settings" id="settings" style="font-size:24px">Settings
+<button type="button" name="BUTTON_settings" id="settings" class="JANN_Button" style="font-size:24px">Settings
 	<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
-<button type="button" name="BUTTON_logout" id="logout" style="font-size:24px">Logout
+<button type="button" name="BUTTON_logout" id="logout" class="JANN_Button" style="font-size:24px">Logout
 	<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
-<button type="button" name="BUTTON_profile" id="profile" style="font-size:24px">Profile
+<button type="button" name="BUTTON_profile" id="profile" class="JANN_Button" style="font-size:24px">Profile
 	<span><img src="../Images/profile_symbol.png" alt="Logout Symbol" width="24px"></span></button>
 <div id="ranking">
 	<table id="rank" border="1px solid black">
@@ -22,6 +22,9 @@
 	</table>
 </div>
 <div id="weather">
+
+</div>
+<div id="cars">
 
 </div>
 <script>
@@ -47,7 +50,11 @@
 	};
 	
 	$.ajax(settings).done(function (response) {
-		console.log(response);
+		// console.log(response);
+		$.each(response, function(index, value){
+			$("#cars").append(index + ": " + value + '<br>');
+		});
+		
 	});
 	
 	
