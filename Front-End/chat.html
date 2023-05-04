@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-<!--    <script src="Include_Functions/jquery.html"></script>-->
-<!--    <script src="Include_Functions/functions.js"></script>-->
 </head>
 <body>
 
-<div id="chat"></div>
+<div class="JANN_Div" id="chatPage">
+    <div id="chat"></div>
 
-<div id="chatInput">
-<!--    <label for="writeMessage">Text:</label>-->
-    <input type="text" name="DATA_message" class="form-control" id="writeMessage">
-    <button type="button" id="sendInfo" class="">Send</button>
+    <div id="chatInput">
+    <!--    <label for="writeMessage">Text:</label>-->
+        <input type="text" name="DATA_message" class="JANN_Input" id="writeMessage">
+        <button type="button" id="sendInfo" class="JANN_Button">Send</button>
+    </div>
 </div>
 
 </body>
@@ -29,7 +29,7 @@
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                chat += "<p id='chatText'><b>" + data[i].Name + ":</b> " + data[i].Message + " " + data[i].timestamp + "</p><br>";
+                chat += "<p id='chatText'><span id='username'>" + data[i].Name + ":</span> <span id='message'>" + data[i].Message + "</span> <span id='time'>" + data[i].timestamp + "</span></p><br>";
             }
             //set content of #container to tmp
             $("#chat").html(chat);
@@ -63,7 +63,7 @@
     })
 
     //execute load function every 2 seconds
-    setInterval(load,5000);
+    // setInterval(load,5000);
 
 </script>
 </html>
