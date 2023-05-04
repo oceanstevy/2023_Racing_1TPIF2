@@ -188,4 +188,19 @@ span{
     
 }
 
+.NICO_spans{
+
+    margin-right: .5rem;
+
+}
+
+.NICO_button {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
 
