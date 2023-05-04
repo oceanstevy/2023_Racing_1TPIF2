@@ -14,9 +14,9 @@
 <div id="ranking">
 	<table id="rank" border="1px solid black">
 		<tr id="tableHeader">
-			<th class="th">Rang</th>
-			<th class="th">Spieler</th>
-			<th class="th">Punkte</th>
+			<th id="rankHeader">Rang</th>
+			<th>Spieler</th>
+			<th>Punkte</th>
 		</tr>
 	
 	</table>
@@ -35,6 +35,12 @@
 		})
 	}
 	//end of color API
+	function getEmoji() {
+		$.get("https://unpkg.com/emoji.json@14.0.0/emoji.json", function (emoji) {
+			var rn = Math.floor(Math.random() * 100)
+			$("#rankHeader").append(emoji[rn].char);
+		})
+	}
 	
 	//Nicolas : Start of Car API
 	
@@ -115,6 +121,7 @@
 	//Xu: START OF RANKING
 	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
 		SetRNColor()
+		getEmoji()
 		for (var i = 0;i < data.length;i++){
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
