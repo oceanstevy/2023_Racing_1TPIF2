@@ -169,7 +169,7 @@ span{
 #JANN_ProfileLog{
     position: absolute;
     top: 5%;
-    right: -24%;
+    right: -30%;
     transform: translate(-50%, -50%);
     /*border: black solid 2px;*/
 }
