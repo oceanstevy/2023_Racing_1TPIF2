@@ -168,8 +168,8 @@ span{
 
 #JANN_ProfileLog{
     position: absolute;
-    top: 20%;
-    right: -8%;
+    top: 10%;
+    right: -13%;
     transform: translate(-50%, -50%);
     /*border: black solid 2px;*/
 }
@@ -196,7 +196,8 @@ span{
     color: black;
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
-    width: 100%;
+    width:500px ;
+
 }
 
 .JANN_Button_Main:hover {
