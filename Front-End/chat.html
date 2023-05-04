@@ -29,7 +29,7 @@
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                chat += "<div id='chatText'><span id='username'>" + data[i].Name + ":</span><span id='message'>" + data[i].Message + "</span><span id='time'>" + data[i].timestamp + "</span></div><br>";
+                chat += "<div class='chatText'><p id='username'>" + data[i].Name + ":</p><p id='message'>" + data[i].Message + "</p><p id='time'>" + data[i].timestamp + "</p></div><br>";
             }
             //set content of #container to tmp
             $("#chat").html(chat);
@@ -63,7 +63,7 @@
     })
 
     //execute load function every 5 seconds
-    // setInterval(load,5000);
+    setInterval(load,5000);
 
 </script>
 </html>
