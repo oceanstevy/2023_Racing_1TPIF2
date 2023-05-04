@@ -1,4 +1,3 @@
-
 <!-- @author Scheer Nicolas-->
 <!-- BUTTONS -->
 <br>
@@ -54,13 +53,10 @@
 <div id="weather">
 
 </div>
-<<<<<<< Updated upstream
 <div id="cars">
 
 </div>
-=======
 
->>>>>>> Stashed changes
 <script>
 	//Xu : Start of Color API
 	function SetRNColor() {
@@ -68,6 +64,7 @@
 			$("#tableHeader").css("color", color.hex.value);
 		})
 	}
+	
 	//end of color API
 	function getEmoji() {
 		$.get("https://unpkg.com/emoji.json@14.0.0/emoji.json", function (emoji) {
@@ -78,16 +75,16 @@
 	
 	//Nicolas : Start of Car API
 	
-	const settings = {
-		async: true,
-		crossDomain: true,
-		url: 'https://all-cars-names-image-and-variants-info.p.rapidapi.com/motororchestrator/api/v1/mmv?vehicle_type=car',
-		method: 'GET',
-		headers: {
-			'X-RapidAPI-Key': '1f230dc38amshfe017f3dc38acfdp1ae18bjsned015b97f6b2',
-			'X-RapidAPI-Host': 'all-cars-names-image-and-variants-info.p.rapidapi.com'
-		}
-	};
+	// const settings = {
+	// 	async: true,
+	// 	crossDomain: true,
+	// 	url: 'https://all-cars-names-image-and-variants-info.p.rapidapi.com/motororchestrator/api/v1/mmv?vehicle_type=car',
+	// 	method: 'GET',
+	// 	headers: {
+	// 		'X-RapidAPI-Key': '1f230dc38amshfe017f3dc38acfdp1ae18bjsned015b97f6b2',
+	// 		'X-RapidAPI-Host': 'all-cars-names-image-and-variants-info.p.rapidapi.com'
+	// 	}
+	// };
 	
 	// $.ajax(settings).done(function (response) {
 	// 	console.log(response);
@@ -102,14 +99,14 @@
 	// });
 	
 	
-	//START OF LOGOUT
+	//Nicolas : START OF LOGOUT
 	
 	$("#logout").click(() => {
 		
 		var expDate = new Date();
 		
 		expDate.setTime(expDate.getTime() - 3600);
-		$.cookie('PHPSESSID', null, { path: '/', expires: expDate});
+		$.cookie('PHPSESSID', null, {path: '/', expires: expDate});
 		
 		$.getJSON(path + "Back-End/basic-site.php?SeesionID=" + getSessionIdFromCookies(), function (Session) {
 		
@@ -120,6 +117,18 @@
 	});
 	
 	//END OF LOGOUT
+	
+	//Nicolas : START OF ADMIN
+	
+	$("#admin").click(() => {
+		
+		
+		GetAdminPage();
+		
+		
+	});
+	
+	//END OF ADMIN
 	
 	//START OF PLAYBUTTON
 	
@@ -148,11 +157,12 @@
 	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
 		SetRNColor()
 		getEmoji()
-		for (var i = 0;i < data.length;i++){
+
+		for (var i = 0; i < data.length; i++) {
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
 	})
-
+	
 	// //END OF RANKING
 	
 	//Jann: START OF PROFILE
