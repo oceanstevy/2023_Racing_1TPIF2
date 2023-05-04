@@ -39,9 +39,9 @@
 	
 	?>
 <label for="DATA_Password" class="JANN_Label">Passwort ändern</label><br>
-<input type="text" id="DATA_Password" required class="JANN_Input"><br><br>
+<input type="password" id="DATA_Password" required class="JANN_Input"><br><br>
 <label for="DATA_RePassword" class="JANN_Label">Passwort bestätigen</label><br>
-<input type="text" id="ReDATA_Password" required class="JANN_Input"><br><br>
+<input type="password" id="ReDATA_Password" required class="JANN_Input"><br><br>
 <button type="button" id="CONFIRM_Info" class="JANN_Button">Save</button>
 <button type="button" id="BACK_Home" class="JANN_Button">Back</button>
 </div>
