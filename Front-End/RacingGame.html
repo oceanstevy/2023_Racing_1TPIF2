@@ -310,8 +310,8 @@
     }
 
     function LoadMap() {
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: (0)}, {y: 0})
+        $.getJSON(path + "Back-End/Maps/map00.json", function (data) {
+            data.unshift({mapname: "map00"}, {x: ((window.innerWidth - carwidth) / 2 - (xtiles * tilessize / 2))}, {y: ((window.innerHeight - carheight) / 2 - (ytiles * tilessize / 2))})
             map[500500] = data;
         });
     }
@@ -359,11 +359,21 @@
         let i=mapSeachID;
         let c=xi;
         let r=yi;
+
+        let carX = parseInt($( "#MyCar" )[0].style.left);
+        let carY = parseInt($( "#MyCar" )[0].style.top);
         while (!mapLoaded){
             //console.log(i);
             if (map[i] != null){
                 if (-(ytiles*tilessize) <= map[i][2].y && map[i][2].y <= window.innerHeight
                     && -(xtiles*tilessize) <= map[i][1].x && map[i][1].x <= window.innerWidth) {
+
+                    // Auf welcher Map befindet sich das Fahrzeug
+                    if (map[i][1].x <= carX && carX <= (map[i][1].x + (tilessize*xtiles))
+                        && map[i][2].y <= carY && carY <= (map[i][2].y + (tilessize*ytiles))) {
+                        CheckhitNotGround(i);
+                    }
+
                     maploadcounter++
                     let k = 0
                     let counter = 0;
@@ -652,10 +662,53 @@
 
             map[mapid] = data;
             console.log("New Map Tile", mapid);
+            changeMap = true;
         })
     }
 
+    function CheckhitNotGround(i) {
+        let carX = parseInt($( "#MyCar" )[0].style.left);
+        let carY = parseInt($( "#MyCar" )[0].style.top);
+        let k = 0
+        let counter = 0;
+        let jumps = [
+            0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+        ];
+        for (let row=0; row<=6; row++){
+
+            for ( let j=0; j<=19; j++) {
+                k = (row*20)+j+3-counter;
+                if (jumps[j] === row){
+                    //mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
+                    //console.log("width-min",100 * row + map[i][1].x,"width-max",100 * row + (100 * map[i][k].x) + map[i][1].x,"height-min",100 * j + map[i][2].y,"height-max",100 * j + (100 * map[i][k].y) + map[i][2].y);
+                    //console.log(100 * row + map[i][1].x <= carX , carX <= (100 * row + (100 * map[i][k].x) + map[i][1].x) , 100 * j + map[i][2].y <= carY , carY <= (100 * j + (100 * map[i][k].y) + map[i][2].y))
+                    if (100 * row + map[i][1].x <= carX && carX <= (100 * row + (100 * map[i][k].x) + map[i][1].x)
+                        && 100 * j + map[i][2].y <= carY && carY <= (100 * j + (100 * map[i][k].y) + map[i][2].y)) {
+                        if (map[i][k].collison){
+                            console.log("hit",i,k);
+                        }
+
+                    }
+                    for ( let m=0; m<map[i][k].x; m++) {
+                        jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+                    }
+                } else {
+                    counter++
+                }
+            }
+        }
+    }
+
 </script>
+<div id="test">
+<!--    position: relative;-->
+<!--    z-index: 6;-->
+<!--    width: 100px;-->
+<!--    height: 100px;-->
+<!--    background-color: black;-->
+<!--    top: 849px;-->
+<!--    left: 756px;-->
+</div>
 
 <div id="Playground">
 
