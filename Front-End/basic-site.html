@@ -37,8 +37,6 @@
 		</table>
 		<h4>My Highscore</h4>
 		<table id="pBestTable" border="1px solid black">
-			<tr id="pBest">
-			</tr>
 		</table>
 	</div>
 </div>
@@ -147,19 +145,17 @@
 	
 	
 	//Xu: START OF RANKING
-	$.get(path + "Back-End/Interfaces/ranking.php?rank=top10", function (data) {
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=top10", function (ranking) {
 		SetRNColor()
 		getEmoji()
 		
-		for (var i = 0; i < data.length; i++) {
-			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
+		for (var i = 0; i < ranking.length; i++) {
+			$("#rank").append("<tr><td>" + ranking[i]["Rank"] + "</td><td>" + ranking[i]["Name"] + "</td><td>" + ranking[i]["Score"] + "</td></tr>");
 		}
 	})
-	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
-		SetRNColor()
-		getEmoji()
-		for (var i = 0;i < data.length;i++){
-			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=personal", function (personal) {
+		for (var i = 0;i < personal.length;i++){
+			$("#pBestTable").append("<tr><td>" + personal[i]["Rank"] + "</td><td>" + personal[i]["Name"] + "</td><td>" + personal[i]["Score"] + "</td></tr>");
 		}
 	})
 

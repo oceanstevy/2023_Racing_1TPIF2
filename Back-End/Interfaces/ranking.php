@@ -10,13 +10,13 @@ $connect = db_Connect();
 
         $query = createRank();
 
-        $result = mysqli_query($connect, $query);
+        $result1 = mysqli_query($connect, $query);
 
         $arrayFeed = [];
 
-        for ($i = 1; $i <= mysqli_num_rows($result); $i++){
+        for ($i = 1; $i <= mysqli_num_rows($result1); $i++){
             if ($i <= 10){
-                $row = mysqli_fetch_assoc($result);
+                $row = mysqli_fetch_assoc($result1);
 
                 $arrayFeed[] = array (
                     "Rank" => $i ,
@@ -30,17 +30,17 @@ $connect = db_Connect();
     }
     if ($_GET['rank'] == "personal"){
 
-        $query = createRank();
+        $query = personalBest();
 
-        $result = mysqli_query($connect, $query);
+        $result2 = mysqli_query($connect, $query);
 
-        $arrayFeed = [];
+        $arrayFeed2 = [];
 
-        for ($i = 1; $i <= mysqli_num_rows($result); $i++){
-            if ($i <= 10){
-                $row = mysqli_fetch_assoc($result);
+        for ($i = 1; $i <= mysqli_num_rows($result2); $i++){
+            if ($i <= 5){
+                $row = mysqli_fetch_assoc($result2);
 
-                $arrayFeed[] = array (
+                $arrayFeed2[] = array (
                     "Rank" => $i ,
                     "Name" => $row[ 'dtName' ] ,
                     "Score" => $row[ 'dtScore' ],
@@ -48,7 +48,7 @@ $connect = db_Connect();
             }
         }
 
-        echo json_encode ($arrayFeed);
+        echo json_encode ($arrayFeed2);
     }
 
 

@@ -40,8 +40,9 @@
         return "SELECT * FROM tblScore LEFT JOIN tblPlayer ON fiPlayer = idPlayer ORDER BY dtScore DESC";
     }
     function personalBest(){
-        return "SELECT * FROM tblScore LEFT JOIN tblPlayer ON fiPlayer = idPlayer 
-                WHERE dtName = " + $_SESSION['user'] + " 
+        return "SELECT * FROM tblScore 
+                LEFT JOIN tblPlayer ON fiPlayer = idPlayer 
+                WHERE dtName =  '{$_SESSION['user']}'   
                 ORDER BY dtScore DESC";
     }
 
