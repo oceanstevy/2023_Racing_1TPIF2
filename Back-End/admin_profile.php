@@ -17,6 +17,8 @@
 	$checkAdmin->execute();
 	
 	$result = $checkAdmin->get_result();
+	
+	print_r($result);
 
 ?>
 
