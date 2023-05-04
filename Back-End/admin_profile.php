@@ -10,16 +10,31 @@
 	
 	$dbc = db_Connect();
 	$usernameProfile = $_SESSION['user'];
+//	echo $usernameProfile;
 	$permGroup = 2;
-	
-	$checkAdmin = $dbc->prepare(checkIfAdmin());
-	$checkAdmin->bind_param('si',$usernameProfile, $permGroup);
-	$checkAdmin->execute();
-	
-	$result = $checkAdmin->get_result();
-	
-	print_r($result);
 
+	$checkAdmin = $dbc->prepare(checkIfAdmin());
+	$checkAdmin->bind_param('is',$permGroup, $usernameProfile);
+	$checkAdmin->execute();
+
+	$result = $checkAdmin->get_result();
+
+	for($i = 0; $i < mysqli_num_rows ($result); $i++) {
+
+		$row = mysqli_fetch_assoc ($result);
+
+		if ($row["fiPermissionGroup"] === 2) {
+		
+		
+		
+		} else {
+		
+			
+		
+		}
+		
+	}
+	
 ?>
 
 <main>
