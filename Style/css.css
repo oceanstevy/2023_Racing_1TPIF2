@@ -154,5 +154,20 @@ span{
     padding: 20px;
 }
 
+/*CSS Chris*/
+#chatInput {
+    text-align: center;
+}
 
+#chat {
+    padding-top: 20%;
+    text-align: center;
+}
 
+#sendInfo {
+
+}
+
+#writeMessage {
+
+}
