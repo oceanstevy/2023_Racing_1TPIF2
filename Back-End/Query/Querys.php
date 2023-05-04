@@ -39,4 +39,28 @@
     function createRank(){
         return "SELECT * FROM tblScore LEFT JOIN tblPlayer ON fiPlayer = idPlayer ORDER BY dtScore DESC";
     }
+    function personalBest(){
+        return "SELECT * FROM tblScore 
+                LEFT JOIN tblPlayer ON fiPlayer = idPlayer 
+                WHERE dtName =  '{$_SESSION['user']}'   
+                ORDER BY dtScore DESC";
+    }
+	
+	//Nicolas : checks if current User is Admin
+
+	function checkIfAdmin() {
+		
+		return "SELECT * FROM tblPlayer
+				WHERE fiPermissionGroup = ?
+				AND dtName = ?";
+		
+	}
+	
+	//Nicolas : get all Users
+	
+	function getAllUsers() {
+		
+		return "SELECT * FROM tblPlayer";
+		
+	}
 

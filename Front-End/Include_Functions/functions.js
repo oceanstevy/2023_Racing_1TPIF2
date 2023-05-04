@@ -48,10 +48,5 @@ function NewMapModelID(mapid,n) {
     return xi +""+ yi
 }
 
-function SetRNColor() {
-    $.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
-        $("th").css("color", color.hex.value);
-    })
-}
 
 

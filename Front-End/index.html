@@ -88,6 +88,22 @@
 	}
 	
 	// -- Chris - Ende --
+	
+	//      --  Nicolas - Begin     --
+	
+		function GetAdminPage() {
+			
+			$.get(path + "Back-End/admin.php", function (data) {
+				$("body").html(data);
+				
+			})
+		
+		}
+	
+	//      --  Nicolas - Ende     --
+
+
+
 </script>
 <body>
 
