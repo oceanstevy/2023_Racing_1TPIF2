@@ -154,5 +154,38 @@ span{
     padding: 20px;
 }
 
+/*Chat CSS Chris*/
+#chatInput {
+    text-align: center;
+}
+
+#chat {
+    padding-top: 20%;
+    text-align: center;
+}
+
+#sendInfo {
+
+}
+
+#writeMessage {
+
+}
+
+#Message {
+
+}
+
+#username {
+    margin-left: 20px;
+}
+
+#time {
+
+}
+
+#chatPage {
+    
+}
 
 

@@ -311,24 +311,8 @@
 
     function LoadMap() {
         $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: 0}, {y: 0})
+            data.unshift({mapname: "map01"}, {x: (0)}, {y: 0})
             map[500500] = data;
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles})
-            map[500501] = data;
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 2})
-            map[500502] = data;
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 3})
-            map[500503] = data;
-        });
-        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
-            data.unshift({mapname: "map01"}, {x: 0}, {y: tilessize * ytiles * 4})
-            map[500504] = data;
         });
     }
 
@@ -633,6 +617,16 @@
                 yi++
             } else {
                 xi--
+            }
+
+            if (map[xi +""+ yi] == null){
+                mapRequest.forEach((value,i) => {
+                    console.log(value , mapid);
+                    if (value == mapid){
+                        console.log(value , xi +""+ yi);
+                        mapRequest.splice(i,1);
+                    }
+                })
             }
 
             let mx = map[xi +""+ yi][1].x;

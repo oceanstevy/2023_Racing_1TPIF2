@@ -3,7 +3,7 @@
 
 <button type="button" name="BUTTON_play" id="play" style="font-size:24px">Play
 	<span><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span></button>
-<button type="button" name="BUTTON_chat" id="chat" style="font-size:24px">Chat
+<button type="button" name="BUTTON_chat" id="chatButton" style="font-size:24px">Chat
 	<span><img src="../Images/chat_symbol.png" alt="Chat Symbol" width="24px"></span></button>
 <button type="button" name="BUTTON_settings" id="settings" style="font-size:24px">Settings
 	<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
@@ -32,6 +32,23 @@
 		})
 	}
 	//end of color API
+	
+	//Nicolas : Start of Car API
+	
+	const settings = {
+		async: true,
+		crossDomain: true,
+		url: 'https://all-cars-names-image-and-variants-info.p.rapidapi.com/motororchestrator/api/v1/mmv?vehicle_type=car',
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': '1f230dc38amshfe017f3dc38acfdp1ae18bjsned015b97f6b2',
+			'X-RapidAPI-Host': 'all-cars-names-image-and-variants-info.p.rapidapi.com'
+		}
+	};
+	
+	$.ajax(settings).done(function (response) {
+		console.log(response);
+	});
 	
 	
 	//START OF LOGOUT
@@ -79,7 +96,7 @@
 	
 	//Chris: START OF CHATBUTTON
 	
-	$("#chat").click(() => {
+	$("#chatButton").click(() => {
 		
 		GetChatPage();
 		
