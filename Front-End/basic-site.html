@@ -114,7 +114,7 @@
 	
 	//Xu: START OF RANKING
 	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
-
+		SetRNColor()
 		for (var i = 0;i < data.length;i++){
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
