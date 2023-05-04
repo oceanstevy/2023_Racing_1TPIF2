@@ -147,7 +147,7 @@
 	
 	
 	//Xu: START OF RANKING
-	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=top10", function (data) {
 		SetRNColor()
 		getEmoji()
 		
@@ -155,7 +155,6 @@
 			$("#rank").append("<tr><td>" + data[i]["Rank"] + "</td><td>" + data[i]["Name"] + "</td><td>" + data[i]["Score"] + "</td></tr>");
 		}
 	})
-<<<<<<< HEAD
 	$.get(path + "Back-End/Interfaces/ranking.php", function (data) {
 		SetRNColor()
 		getEmoji()
@@ -164,9 +163,6 @@
 		}
 	})
 
-=======
-	
->>>>>>> 272776991c00e8193b830308f229ae33beec1068
 	// //END OF RANKING
 	
 	//Jann: START OF PROFILE
