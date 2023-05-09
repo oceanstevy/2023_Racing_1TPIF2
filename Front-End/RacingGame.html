@@ -33,7 +33,9 @@
     let CoinWidth = 25;
     let CoinHeight = 25;
 
+    let Score = 0;
     let GameStatusRunning = true;
+    let FirstMap = false;
 
     function GameStart(){
 
@@ -121,6 +123,8 @@
             GenerateMap()
         }
 
+        LockForNewMapModel()
+
 
         // Checkt on er ein Coin Berührt, wenn ein ein Coin gibt
         if ($( ".coins" ).length > 0){
@@ -133,6 +137,9 @@
             //generateCoin();
         }
 
+        ScorePoints()
+
+        FirstMap = true;
 
         // Nur zum testen
         document.getElementById('speedMeter').innerHTML = speed;
@@ -371,7 +378,9 @@
                     // Auf welcher Map befindet sich das Fahrzeug
                     if (map[i][1].x <= carX && carX <= (map[i][1].x + (tilessize*xtiles))
                         && map[i][2].y <= carY && carY <= (map[i][2].y + (tilessize*ytiles))) {
-                        CheckhitNotGround(i);
+                        if (FirstMap){
+                            CheckhitNotGround(i);
+                        }
                     }
 
                     maploadcounter++
@@ -388,7 +397,7 @@
                             k = (row*20)+j+3-counter;
                             if (jumps[j] === row){
                                 if (map[i][k] != null){
-                                    mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
+                                    mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='"+ i + "" + k + "' src='" + map[i][k].src + "'>";
 
                                     for ( let m=0; m<map[i][k].x; m++) {
                                         jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
@@ -401,6 +410,8 @@
                     }
 
                     mapmodel += "</div>";
+
+
                 }
             }
 
@@ -443,10 +454,9 @@
 
         if (oldMaploadcounter !== maploadcounter){
             oldMaploadcounter = maploadcounter
-            console.log("Map Loaded:" ,maploadcounter);
+            //console.log("Map Loaded:" ,maploadcounter);
         }
 
-        LockForNewMapModel()
         changeMap = false
         document.getElementById("Playground").innerHTML = mapmodel;
     }
@@ -631,9 +641,9 @@
 
             if (map[xi +""+ yi] == null){
                 mapRequest.forEach((value,i) => {
-                    console.log(value , mapid);
+                    //console.log(value , mapid);
                     if (value == mapid){
-                        console.log(value , xi +""+ yi);
+                        //console.log(value , xi +""+ yi);
                         mapRequest.splice(i,1);
                     }
                 })
@@ -661,14 +671,14 @@
             data.unshift({mapname: mapname}, {x: mx}, {y: my})
 
             map[mapid] = data;
-            console.log("New Map Tile", mapid);
+            //console.log("New Map Tile", mapid);
             changeMap = true;
         })
     }
 
     function CheckhitNotGround(i) {
-        let carX = parseInt($( "#MyCar" )[0].style.left);
-        let carY = parseInt($( "#MyCar" )[0].style.top);
+        let rect2 = $( "#MyCar" )[0].getBoundingClientRect();
+
         let k = 0
         let counter = 0;
         let jumps = [
@@ -679,16 +689,20 @@
             for ( let j=0; j<=19; j++) {
                 k = (row*20)+j+3-counter;
                 if (jumps[j] === row){
-                    //mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
-                    //console.log("width-min",100 * row + map[i][1].x,"width-max",100 * row + (100 * map[i][k].x) + map[i][1].x,"height-min",100 * j + map[i][2].y,"height-max",100 * j + (100 * map[i][k].y) + map[i][2].y);
-                    //console.log(100 * row + map[i][1].x <= carX , carX <= (100 * row + (100 * map[i][k].x) + map[i][1].x) , 100 * j + map[i][2].y <= carY , carY <= (100 * j + (100 * map[i][k].y) + map[i][2].y))
-                    if (100 * row + map[i][1].x <= carX && carX <= (100 * row + (100 * map[i][k].x) + map[i][1].x)
-                        && 100 * j + map[i][2].y <= carY && carY <= (100 * j + (100 * map[i][k].y) + map[i][2].y)) {
+                    let rect1 = $( "#"+i+""+k )[0].getBoundingClientRect();
+
+                    if (rect1.left < rect2.left + rect2.width &&
+                        rect1.left + rect1.width > rect2.left &&
+                        rect1.top < rect2.top + rect2.height &&
+                        rect1.top + rect1.height > rect2.top) {
                         if (map[i][k].collison){
                             console.log("hit",i,k);
+                            GameFinished();
                         }
-
                     }
+
+
+
                     for ( let m=0; m<map[i][k].x; m++) {
                         jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
                     }
@@ -697,6 +711,22 @@
                 }
             }
         }
+    }
+
+    function ScorePoints() {
+        Score += speed / 100;
+
+
+        $("#Points").text( (Math.floor(Score*100))/100 );
+    }
+
+    function GameFinished() {
+        clearInterval(timergame);
+        console.log(path + "Back-End/Interfaces/SavePoints.php?Points="+(Math.floor(Score*100))/100+"&SeesionID=" + getSessionIdFromCookies());
+        $.getJSON(path + "Back-End/Interfaces/SavePoints.php?Points="+(Math.floor(Score*100))/100+"&SeesionID=" + getSessionIdFromCookies(), function (data) {
+            GetMenuPage();
+        });
+
     }
 
 </script>
@@ -716,6 +746,10 @@
 
 <img id="MyCar" src="../Images/Car_Police01.png">
 
+<div id="divPoints">
+    <p>Punkte:</p>
+    <p id="Points">0</p>
+</div>
 
 <div id="Tempomat">
     <p id="speedMeter"></p>
@@ -744,7 +778,3 @@
 <script>
     GameStart();
 </script>
-
-
-
-

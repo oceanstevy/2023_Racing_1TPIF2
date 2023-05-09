@@ -34,6 +34,24 @@ h3{
     top: 80%;
     right: 20px;
 }
+
+#divPoints{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(20,20,20,0.9);
+}
+
+#divPoints p{
+    display: inline-block;
+    font-size: 1.2rem;
+    color: green;
+}
+
+#Points{
+
+}
+
 #PauseMenuTransperent{
     background-color: rgba(255, 255, 255, 0.7);
     height: 100vh;
