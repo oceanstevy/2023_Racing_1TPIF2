@@ -1,3 +1,9 @@
+<style>
+    body{
+        background-repeat: no-repeat;
+        background-size: 100vw 100vh;
+    }
+</style>
 <script>
     //Fahrzeug wir generiert und Spiel wird gestartet
     let timergame = "";
@@ -57,9 +63,10 @@
             $("#MyCar")[0].style.width = carwidth + "px";
             $("#MyCar")[0].style.height = carheight + "px";
 
+            SpaceXAPI();
+
             clearInterval(timergame);
             timergame = setInterval("step()", 25);
-
         });
     }
     LoadMap();
@@ -77,9 +84,15 @@
 
     // Generiert auf der Map eine Münze
     function generateCoin() {
-        let top = Math.floor(getRandom(100,window.innerHeight-100));
-        let left = Math.floor(getRandom(100,window.innerWidth-100));
-        $('#img').append("<img src='../Images/Coin.png' alt='coin' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>");
+        let savearr = [];
+        for(let o=1;o<map.length;o++){
+            if (map[o] != null){
+                savearr.push(o);
+            }
+        }
+        console.log(savearr);
+
+        //$('#img').append("<img src='../Images/Coin.png' alt='coin' class='coins' style='position: absolute; top:" + top + "px; left:" + left + "px; width: "+ CoinWidth +"px  ; height: "+ CoinHeight +"px'>");
     }
 
     // Checkt op ein Coin getroffen wurde | Funktioniert noch nicht zu 100%
@@ -722,11 +735,18 @@
 
     function GameFinished() {
         clearInterval(timergame);
-        console.log(path + "Back-End/Interfaces/SavePoints.php?Points="+(Math.floor(Score*100))/100+"&SeesionID=" + getSessionIdFromCookies());
+        $( "body" ).css( "background-image", "none" );
         $.getJSON(path + "Back-End/Interfaces/SavePoints.php?Points="+(Math.floor(Score*100))/100+"&SeesionID=" + getSessionIdFromCookies(), function (data) {
             ExitGame();
         });
 
+    }
+
+    // SpaceX REST API
+    function SpaceXAPI(){
+        $.getJSON("https://api.spacexdata.com/v5/launches/latest", function (data) {
+            $( "body" ).css( "background-image", "url("+data.links.patch.small+")" );
+        });
     }
 
 </script>
