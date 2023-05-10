@@ -128,7 +128,7 @@ span{
     background-color: #fff;
     border-color: #86b7fe;
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+    box-shadow: 0 0 0 0.25rem rgba(13 110 253 0.5);
 }
 .JANN_Button{
     --b: 3px;   /* border thickness */
@@ -305,5 +305,14 @@ main {
 
 }
 
+#weather{
+    position: fixed;
+    top: 85%;
+    left: 5%;
+}
+
+#weather p{
+    font-size: 1.2rem;
+}
 
 

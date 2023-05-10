@@ -169,22 +169,23 @@
 		
 	})
 	//END OF PROFILE
-	
+
+
 	// Jonathan
 	// Weater API
-	
 	function GetWeaterData() {
 		$.getJSON("https://api.open-meteo.com/v1/forecast?latitude=49.62&longitude=6.14&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m", function (data) {
 			let output = "";
 			output += "<p>Temperatur:<span>" + data.current_weather.temperature + "</span></p>";
 			output += "<p>Wind Richtung:<span style='transform: rotate(" + data.current_weather.winddirection + "deg);'>&uarr;</span>" + data.current_weather.winddirection + "</p>";
 			output += "<p>Wind Geschwindigkeit:<span>" + data.current_weather.windspeed + "</span></p>";
-			console.log(output);
-			console.log(data);
+			//console.log(output);
+			//console.log(data);
 			
 			$("#weather").html(output);
 		})
 	}
+	GetWeaterData();
 	
 	// End Jonathan
 
