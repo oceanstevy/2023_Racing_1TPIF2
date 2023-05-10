@@ -56,21 +56,16 @@
                     $.get(path + "Back-End/Chat.php", "executionType=write&text=" + result['censored'], (data) => {
                         //informs user what happened to post
                         if (data.errorCode === "success!") {
-
                             console.log("Success!!");
-
                         }
-
                     });
                 }
             });
-
+            //make the input field empty
             $('#writeMessage').val('');
             load();
-            $('#chat').scrollTop($('#chat')[0].scrollHeight);
-        } else {
-            $('#chat').scrollTop($('#chat')[0].scrollHeight);
         }
+        $('#chat').scrollTop($('#chat')[0].scrollHeight);
     })
 
     $("#BACK_Home").click(() => {
@@ -87,6 +82,7 @@
             headers: {'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
             contentType: 'application/json',
             success: function (result) {
+                //put into the input field
                 $('#writeMessage').val(result[0]['joke']);
             }
         });
