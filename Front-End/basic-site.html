@@ -154,6 +154,7 @@
 		}
 	})
 	$.get(path + "Back-End/Interfaces/ranking.php?rank=personal", function (personal) {
+
 		for (var i = 0;i < personal.length;i++){
 			$("#pBestTable").append("<tr><td>" + personal[i]["Rank"] + "</td><td>" + personal[i]["Name"] + "</td><td>" + personal[i]["Score"] + "</td></tr>");
 		}
