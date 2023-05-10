@@ -427,17 +427,15 @@
 
                 }
             }
-
+            // Schaut welche Map er soll als nächstes laden soll
             if (map[NewMapModelID(i,"x++")] != null){
                 if (map[NewMapModelID(i,"x++")][1].x < window.innerWidth){
                     i = NewMapModelID(i,"x++");
                     c++
-                    //console.log("1",i,c,r)
                 } else {
                     c = xi;
                     r++
                     i = c+""+r;
-                    //console.log("2",i,c,r)
                 }
             } else {
                 //console.log(c-xi)
@@ -445,26 +443,22 @@
                     c = xi;
                     r++
                     i = c+""+r;
-                    //console.log("3",i,c,r)
                 }
                 c++
-                //console.log("10",i,c,r)
             }
             if (map[i] != null) {
                 if (map[i][2].y > window.innerHeight) {
                     mapLoaded = true;
-                    //console.log("4",i,c,r)
                 }
             } else {
                 //console.log(r-yi);
                 if (window.innerHeight < ytiles * tilessize * (r-yi)){
                     mapLoaded = true;
-                    //console.log("5",i,c,r)
                 }
             }
         }
 
-
+        // Gibt die Anzahl aus, wie viele Maps geladen würden
         if (oldMaploadcounter !== maploadcounter){
             oldMaploadcounter = maploadcounter
             //console.log("Map Loaded:" ,maploadcounter);
@@ -503,6 +497,7 @@
                 top = ((positioncontrol*speed/100)*(pixel/100));
             }
 
+            // Die Maps bekommen neue Positionen
             map.forEach((value,i) => {
                 map[i][1].x = Math.floor(map[i][1].x + left);
                 map[i][2].y = Math.floor(map[i][2].y + top);
@@ -516,6 +511,7 @@
         GetMenuPage();
     }
 
+    // Checkt welche Map geladen werden muss
     function LockForNewMapModel(){
         let carX = parseInt($( "#MyCar" )[0].style.left);
         let carY = parseInt($( "#MyCar" )[0].style.top);
@@ -530,7 +526,7 @@
                 let xisave = "";
                 let yisave = "";
 
-
+                // Schaut op dort eine Map existiert
                 //Up
                 yisave = yi - 1;
                 if (map[xi + "" + yisave] == null){
@@ -604,7 +600,7 @@
         let yisave = "";
         let requestText = "";
 
-
+        // Schaut welche map runt herum der neuen Tile ist, um die passende Tile zu rufen.
         //Up
         yisave = yi - 1;
         if (map[xi + "" + yisave] != null){
@@ -633,6 +629,7 @@
 
         requestText += "newmapid="+mapid;
 
+        // Anfrage für die neue Map-tile
         $.getJSON(path + "Back-End/Interfaces/GetNewMapModel.php?"+requestText, function (data) {
             let mapname = data.mapname;
             let mapid = parseInt(data.mapid);
@@ -689,7 +686,9 @@
         })
     }
 
+    // Schaut ob das Fahrzeug auf ein Feld ist, wo er nicht drauf stehen darf
     function CheckhitNotGround(i) {
+
         let rect2 = $( "#MyCar" )[0].getBoundingClientRect();
 
         let k = 0
@@ -704,6 +703,7 @@
                 if (jumps[j] === row){
                     let rect1 = $( "#"+i+""+k )[0].getBoundingClientRect();
 
+                    // Schaut ob das Fahrzeug, das Feld berührt
                     if (rect1.left < rect2.left + rect2.width &&
                         rect1.left + rect1.width > rect2.left &&
                         rect1.top < rect2.top + rect2.height &&
@@ -728,7 +728,6 @@
 
     function ScorePoints() {
         Score += speed / 100;
-
 
         $("#Points").text( (Math.floor(Score*100))/100 );
     }
