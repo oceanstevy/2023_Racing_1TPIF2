@@ -2,13 +2,13 @@
 //Autor: Christopher Pinetti
 session_start();
 
+$name = $_SESSION['user'];
+
 require './Functions/Credentials.php';
 require './Functions/Functions.php';
 require  "./Query/Querys.php";
 
 $dbc = db_Connect();
-
-//echo $_SESSION['user'];
 
 /*if get is set*/
 if (isset($_GET['executionType'])) {
@@ -17,7 +17,7 @@ if (isset($_GET['executionType'])) {
     /*is get read?*/
         if ( $_GET[ 'executionType' ] == "read" ) {
 
-            showData($dbc);
+            showData($dbc, $name);
 
         }
     /*is get write?*/
@@ -26,14 +26,14 @@ if (isset($_GET['executionType'])) {
         /*if both paramaters are set*/
         if (isset($_GET['text'])) {
 
-            insertData($dbc);
+            insertData($dbc, $name);
 
         }
     }
 }
 
 /*shows the content of the database*/
-function showData($dbc)
+function showData($dbc, $name)
 {
     $queryNewFeed = "SELECT dtName, dtMessage, dtTimestamp
                         FROM tblChat, tblPlayer
@@ -50,12 +50,23 @@ function showData($dbc)
         /*cuts row by row*/
         $row = mysqli_fetch_assoc($result);
 
-        /*pushes an associative array into empty array based on rows*/
-        $arrayFeed[] = array(
-            "Name" => $row['dtName'],
-            "Message" => $row['dtMessage'],
-            "timestamp" => $row['dtTimestamp']
-        );
+        if ($name == $row['dtName']) {
+
+            /*pushes an associative array into empty array based on rows*/
+            $arrayFeed[] = array(
+                "Name" => $row['dtName'],
+                "Message" => $row['dtMessage'],
+                "timestamp" => $row['dtTimestamp'],
+                "color" => "blue"
+            );
+        } else {
+            $arrayFeed[] = array(
+                "Name" => $row['dtName'],
+                "Message" => $row['dtMessage'],
+                "timestamp" => $row['dtTimestamp'],
+                "color" => "black"
+            );
+        }
 
     }
 
@@ -68,11 +79,10 @@ function showData($dbc)
 }
 
 /*gets database connection + name + text out of the get parameter*/
-function insertData($dbc)
+function insertData($dbc, $name)
 {
     $currentTimestamp = date("Y-m-d H:i:s");
     $text = $_GET['text'];
-    $name = $_SESSION['user'];
 
     $sql = "SELECT idPlayer FROM tblPlayer WHERE dtName=?"; // SQL with parameters
     $stmt = $dbc->prepare($sql);

@@ -31,7 +31,7 @@
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
                 //generate HTML Structure, based on data from server
-                chat += "<div class='chatText'><p id='username'>" + data[i].Name + ":</p><p id='message'>" + data[i].Message + "</p><p id='time'>" + data[i].timestamp + "</p></div><br>";
+                chat += "<div class='chatText' style='color: " + data[i].color + "'><p id='username'>" + data[i].Name + ":</p><p id='message'>" + data[i].Message + "</p><p id='time'>" + data[i].timestamp + "</p></div><br>";
             }
             //set content of #container to tmp
             $("#chat").html(chat);
