@@ -11,7 +11,7 @@
     <div id="chat"></div>
 
     <div id="chatInput">
-    <!--    <label for="writeMessage">Text:</label>-->
+        <!--    <label for="writeMessage">Text:</label>-->
         <input type="text" name="DATA_message" class="JANN_Input" id="writeMessage">
         <button type="button" id="sendInfo" class="JANN_Button">Send</button>
     </div>
@@ -36,22 +36,40 @@
         });
     }
 
+    function getEmoji() {
+        $.get("https://unpkg.com/emoji.json@14.0.0/emoji.json", function (emoji) {
+            var rn = Math.floor(Math.random() * 100)
+            $("#rankHeader").append(emoji[rn].char);
+        })
+    }
+
     //if button #sendInfo => clicked, execute callback function
     $("#sendInfo").click(() => {
         //save value from html objects into variables
         let text = $("#writeMessage").val();
 
         if (text !== "") {
-            //immediately requests data from server, turned into JSON !!!Important on load() we will receive a text, we have to define what type it is!!!
-            $.get(path + "Back-End/Chat.php", "executionType=write&text=" + text, (data) => {
-                //informs user what happened to post
-                if (data.errorCode === "success!") {
 
-                    console.log("Success!!");
+            $.ajax({
+                method: 'GET',
+                url: 'https://api.api-ninjas.com/v1/profanityfilter?text=' + text,
+                headers: { 'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
+                contentType: 'application/json',
+                success: function(result) {
+                    //immediately requests data from server, turned into JSON !!!Important on load() we will receive a text, we have to define what type it is!!!
+                    $.get(path + "Back-End/Chat.php", "executionType=write&text=" + result['censored'], (data) => {
+                        //informs user what happened to post
+                        if (data.errorCode === "success!") {
 
+                            console.log("Success!!");
+
+                        }
+
+                    });
                 }
-
             });
+
+
 
             load();
         }
@@ -63,7 +81,7 @@
     })
 
     //execute load function every 5 seconds
-    setInterval(load,5000);
+    setInterval(load, 5000);
 
 </script>
 </html>
