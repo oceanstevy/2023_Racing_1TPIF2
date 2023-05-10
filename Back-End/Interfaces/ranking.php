@@ -30,9 +30,9 @@ $connect = db_Connect();
     }
     if ($_GET['rank'] == "personal"){
 
-        $query = personalBest();
+        $query2 = personalBest();
 
-        $result2 = mysqli_query($connect, $query);
+        $result2 = mysqli_query($connect, $query2);
 
         $arrayFeed2 = [];
 
