@@ -282,6 +282,10 @@ left: 100%;
     float: right;
     margin-left: 10%;
 }
+
+#chatPage {
+    background-color: WhiteSmoke;
+}
 /*End of Chat CSS Chris*/
 
 
