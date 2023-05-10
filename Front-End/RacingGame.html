@@ -724,7 +724,7 @@
         clearInterval(timergame);
         console.log(path + "Back-End/Interfaces/SavePoints.php?Points="+(Math.floor(Score*100))/100+"&SeesionID=" + getSessionIdFromCookies());
         $.getJSON(path + "Back-End/Interfaces/SavePoints.php?Points="+(Math.floor(Score*100))/100+"&SeesionID=" + getSessionIdFromCookies(), function (data) {
-            GetMenuPage();
+            ExitGame();
         });
 
     }

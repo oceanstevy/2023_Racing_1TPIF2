@@ -3,10 +3,7 @@ $_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
 
 session_start();
 
-print_r($_SESSION);
-
-echo $_SESSION['user'];
-echo $_GET['Points'];
+$output = [];
 
 include_once "./../Functions/Credentials.php";
 include_once "./../Functions/Functions.php";
@@ -29,9 +26,16 @@ if (mysqli_num_rows($result) == 1){
 
     mysqli_stmt_execute($statement);
 
-} else {
+    $output = [
+        "error" => "no"
+    ];
 
+} else {
+    $output = [
+        "error" => "yes"
+    ];
 }
 
+echo json_encode($output);
 
 ?>
