@@ -246,7 +246,7 @@ span{
 
 
 
-/*Chat CSS Chris*/
+/*Start of Chat CSS Chris*/
 #chatInput {
     position: relative;
     bottom: 10px;
@@ -267,14 +267,6 @@ span{
     flex-direction: row;
 }
 
-#sendInfo {
-
-}
-
-#writeMessage {
-
-}
-
 #message {
     width: 30rem;
 }
@@ -289,11 +281,7 @@ span{
     float: right;
     margin-left: 10%;
 }
-
-#chatPage {
-
-}
-
+/*End of Chat CSS Chris*/
 
 
 main {

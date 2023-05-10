@@ -14,6 +14,7 @@
         <!--    <label for="writeMessage">Text:</label>-->
         <input type="text" name="DATA_message" class="JANN_Input" id="writeMessage">
         <button type="button" id="sendInfo" class="JANN_Button">Send</button>
+        <button type="button" id="BUTTON_joke" class="JANN_Button">Joke</button>
         <button type="button" id="BACK_Home" class="JANN_Button">Back</button>
     </div>
 </div>
@@ -37,13 +38,6 @@
         });
     }
 
-    function getEmoji() {
-        $.get("https://unpkg.com/emoji.json@14.0.0/emoji.json", function (emoji) {
-            var rn = Math.floor(Math.random() * 100)
-            $("#rankHeader").append(emoji[rn].char);
-        })
-    }
-
     //if button #sendInfo => clicked, execute callback function
     $("#sendInfo").click(() => {
         //save value from html objects into variables
@@ -51,12 +45,13 @@
 
         if (text !== "") {
 
+            //Filter bad words API
             $.ajax({
                 method: 'GET',
                 url: 'https://api.api-ninjas.com/v1/profanityfilter?text=' + text,
-                headers: { 'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
+                headers: {'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
                 contentType: 'application/json',
-                success: function(result) {
+                success: function (result) {
                     //immediately requests data from server, turned into JSON !!!Important on load() we will receive a text, we have to define what type it is!!!
                     $.get(path + "Back-End/Chat.php", "executionType=write&text=" + result['censored'], (data) => {
                         //informs user what happened to post
@@ -70,7 +65,11 @@
                 }
             });
 
+            $('#writeMessage').val('');
             load();
+            $('#chat').scrollTop($('#chat')[0].scrollHeight);
+        } else {
+            $('#chat').scrollTop($('#chat')[0].scrollHeight);
         }
     })
 
@@ -78,9 +77,25 @@
         GetMenuPage()
     });
 
+    //joke API
+    $("#BUTTON_joke").click(() => {
+        // let limit = 1;
+
+        $.ajax({
+            method: 'GET',
+            url: 'https://api.api-ninjas.com/v1/jokes',
+            headers: {'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
+            contentType: 'application/json',
+            success: function (result) {
+                $('#writeMessage').val(result[0]['joke']);
+            }
+        });
+    })
+
     //document load
     $(document).ready(() => {
         load();
+        // $('#chat').scrollTop($(document)[0].scrollHeight);
     })
 
     //execute load function every 5 seconds
