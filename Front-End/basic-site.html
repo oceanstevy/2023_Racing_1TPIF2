@@ -76,20 +76,27 @@
 	
 	
 	//Nicolas : Start of Image API
-	
-	var data = 'https://api-ninjas.com';
-	var category = 'nature'
-	$.ajax({
-		method: 'GET',
-		url: 'https://api.api-ninjas.com/v1/randomimage?category=' + category,
-		headers: { 'X-Api-Key': 'A440Bm88fDyMAK9zpcmfXQ==K8vuvm8nPXn542ls', 'Accept': 'image/jpg'},
-		success: function(result) {
-			console.log(result);
-		},
-		error: function ajaxError(jqXHR) {
-			console.error('Error: ', jqXHR.responseText);
-		}
+	$( document ).ready(function() {
+		
+		var data = 'https://api-ninjas.com';
+		var category = 'nature'
+		$.ajax({
+			method: 'GET',
+			url: 'https://api.api-ninjas.com/v1/randomimage?category=' + category,
+			headers: { 'X-Api-Key': 'A440Bm88fDyMAK9zpcmfXQ==K8vuvm8nPXn542ls', 'Accept': 'image/jpg'},
+			success: function(result) {
+				console.log(result);
+				
+				$(body).css("background-image", "url(" + result + ")");
+				
+			},
+			error: function ajaxError(jqXHR) {
+				console.error('Error: ', jqXHR.responseText);
+			}
+		});
+		
 	});
+	
 	
 	// END OF IMAGE API
 	
@@ -97,8 +104,8 @@
 	
 	$("#getCar").click(() =>  {
 		
-		var make = $("#DATA_carMake").val();
-		var model = $("#DATA_carModel").val();
+		let make = $("#DATA_carMake").val();
+		let model = $("#DATA_carModel").val();
 		
 		$.ajax({
 			method: 'GET',
