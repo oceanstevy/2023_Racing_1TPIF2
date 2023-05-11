@@ -25,8 +25,6 @@
         // return value will always be in JSON format
         $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
             //temporary variable to store html objects
-            // let test = JSON.parse(data);
-
             let chat = "";
             //iterates through data array
             for (let i = 0; i < data.length; i++) {
