@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Kult Racing</title>
+	<link rel="stylesheet" href="../Style/css.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="Include_Functions/functions.js"></script>
+<!--	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<script>
+	//      --  Joni - Begin    --
+	// Beim laden der Seite
+	$(document).ready(() => {
+		//Checken ob der Benutzter schon eine cookie besitzt für die Seite
+		if (hasNoCookies()) {
+			//Erstelle eine session auf dem Server
+			$.get(path + "Back-End/Interfaces/GetASession.php", function (cookie) {
+
+			})
+			
+			GetLoginPage();
+			
+		} else {
+			//Check ob ein UserName in Seiner Session ist
+			$.getJSON(path + "Back-End/Interfaces/CheckSession.php?SeesionID=" + getSessionIdFromCookies(), function (Session) {
+				if (!Session['check']) {
+					GetLoginPage();
+				} else {
+					GetMenuPage();
+				}
+			})
+			
+		}
+		
+	});
+	//      --  Joni - Ende     --
+	
+	//Login Page bekommen
+	function GetLoginPage() {
+		//Xu
+		$.get(path + "Front-End/LoginSite.html", function (data) {
+			$("body").html(data);
+			
+		})
+		
+	}
+	
+	//Menu Page bekommen
+	function GetMenuPage() {
+		$.get(path + "Front-End/basic-site.html", function (data) {
+			$("body").html(data);
+			
+		})
+	}
+
+	//Profile change User
+	//      -- Jann - Begin     --
+	function GetProfileUser() {
+		$.get(path + "Back-End/profile.php", function (data) {
+			$("body").html(data);
+			
+		})
+	}
+	
+	//Game Page bekommen
+	//      --  Joni - Begin    --
+	function GetGamePage() {
+		$.get(path + "Front-End/RacingGame.html", function (data) {
+			$("body").html(data);
+			
+			GameStart();
+			
+		})
+	}
+
+
+	//      --  Joni - Ende     --
+	
+	
+	// -- Chris - Begin --
+	function GetChatPage() {
+		$.get(path + "Front-End/chat.html", function (data) {
+			$("body").html(data);
+			
+		})
+	}
+	
+	// -- Chris - Ende --
+	
+	//      --  Nicolas - Begin     --
+	
+		function GetAdminPage() {
+			
+			$.get(path + "Back-End/admin_profile.php", function (data) {
+				$("body").html(data);
+				
+			})
+		
+		}
+	
+	//      --  Nicolas - Ende     --
+
+
+
+</script>
+<body>
+
+</body>
+</html>

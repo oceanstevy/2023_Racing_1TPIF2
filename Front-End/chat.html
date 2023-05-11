@@ -1,0 +1,99 @@
+<!--Autor: Christopher Pinetti-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body>
+
+<div class="JANN_Div" id="chatPage">
+    <div id="chat"></div>
+
+    <div id="chatInput">
+        <!--    <label for="writeMessage">Text:</label>-->
+        <input type="text" name="DATA_message" class="JANN_Input" id="writeMessage">
+        <button type="button" id="sendInfo" class="JANN_Button">Send</button>
+        <button type="button" id="BUTTON_joke" class="JANN_Button">Joke</button>
+        <button type="button" id="BACK_Home" class="JANN_Button">Back</button>
+    </div>
+</div>
+
+</body>
+<script>
+    function load() {
+        // return value will always be in JSON format
+        $.getJSON(path + "Back-End/chat.php", "executionType=read", (data) => {
+            //temporary variable to store html objects
+            let chat = "";
+            //iterates through data array
+            for (let i = 0; i < data.length; i++) {
+                //generate HTML Structure, based on data from server
+                chat += "<div class='chatText' style='color: " + data[i].color + "'><p id='username'>" + data[i].Name + ":</p><p id='message'>" + data[i].Message + "</p><p id='time'>" + data[i].timestamp + "</p></div><br>";
+            }
+            //set content of #container to tmp
+            $("#chat").html(chat);
+        });
+    }
+
+    //if button #sendInfo => clicked, execute callback function
+    $("#sendInfo").click(() => {
+        //save value from html objects into variables
+        let text = $("#writeMessage").val();
+
+        if (text !== "") {
+
+            //Filter bad words API
+            $.ajax({
+                method: 'GET',
+                url: 'https://api.api-ninjas.com/v1/profanityfilter?text=' + text,
+                headers: {'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
+                contentType: 'application/json',
+                success: function (result) {
+                    //immediately requests data from server, turned into JSON !!!Important on load() we will receive a text, we have to define what type it is!!!
+                    $.get(path + "Back-End/Chat.php", "executionType=write&text=" + result['censored'], (data) => {
+                        //informs user what happened to post
+                        if (data.errorCode === "success!") {
+                            console.log("Success!!");
+                        }
+                    });
+                }
+            });
+            //make the input field empty
+            $('#writeMessage').val('');
+            load();
+        }
+        $('#chat').scrollTop($('#chat')[0].scrollHeight);
+    })
+
+    $("#BACK_Home").click(() => {
+        GetMenuPage()
+    });
+
+    //joke API
+    $("#BUTTON_joke").click(() => {
+        // let limit = 1;
+
+        $.ajax({
+            method: 'GET',
+            url: 'https://api.api-ninjas.com/v1/jokes',
+            headers: {'X-Api-Key': 'sxHx4vI50J2V+AHrCG4BKg==4fOynL3gsWpCuVxS'},
+            contentType: 'application/json',
+            success: function (result) {
+                //put into the input field
+                $('#writeMessage').val(result[0]['joke']);
+            }
+        });
+    })
+
+    //document load
+    $(document).ready(() => {
+        load();
+        // $('#chat').scrollTop($(document)[0].scrollHeight);
+    })
+
+    //execute load function every 5 seconds
+    setInterval(load, 5000);
+
+</script>
+</html>

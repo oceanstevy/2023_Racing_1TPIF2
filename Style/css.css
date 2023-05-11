@@ -1,0 +1,344 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    overflow: hidden;
+    width: 100vw;
+}
+h3{
+    font-size: 2.1rem;
+}
+#map{
+}
+.mapblock{
+    position: fixed;
+    width: max-content;
+    transition-duration: 50ms;
+}
+.tiles{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    margin-bottom: -4px;
+}
+#MyCar{
+    position: fixed;
+    background-color: dimgrey;
+    z-index: 1;
+    transition-property: top, left;
+    transition-duration: 50ms;
+}
+#Tempomat{
+    position: fixed;
+    top: 80%;
+    right: 20px;
+}
+
+#divPoints{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(20,20,20,0.9);
+}
+
+#divPoints p{
+    display: inline-block;
+    font-size: 1.2rem;
+    color: green;
+}
+
+#Points{
+
+}
+
+#PauseMenuTransperent{
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 100vh;
+    width: 100vw;
+
+    display: none;
+    position: relative;
+
+    z-index: 6;
+}
+#PauseMenu{
+    background-color: white;
+    height: 300px;
+    width: 70vw;
+    border: 5px double black;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    left: calc(15% - 10px);
+    top: 25%;
+
+    z-index: 7;
+    opacity: 1;
+}
+#PauseMenu button{
+    font-size: 1.3rem;
+    width: 200px;
+    height: 40px;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+    color: white;
+    font-weight: bolder;
+}
+span{
+    display: inline-block;
+}
+
+/*CSS Jann*/
+
+/*Profile / Login / Register*/
+.JANN_Div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: black solid 2px;
+    padding: 20px;
+}
+
+.JANN_Label{
+    font-family: sans-serif;
+    font-size: large;
+
+}
+.JANN_Input{
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    width: 450px;
+}
+.JANN_Input:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.5);
+}
+.JANN_Button{
+    --b: 3px;   /* border thickness */
+    --s: .45em; /* size of the corner */
+    --color: #373B44;
+
+    padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+    color: var(--color);
+    --_p: var(--s);
+    background:
+            conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+            var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+    transition: .3s linear, color 0s, background-color 0s;
+    outline: var(--b) solid #0000;
+    outline-offset: .6em;
+    font-size: 16px;
+
+    border: 0;
+
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.JANN_Button:hover,
+.JANN_Button:focus-visible{
+    --_p: 0px;
+    outline-color: var(--color);
+    outline-offset: .05em;
+}
+.JANN_Button:active {
+    background: var(--color);
+    color: #fff;
+}
+
+
+#JANN_Chuck{
+    position: absolute;
+    top: 80%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    border: black solid 2px;
+    padding: 20px;
+}
+
+/*Main menu*/
+
+#JANN_MainPlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40rem;
+    transform: translate(-50%, -50%);
+    /*border: black solid 2px;*/
+}
+
+#JANN_ProfileLog{
+    position: absolute;
+    top: 5%;
+    right: 2.5%;
+
+    /*border: black solid 2px;*/
+}
+
+
+#JANN_Ranking{
+    position: absolute;
+    top: 2%;
+    left: 1%;
+    border: black solid 2px;
+    padding: 20px;
+}
+
+
+
+
+
+.JANN_Button_Main {
+text-decoration: none;
+border: 1px solid rgb(146, 148, 248);
+position: relative;
+overflow: hidden;
+font-size: 1.5rem;
+padding: 1rem 3rem;
+color: black;
+text-transform: uppercase;
+font-family: Arial, Helvetica, sans-serif;
+width:400px ;
+
+}
+
+.JANN_Button_Main:hover {
+box-shadow: 1px 1px 25px 10px rgba(146, 148, 248, 0.4);
+}
+
+.JANN_Button_Main:before {
+content: "";
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(146, 148, 248, 0.4),
+        transparent
+);
+transition: all 650ms;
+}
+
+.JANN_Button_Main:hover:before {
+left: 100%;
+}
+
+/*End of CSS Jann*/
+
+
+
+/*Start of Chat CSS Chris*/
+#chatInput {
+    position: relative;
+    bottom: 10px;
+}
+
+#chat {
+    /*text-align: center;*/
+    height: 40rem;
+    width: 60rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*display: inline;*/
+}
+
+.chatText {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+#message {
+    width: 30rem;
+}
+
+#username {
+    float: left;
+    width: 5rem;
+    margin-right: 10%;
+}
+
+#time {
+    float: right;
+    margin-left: 10%;
+}
+
+#chatPage {
+    background-color: WhiteSmoke;
+}
+/*End of Chat CSS Chris*/
+
+
+main {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#weather{
+    position: fixed;
+    top: 85%;
+    left: 5%;
+}
+
+#weather p{
+    font-size: 1.2rem;
+}
+
+
+div#carSearch {
+
+    position: fixed;
+    top: 80%;
+    right: 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+div#cars {
+
+    position: fixed;
+    top: 80%;
+    right: 25%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+div.carInfo {
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+button#getCar {
+
+
+
+}
+

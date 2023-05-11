@@ -1,0 +1,245 @@
+<!-- @author Scheer Nicolas-->
+<!-- BUTTONS -->
+<br><br>
+
+<div id="JANN_MainPlay">
+	<button type="button" name="BUTTON_play" id="play" class="JANN_Button_Main" >Play
+		<span><img src="../Images/play_button.png" alt="Play Symbol" width="24px"></span></button>
+	<br><br>
+	<button type="button" name="BUTTON_chat" id="chatButton" class="JANN_Button_Main" >Chat
+		<span><img src="../Images/chat_symbol.png" alt="Chat Symbol" width="24px"></span></button>
+	<br><br>
+	<button type="button" name="BUTTON_settings" id="settings" class="JANN_Button_Main" >Settings
+		<span><img src="../Images/gear_symbol.png" alt="Gear Symbol" width="24px"></span></button>
+	<br><br>
+</div>
+
+<div id="JANN_ProfileLog">
+	<button type="button" name="BUTTON_profile" id="profile" class="JANN_Button_Main">Profile
+		<span><img src="../Images/profile_symbol.png" alt="Logout Symbol" width="24px"></span></button>
+	<button type="button" name="BUTTON_admin" id="admin" class="JANN_Button_Main" >Admin
+		<span><img src="../Images/admin_symbol.png" alt="Admin Symbol" width="24px" height="24px"></span></button>
+	<button type="button" name="BUTTON_logout" id="logout" class="JANN_Button_Main">Logout
+		<span><img src="../Images/logout_symbol.png" alt="Logout Symbol" width="24px"></span></button>
+</div>
+
+
+<div id="JANN_Ranking">
+	
+	<div id="ranking">
+		<table id="rank" border="1px solid black">
+			<tr id="tableHeader">
+				<th id="rankHeader">Rang</th>
+				<th>Spieler</th>
+				<th>Punkte</th>
+			</tr>
+		
+		</table>
+		<!--<h4>My Highscore</h4>
+		<table id="pBestTable" border="1px solid black">
+		</table>-->
+	</div>
+</div>
+<div id="weather">
+
+</div>
+
+<div id="carSearch">
+	
+	<label for="DATA_carMake">Enter Brand:</label>
+	<input type="text" id="DATA_carMake" class="carInput" value="Audi">
+	<label for="DATA_carModel">Enter Model:</label>
+	<input type="text" id="DATA_carModel" class="carInput" value="A3">
+	<button type="button" id="getCar" class="JANN_Button">Get Car</button>
+	
+</div>
+
+<div id="cars">
+
+</div>
+
+<script>
+	//Xu : Start of Color API
+	function SetRNColor() {
+		$.get("https://www.thecolorapi.com/id?rgb=rgb(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ")", function (color) {
+			$("#tableHeader").css("color", color.hex.value);
+		})
+	}
+	
+	//end of color API
+	function getEmoji() {
+		$.get("https://unpkg.com/emoji.json@14.0.0/emoji.json", function (emoji) {
+			var rn = Math.floor(Math.random() * 100)
+			$("#rankHeader").append(emoji[rn].char);
+		})
+	}
+	
+	
+	//Nicolas : Start of Image API
+	$( document ).ready(function() {
+		
+		var data = 'https://api-ninjas.com';
+		var category = 'nature'
+		$.ajax({
+			method: 'GET',
+			url: 'https://api.api-ninjas.com/v1/randomimage?category=' + category,
+			headers: { 'X-Api-Key': 'A440Bm88fDyMAK9zpcmfXQ==K8vuvm8nPXn542ls', 'Accept': 'image/jpg'},
+			success: function(result) {
+				console.log(result);
+				
+				$(body).css("background-image", "url(" + result + ")");
+				
+			},
+			error: function ajaxError(jqXHR) {
+				console.error('Error: ', jqXHR.responseText);
+			}
+		});
+		
+	});
+	
+	
+	// END OF IMAGE API
+	
+	//Nicolas : Start of Car API
+	
+	$("#getCar").click(() =>  {
+		
+		let make = $("#DATA_carMake").val();
+		let model = $("#DATA_carModel").val();
+		
+		$.ajax({
+			method: 'GET',
+			url: 'https://api.api-ninjas.com/v1/cars?make=' + make + '&model=' + model,
+			headers: { 'X-Api-Key': 'A440Bm88fDyMAK9zpcmfXQ==K8vuvm8nPXn542ls'},
+			contentType: 'application/json',
+			success: function(result) {
+				$("#cars").append("<div class='carInfo'><label for=\"DATA_brand\">Brand: </label><p id='DATA_brand'>" +
+						result[1]["make"] +
+						"</p></div>");
+				$("#cars").append("<div class='carInfo'><label for=\"DATA_model\">Model: </label><p id='DATA_model'>" + result[1]["model"] +
+						"</p></div>");
+				$("#cars").append("<div class='carInfo'><label for=\"DATA_fuel\">Fuel: </label><p id='DATA_fuel'>" +
+						result[1]["fuel_type"] + "</p></div>");
+				$("#cars").append("<div class='carInfo'><label for=\"DATA_class\">Class: </label><p id='DATA_class'>"
+						+ result[1]["class"] +
+						"</p></div>");
+				$("#cars").append("<div class='carInfo'><label for=\"DATA_drive\">Drive: </label><p id='DATA_drive'>"
+						+ result[1]["drive"] +
+						"</p></div>");
+				$("#cars").append("<div class='carInfo'><label for=\"DATA_cylinders\">Cylinders: </label><p id='DATA_cylinders'>" +
+						result[1]["cylinders"] +
+						"</p></div>");
+
+				console.log(result);
+			},
+			error: function ajaxError(jqXHR) {
+				console.error('Error: ', jqXHR.responseText);
+			}
+		});
+		
+	});
+	
+	
+	//END OF CARS API
+	
+	//Nicolas : START OF LOGOUT
+	
+	$("#logout").click(() => {
+		
+		var expDate = new Date();
+		
+		expDate.setTime(expDate.getTime() - 3600);
+		$.cookie('PHPSESSID', null, {path: '/', expires: expDate});
+		
+		$.getJSON(path + "Back-End/basic-site.php?SeesionID=" + getSessionIdFromCookies(), function (Session) {
+		
+		
+		});
+		GetLoginPage();
+		
+	});
+	
+	//END OF LOGOUT
+	
+	//Nicolas : START OF ADMIN
+	
+	$("#admin").click(() => {
+		
+		
+		GetAdminPage();
+		
+		
+	});
+	
+	//END OF ADMIN
+	
+	//START OF PLAYBUTTON
+	
+	$("#play").click(() => {
+		
+		
+		GetGamePage();
+		
+		
+	});
+	
+	//END OF PLAYBUTTON
+	
+	//Chris: START OF CHATBUTTON
+	
+	$("#chatButton").click(() => {
+		
+		GetChatPage();
+		
+	});
+	
+	//END OF CHATBUTTON
+	
+	
+	//Xu: START OF RANKING
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=top10", function (ranking) {
+		SetRNColor()
+		getEmoji()
+		
+		for (var i = 0; i < ranking.length; i++) {
+			$("#rank").append("<tr><td>" + ranking[i]["Rank"] + "</td><td>" + ranking[i]["Name"] + "</td><td>" + ranking[i]["Score"] + "</td></tr>");
+		}
+	})
+	$.get(path + "Back-End/Interfaces/ranking.php?rank=personal", function (personal) {
+
+		for (var i = 0;i < personal.length;i++){
+			$("#pBestTable").append("<tr><td>" + personal[i]["Rank"] + "</td><td>" + personal[i]["Name"] + "</td><td>" + personal[i]["Score"] + "</td></tr>");
+		}
+	})
+
+	// //END OF RANKING
+	
+	//Jann: START OF PROFILE
+	
+	$("#profile").click(() => {
+		
+		GetProfileUser();
+		
+	})
+	//END OF PROFILE
+
+
+	// Jonathan
+	// Weater API
+	function GetWeaterData() {
+		$.getJSON("https://api.open-meteo.com/v1/forecast?latitude=49.62&longitude=6.14&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m", function (data) {
+			let output = "";
+			output += "<p>Temperatur:<span>" + data.current_weather.temperature + "</span></p>";
+			output += "<p>Wind Richtung:<span style='transform: rotate(" + data.current_weather.winddirection + "deg);'>&uarr;</span>" + data.current_weather.winddirection + "</p>";
+			output += "<p>Wind Geschwindigkeit:<span>" + data.current_weather.windspeed + "</span></p>";
+			//console.log(output);
+			//console.log(data);
+			
+			$("#weather").html(output);
+		})
+	}
+	GetWeaterData();
+	
+	// End Jonathan
+
+</script>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="Include_Functions/functions.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    #map{
+        width: max-content;
+        height: max-content;
+    }
+    .mapblock{
+        height: 800px;
+    }
+    .tiles{
+        height: 100px;
+        width: 100px;
+        margin-bottom: -4px;
+        position: absolute;
+    }
+    .tiles:hover{
+        opacity: 0.5;
+    }
+
+    #elements{
+
+    }
+    #edit{
+        margin: 5px;
+    }
+    #edit img{
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+    }
+    #selectTiles{
+        width: 100vw;
+        margin: 5px;
+    }
+    #selectTiles p{
+        display: inline-block;
+        width: 30px;
+        height: 50px;
+        text-align: center;
+        position: relative;
+        top: -20px;
+
+    }
+    #selectTiles img{
+        width: 50px;
+        height: 50px;
+        margin: -2px 0px;
+    }
+    #selectTiles img:hover{
+        opacity: 0.5;
+    }
+    #selectTiles2 img:hover{
+        opacity: 0.5;
+    }
+    #selectTiles3 img{
+        width: 50px;
+        height: 50px;
+        margin: -2px 0px;
+    }
+    #selectTiles3 img:hover{
+        opacity: 0.5;
+    }
+
+    #selectTiles4 img:hover{
+        opacity: 0.5;
+    }
+    .hitbox{
+        display: inline-block;
+        position: absolute;
+        color: red;
+        width: 25px;
+    }
+</style>
+<body onload="getmap()">
+<div id="map">
+
+</div>
+<div id="edit">
+    <img id="saveimg" src="../Images/Street/Tileset_17.png">
+</div>
+<label for="changeCollisonMode">Collison Mode:</label>
+<input id="changeCollisonMode" type="checkbox">
+<div id="elements">
+    <div id="selectTiles">
+
+    </div>
+    <div id="selectTiles2">
+
+    </div>
+    <div id="selectTiles3">
+
+    </div>
+    <div id="selectTiles4">
+
+    </div>
+</div>
+<button id="GetArray">Get Map</button>
+<div id="ArrayOutput">
+
+</div>
+
+<script>
+    let map = [];
+    function getmap() {
+        $.getJSON(path + "Back-End/Maps/map01.json", function (data) {
+
+            data.unshift({mapname: "map01"},{x: 0}, {y: 0})
+            map.push(data);
+            generateMap()
+        });
+
+    }
+
+
+
+
+
+    //map.push(tile);
+    let placeSet = [];
+    function generateMap() {
+        i = 0;
+        let k = 0
+        let counter = 0;
+        let jumps = [
+            0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+        ];
+
+        let mapmodel = "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+
+        for (let row=0; row<=6; row++){
+
+                for ( let j=0; j<=19; j++) {
+                    k = (row*20)+j+3-counter;
+                    if (jumps[j] === row){
+                        if (map[i][k] != null){
+                            mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'>";
+
+                            for ( let m=0; m<map[i][k].x; m++) {
+                                jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+                            }
+                        }
+                    } else {
+                        counter++
+                    }
+                }
+            }
+
+        mapmodel += "</div>";
+
+        document.getElementById("map").innerHTML = mapmodel;
+
+        $(".tiles").css("margin-right","0px");
+        refrechbuttons();
+    }
+    function generateMapWithHitBox() {
+        i = 0;
+        let k = 0
+        let counter = 0;
+        let jumps = [
+            0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+        ];
+
+        let mapmodel = "<div class='mapblock' style='top:"+map[i][2].y+"px ;left:"+map[i][1].x+"px '>"
+
+        for (let row=0; row<=6; row++){
+
+            for ( let j=0; j<=19; j++) {
+                k = (row*20)+j+3-counter;
+                if (jumps[j] === row){
+                    if (map[i][k] != null){
+                        mapmodel += "<img class='tiles' style='width: " + 100 * map[i][k].x + "px;height: " + 100 * map[i][k].y + "px;top: " + 100 * row + "px;left: " + 100 * j + "px' id='" + k + "' src='" + map[i][k].src + "'><p style='top: " + 100 * row + "px;left: " + 100 * j + "px' class='hitbox'>"+map[i][k].collison+"</p>";
+
+                        for ( let m=0; m<map[i][k].x; m++) {
+                            jumps[j+m] = jumps[j+m] + parseInt(map[i][k].y);
+                        }
+                    }
+                } else {
+                    counter++
+                }
+            }
+        }
+
+        mapmodel += "</div>";
+
+        document.getElementById("map").innerHTML = mapmodel;
+
+        $(".tiles").css("margin-right","-25px");
+        refrechbuttons();
+    }
+
+    //for ( let i=0; i<street.length; i++ ) {
+    //    $("#selectTiles").append("<img class='showTiles' src='../Images/Street/Tileset_"+ street[i] +".png'>")
+    //}
+    for ( let k=1; k<=169; k++ ) {
+        if (k%13==0){
+            $("#selectTiles").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Street/Tileset_"+ k +".png'><br>")
+        } else {
+            $("#selectTiles").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Street/Tileset_"+ k +".png'>")
+        }
+    }
+
+
+    let SpeczialTylesStreet = [
+        true,
+        [
+            2,
+            2
+        ],
+        [
+            2,
+            1
+        ],
+        [
+            1,
+            2
+        ],
+        [
+            2,
+            2
+        ],
+        [
+            2,
+            2
+        ],
+        [
+            4,
+            2
+        ],
+        [
+            8,
+            2
+        ],
+        [
+            4,
+            1
+        ],
+        [
+            8,
+            1
+        ],
+        [
+            4,
+            7
+        ],
+        [
+            4,
+            2
+        ],
+        [
+            8,
+            2
+        ]
+    ]
+
+    for ( let k=1; k<SpeczialTylesStreet.length; k++ ) {
+
+        if (k%14==0){
+            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTylesStreet[k][0]+"px;height: "+50*SpeczialTylesStreet[k][1]+"px' data-sizex='"+SpeczialTylesStreet[k][0]+"'  data-sizey='"+SpeczialTylesStreet[k][1]+"'  src='../Images/Street/Special_"+ k +".png'><br>")
+        } else {
+            $("#selectTiles2").append("<img class='showTiles' style='width: "+50*SpeczialTylesStreet[k][0]+"px;height: "+50*SpeczialTylesStreet[k][1]+"px' data-sizex='"+SpeczialTylesStreet[k][0]+"'  data-sizey='"+SpeczialTylesStreet[k][1]+"' src='../Images/Street/Special_"+ k +".png'>")
+        }
+    }
+
+    for ( let k=1; k<=169; k++ ) {
+        if (k%13==0){
+            $("#selectTiles3").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Town/Tileset_"+ k +".png'><br>")
+        } else {
+            $("#selectTiles3").append("<img class='showTiles' data-sizex='1' data-sizey='1' src='../Images/Town/Tileset_"+ k +".png'>")
+        }
+    }
+
+    let SpeczialTylesTown = [
+        true,
+        [
+            3,
+            2
+        ],
+        [
+            3,
+            3
+        ],
+        [
+            3,
+            5
+        ],
+    ]
+
+    for ( let k=1; k<SpeczialTylesTown.length; k++ ) {
+
+        if (k%14==0){
+            $("#selectTiles4").append("<img class='showTiles' style='width: "+50*SpeczialTylesTown[k][0]+"px;height: "+50*SpeczialTylesTown[k][1]+"px' data-sizex='"+SpeczialTylesTown[k][0]+"'  data-sizey='"+SpeczialTylesTown[k][1]+"'  src='../Images/Town/Special_"+ k +".png'><br>")
+        } else {
+            $("#selectTiles4").append("<img class='showTiles' style='width: "+50*SpeczialTylesTown[k][0]+"px;height: "+50*SpeczialTylesTown[k][1]+"px' data-sizex='"+SpeczialTylesTown[k][0]+"'  data-sizey='"+SpeczialTylesTown[k][1]+"' src='../Images/Town/Special_"+ k +".png'>")
+        }
+    }
+
+    function refrechbuttons() {
+
+        $(".tiles").click(function() {
+            let id = parseInt($(this).attr('id'));
+            if ($('#changeCollisonMode').prop('checked')){
+
+                map[0][id].collison = !map[0][id].collison;
+
+                generateMapWithHitBox();
+            } else {
+
+
+                let savex = $('#edit #saveimg').attr('data-sizex');
+                let savey = $('#edit #saveimg').attr('data-sizey');
+
+                if ((savex * savey) === 1){
+                    map[id].src = $('#edit #saveimg').attr('src');
+                } else {
+                    if (savey>1) {
+
+
+                        for (let i=savey;i>1;i--){
+                            let jumps = [
+                                0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0
+                            ];
+                            let n = 1;
+                            console.log("id:", id);
+                            let tile = 2;
+                            let row = 0;
+                            let tilenumber = 0;
+
+                            while ((n)/(i-1) < 20) {
+                                //console.log("row:", row);
+                                //console.log("tilenumber:", tilenumber);
+                                if (jumps[tilenumber] === row) {
+                                    if (map[tile] != null) {
+                                        if (id < tile) {
+                                            n++
+                                        }
+                                        //console.log("tile:", tile);
+                                        //console.log("x:", parseInt(map[tile].x));
+
+                                        for ( let m=0; m<map[tile].x; m++) {
+                                            jumps[tilenumber+m] = jumps[tilenumber+m] + parseInt(map[tile].y);
+                                        }
+                                        tile++
+                                        tilenumber++
+                                    }
+                                } else {
+                                    tilenumber++;
+                                    if (id < tile) {
+                                        n++
+                                    }
+                                }
+
+                                if (tilenumber > 19){
+                                    row++
+                                    tilenumber=0
+                                }
+                                //console.log("n:", n)
+                                //console.log("tile:", tile);
+                                //console.log("x:", parseInt(map[tile].x));
+                                //console.log("----------");
+                            }
+                            console.log(tile);
+                            map.splice(tile,savex);
+                        }
+                    }
+
+                    map[id].src = $('#edit #saveimg').attr('src');
+                    map[id].x = savex
+                    map[id].y = savey
+
+
+                    if (savex>1){
+                        map.splice(id+1, savex-1)
+                    }
+
+
+                }
+
+                generateMap();
+            }
+        });
+
+        $(".showTiles").click(function() {
+            let savesrc = $(this).attr('src');
+            let savex = $(this).attr('data-sizex');
+            let savey = $(this).attr('data-sizey');
+
+            $('#edit #saveimg').attr('src', savesrc);
+            $('#edit #saveimg').attr('data-sizex', savex);
+            $('#edit #saveimg').attr('data-sizey', savey);
+        });
+
+        $("#saveimg").click(function() {
+            $(this).attr('src', "../Images/Street/Tileset_17.png");
+        });
+
+        $('#changeCollisonMode').change(function() {
+            if ($('#changeCollisonMode').prop('checked')){
+                generateMapWithHitBox();
+            } else {
+                generateMap();
+            }
+        });
+
+        $('#GetArray').click(function (){
+            let output = "0px,<br>0px,<br>";
+            let tiles = $(".tiles");
+            for ( let i=0; i<tiles.length; i++ ) {
+                let id = $(tiles[i]).attr('id');
+
+                output += "{<br>";
+                output += "    &quotsrc&quot: &quot;"+  map[id].src +"&quot;,<br>";
+                output += "    &quotcollison&quot: "+map[id].collison +",<br>";
+                output += "    &quotx&quot: 1,<br>";
+                output += "    &quoty&quot: 1<br>";
+                if (i == tiles.length-1){
+                    output += "}";
+                } else {
+                    output += "},<br>";
+                }
+
+            }
+
+            let myJSON = JSON.stringify(map);
+
+            $("#ArrayOutput").html(myJSON);
+        });
+    }
+
+
+</script>
+
+</body>
+</html>

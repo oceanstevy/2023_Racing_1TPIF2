@@ -1,0 +1,36 @@
+<?php
+
+$_COOKIE['PHPSESSID'] = $_GET['SeesionID'];
+
+session_start();
+
+?>
+
+
+<html>
+
+$("#NULL").load("PATH? SeesionID="+getSessionIdFromCookies() , function(){
+});
+
+
+</html>
+
+<script>
+function getSessionIdFromCookies() {
+    let name = "PHPSESSID=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let cs = decodedCookie.split(';');
+    for(let i = 0; i <cs.length; i++) {
+
+        while (cs[i].charAt(0) == ' ') {
+            cs[i] = cs[i].substring(1);
+        }
+
+        if (cs[i].indexOf(name) == 0) {
+            return cs[i].substring(name.length, cs[i].length);
+        }
+    }
+    return SessionID;
+}
+
+</script>
